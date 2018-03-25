@@ -1,9 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/weathevent_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="weathevent.weathevent.WeatheventActivity">
+    tools:context=".WeatheventActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/weathevent_dl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/game_cl_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/game_cl_board"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </FrameLayout>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/weathevent_navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:itemTextColor="@color/white">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/navigation_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.design.widget.NavigationView>
+
+    </android.support.v4.widget.DrawerLayout>
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/weathevent_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:titleTextColor="@color/white" />
+
+</RelativeLayout>
+

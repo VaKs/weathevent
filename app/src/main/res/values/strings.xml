@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">Weathevent</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <!--  Fragment name   -->
+
+    <string name="fragment_log_in">LogIn</string>
+    <string name="fragment_sign_in">SignIn</string>
+    <string name="fragment_log_in_info">Information</string>
+    <string name="fragment_dashboard">Dashboard</string>
+    <string name="fragment_recommended">Recommended</string>
+    <string name="fragment_explore">Explore</string>
+    <string name="fragment_map">Map</string>
+    <string name="fragment_weather">Weather</string>
+    <string name="fragment_favourites">Favourites events</string>
+    <string name="fragment_event">Event preview</string>
+    <string name="fragment_friends">Friends</string>
+    <string name="fragment_settings">Settings</string>
+
+
+    <!-- Login Fragment -->
+
+    <string name="login_ed_hint_username">Username</string>
+    <string name="login_ed_hint_password">Password</string>
+    <string name="login_cb_remember">Remember me</string>
+    <string name="login_tv_signin">Don\'t have account yet? Sign in!</string>
+
 </resources>

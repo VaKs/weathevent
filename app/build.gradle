@@ -54,5 +54,10 @@ dependencies {
 
     // Test helpers for Room
     testImplementation "android.arch.persistence.room:testing:1.0.0"
+
+
+    //Android material design support libraries
+    compile 'com.android.support:design:26.1.0'
+    compile 'com.balysv.materialmenu:material-menu:2.0.0'
 }
 apply plugin: 'com.google.gms.google-services'
