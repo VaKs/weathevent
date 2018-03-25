@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "89563518995",
+    "firebase_url": "https://weathevent.firebaseio.com",
+    "project_id": "weathevent",
+    "storage_bucket": "weathevent.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89563518995:android:72f34d87704d75b1",
+        "android_client_info": {
+          "package_name": "weathevent.weathevent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "89563518995-r237qssn35dsitfmag9jq0atgpm1ir7u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTRwb4r6mwOi9Ju-3uBOcwKSApJ7QImtU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

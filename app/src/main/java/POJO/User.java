@@ -1,31 +1,65 @@
 package POJO;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.ArrayList;
 
 /**
  * Created by servabo on 21/03/2018.
  */
-
+@IgnoreExtraProperties
+@Entity(tableName = "Users",indices = { @Index("email")})
 public class User {
+    @NonNull
+    @PrimaryKey
+    @ColumnInfo(name = "email")
     private String email;
+
+    @NonNull
+    @ColumnInfo(name = "name")
     private String name;
+
+    @ColumnInfo(name = "surname")
     private String surname;
+
+    //@ColumnInfo(name = "friendsList")
+    @Ignore
     private ArrayList<User> friendsList;
+    @NonNull
+    @ColumnInfo(name = "password")
     private String password;
+
+    //@ColumnInfo(name = "preference")
+    @Ignore
     private Preference preference;
 
-    public void User(){
+    public User(){
         setFriendsList(new ArrayList<User>());
     }
-    public void User(String email, String name, String surname, ArrayList<User> friendsList, String password, Preference preference){
-        friendsList = new ArrayList<User>();
+
+    public User(@NonNull String email, @NonNull String name, String surname, @NonNull String password){
+        friendsList = new ArrayList<>();
+        this.setEmail(email);
+        this.setName(name);
+        this.setSurname(surname);
+        this.setPassword(password);
+    }
+
+    public User(@NonNull String email, @NonNull String name, String surname, ArrayList<User> friendsList, @NonNull String password, Preference preference){
+        friendsList = new ArrayList<>();
         this.setEmail(email);
         this.setName(name);
         this.setSurname(surname);
         this.setFriendsList(friendsList);
         this.setPassword(password);
         this.setPreference(preference);
-
     }
 
     public String getEmail() {

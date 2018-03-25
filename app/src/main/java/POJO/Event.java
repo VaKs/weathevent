@@ -18,11 +18,11 @@ public class Event {
     private Category category;
     private Image image;
 
-    public void event(){
+    public Event(){
         userList = new ArrayList<>();
     }
 
-    public void event(Location location, ArrayList<User> userList, String name, String description, Date dateBeginning, Date dateEnd, Integer price, Category category, Image image){
+    public Event(Location location, ArrayList<User> userList, String name, String description, Date dateBeginning, Date dateEnd, Integer price, Category category, Image image){
         userList = new ArrayList<>();
         this.location = location;
         this.userList = userList;
