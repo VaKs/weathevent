@@ -18,8 +18,9 @@ import weathevent.weathevent.WeatheventActivity;
  * Created by Rafal on 2018-03-25.
  */
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements FragmentsInterface {
 
+    private static final String tag = "LoginFragment";
     private Context context;
     private Button btn_login;
 
@@ -50,5 +51,10 @@ public class LoginFragment extends Fragment {
         Intent intent = new Intent(context, WeatheventActivity.class);
         startActivity(intent);
     }
+
+    public static String getFragmentTag() {
+        return tag;
+    }
+
 
 }

@@ -13,10 +13,18 @@ import weathevent.weathevent.R;
  * Created by Rafal on 2018-03-25.
  */
 
-public class RegisterStatusFragment extends Fragment {
+public class RegisterStatusFragment extends Fragment implements FragmentsInterface {
+
+    private static final String tag = "RegisterStatusFragment";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_register_status, container, false);
     }
+
+    public static String getFragmentTag() {
+        return tag;
+    }
+
 }

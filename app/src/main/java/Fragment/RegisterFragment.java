@@ -13,7 +13,9 @@ import weathevent.weathevent.R;
  * Created by Rafal on 2018-03-25.
  */
 
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends Fragment implements FragmentsInterface {
+
+    private static final String tag = "RegisterFragment";
 
     @Nullable
     @Override
@@ -21,4 +23,9 @@ public class RegisterFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_register, container, false);
 
     }
+
+    public static String getFragmentTag() {
+        return tag;
+    }
+
 }

@@ -8,7 +8,7 @@
     android:layout_gravity="start"
     android:fitsSystemWindows="true"
     android:paddingTop="@dimen/status_bar_height"
-    app:itemTextColor="@color/black"
+    app:itemTextColor="@color/colorTextPrimary"
     app:menu="@menu/drawer_menu">
 
 
