@@ -6,7 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import weathevent.weathevent.LogInActivity;
 import weathevent.weathevent.R;
 
 /**
@@ -15,7 +18,9 @@ import weathevent.weathevent.R;
 
 public class RegisterFragment extends Fragment implements FragmentsInterface {
 
-    private static final String tag = "RegisterFragment";
+    public static final String TAG = "RegisterFragment";
+    private TextView link_login;
+    private Button btn_signup;
 
     @Nullable
     @Override
@@ -24,8 +29,35 @@ public class RegisterFragment extends Fragment implements FragmentsInterface {
 
     }
 
-    public static String getFragmentTag() {
-        return tag;
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //references
+        btn_signup = view.findViewById(R.id.btn_signup);
+        link_login = view.findViewById(R.id.link_login);
+
+
+        //listeners
+        btn_signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateSignup();
+            }
+        });
+
+
+        link_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((LogInActivity) getActivity()).showFragmentByTag(LoginFragment.TAG);
+            }
+        });
+
     }
 
+    private void validateSignup() {
+        // validate and
+        ((LogInActivity) getActivity()).showFragmentByTag(RegisterStatusFragment.TAG);
+    }
 }

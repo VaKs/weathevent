@@ -20,7 +20,7 @@ import weathevent.weathevent.WeatheventActivity;
 
 public class DashboardFragment extends Fragment implements FragmentsInterface {
 
-    private static final String tag = "DashboardFragment";
+    public static final String TAG = "DashboardFragment";
     FragmentActivity listener;
 
     private Button btn_explore;
@@ -29,10 +29,6 @@ public class DashboardFragment extends Fragment implements FragmentsInterface {
     private Button btn_weather;
     private Button btn_favourites;
     private Button btn_friends;
-
-    public static String getFragmentTag() {
-        return tag;
-    }
 
     @Override
     public void onAttach(Context context) {

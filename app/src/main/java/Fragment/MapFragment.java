@@ -15,16 +15,12 @@ import weathevent.weathevent.R;
 
 public class MapFragment extends Fragment implements FragmentsInterface {
 
-    private static final String tag = "MapFragment";
+    public static final String TAG = "MapFragment";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_map, container, false);
-    }
-
-    public static String getFragmentTag() {
-        return tag;
     }
 
 }

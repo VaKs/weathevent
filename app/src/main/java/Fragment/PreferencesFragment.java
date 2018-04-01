@@ -15,7 +15,7 @@ import weathevent.weathevent.R;
 
 public class PreferencesFragment extends Fragment implements FragmentsInterface {
 
-    private static final String tag = "PreferencesFragment";
+    public static final String TAG = "PreferencesFragment";
 
     @Nullable
     @Override
@@ -23,8 +23,5 @@ public class PreferencesFragment extends Fragment implements FragmentsInterface 
         return inflater.inflate(R.layout.fragment_preferences, container, false);
     }
 
-    public static String getFragmentTag() {
-        return tag;
-    }
 
 }

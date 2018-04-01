@@ -15,7 +15,7 @@ import weathevent.weathevent.R;
 
 public class WeatherFragment extends Fragment implements FragmentsInterface {
 
-    private static final String tag = "WeatherFragment";
+    public static final String TAG = "WeatherFragment";
 
     @Nullable
     @Override
@@ -23,8 +23,5 @@ public class WeatherFragment extends Fragment implements FragmentsInterface {
         return inflater.inflate(R.layout.fragment_weather, container, false);
     }
 
-    public static String getFragmentTag() {
-        return tag;
-    }
 
 }

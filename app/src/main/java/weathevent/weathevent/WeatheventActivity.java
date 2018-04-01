@@ -72,7 +72,7 @@ public class WeatheventActivity extends AppCompatActivity {
         //variables
         isDrawerOpen = false;
         if (activeFragmentTag == null) {
-            activeFragmentTag = DashboardFragment.getFragmentTag();
+            activeFragmentTag = DashboardFragment.TAG;
         }
 
         //functions
@@ -166,7 +166,7 @@ public class WeatheventActivity extends AppCompatActivity {
      */
     public void setupFragments() {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.weathevent_cl_main, new DashboardFragment(), DashboardFragment.getFragmentTag());
+        fragmentTransaction.add(R.id.weathevent_cl_main, new DashboardFragment(), DashboardFragment.TAG);
         fragmentTransaction.commit();
     }
 
@@ -204,162 +204,162 @@ public class WeatheventActivity extends AppCompatActivity {
     }
 
     public void showDashboardFragment() {
-        if (activeFragmentTag != DashboardFragment.getFragmentTag()) {
+        if (activeFragmentTag != DashboardFragment.TAG) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-            DashboardFragment dashboardFragment = (DashboardFragment) getSupportFragmentManager().findFragmentByTag(DashboardFragment.getFragmentTag());
+            DashboardFragment dashboardFragment = (DashboardFragment) getSupportFragmentManager().findFragmentByTag(DashboardFragment.TAG);
             if (dashboardFragment == null) {
                 dashboardFragment = new DashboardFragment();
             }
-            fragmentTransaction.replace(R.id.weathevent_cl_main, dashboardFragment, DashboardFragment.getFragmentTag());
+            fragmentTransaction.replace(R.id.weathevent_cl_main, dashboardFragment, DashboardFragment.TAG);
             fragmentTransaction.addToBackStack(null);
 
             fragmentTransaction.commitAllowingStateLoss();
-            activeFragmentTag = DashboardFragment.getFragmentTag();
+            activeFragmentTag = DashboardFragment.TAG;
             getFragmentManager().executePendingTransactions();
         }
     }
 
 
     public void showExploreFragment() {
-        if (activeFragmentTag != ExploreFragment.getFragmentTag()) {
+        if (activeFragmentTag != ExploreFragment.TAG) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-            ExploreFragment exploreFragment = (ExploreFragment) getSupportFragmentManager().findFragmentByTag(ExploreFragment.getFragmentTag());
+            ExploreFragment exploreFragment = (ExploreFragment) getSupportFragmentManager().findFragmentByTag(ExploreFragment.TAG);
             if (exploreFragment == null) {
                 exploreFragment = new ExploreFragment();
             }
-            fragmentTransaction.replace(R.id.weathevent_cl_main, exploreFragment, ExploreFragment.getFragmentTag());
-            fragmentTransaction.addToBackStack(DashboardFragment.getFragmentTag());
+            fragmentTransaction.replace(R.id.weathevent_cl_main, exploreFragment, ExploreFragment.TAG);
+            fragmentTransaction.addToBackStack(DashboardFragment.TAG);
 
             fragmentTransaction.commitAllowingStateLoss();
-            activeFragmentTag = ExploreFragment.getFragmentTag();
+            activeFragmentTag = ExploreFragment.TAG;
             getFragmentManager().executePendingTransactions();
         }
     }
 
 
     public void showRecommendedFragment() {
-        if (activeFragmentTag != RecommendFragment.getFragmentTag()) {
+        if (activeFragmentTag != RecommendFragment.TAG) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-            RecommendFragment recommendFragment = (RecommendFragment) getSupportFragmentManager().findFragmentByTag(RecommendFragment.getFragmentTag());
+            RecommendFragment recommendFragment = (RecommendFragment) getSupportFragmentManager().findFragmentByTag(RecommendFragment.TAG);
             if (recommendFragment == null) {
                 recommendFragment = new RecommendFragment();
             }
-            fragmentTransaction.replace(R.id.weathevent_cl_main, recommendFragment, RecommendFragment.getFragmentTag());
-            fragmentTransaction.addToBackStack(DashboardFragment.getFragmentTag());
+            fragmentTransaction.replace(R.id.weathevent_cl_main, recommendFragment, RecommendFragment.TAG);
+            fragmentTransaction.addToBackStack(DashboardFragment.TAG);
 
             fragmentTransaction.commitAllowingStateLoss();
-            activeFragmentTag = RecommendFragment.getFragmentTag();
+            activeFragmentTag = RecommendFragment.TAG;
             getFragmentManager().executePendingTransactions();
         }
     }
 
 
     public void showWeatherFragment() {
-        if (activeFragmentTag != WeatherFragment.getFragmentTag()) {
+        if (activeFragmentTag != WeatherFragment.TAG) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-            WeatherFragment weatherFragment = (WeatherFragment) getSupportFragmentManager().findFragmentByTag(WeatherFragment.getFragmentTag());
+            WeatherFragment weatherFragment = (WeatherFragment) getSupportFragmentManager().findFragmentByTag(WeatherFragment.TAG);
             if (weatherFragment == null) {
                 weatherFragment = new WeatherFragment();
             }
-            fragmentTransaction.replace(R.id.weathevent_cl_main, weatherFragment, WeatherFragment.getFragmentTag());
-            fragmentTransaction.addToBackStack(DashboardFragment.getFragmentTag());
+            fragmentTransaction.replace(R.id.weathevent_cl_main, weatherFragment, WeatherFragment.TAG);
+            fragmentTransaction.addToBackStack(DashboardFragment.TAG);
 
             fragmentTransaction.commitAllowingStateLoss();
-            activeFragmentTag = WeatherFragment.getFragmentTag();
+            activeFragmentTag = WeatherFragment.TAG;
             getFragmentManager().executePendingTransactions();
         }
     }
 
 
     public void showFavouriteEventsFragment() {
-        if (activeFragmentTag != FavouriteEventsFragment.getFragmentTag()) {
+        if (activeFragmentTag != FavouriteEventsFragment.TAG) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-            FavouriteEventsFragment favouriteEventsFragment = (FavouriteEventsFragment) getSupportFragmentManager().findFragmentByTag(FavouriteEventsFragment.getFragmentTag());
+            FavouriteEventsFragment favouriteEventsFragment = (FavouriteEventsFragment) getSupportFragmentManager().findFragmentByTag(FavouriteEventsFragment.TAG);
             if (favouriteEventsFragment == null) {
                 favouriteEventsFragment = new FavouriteEventsFragment();
             }
-            fragmentTransaction.replace(R.id.weathevent_cl_main, favouriteEventsFragment, FavouriteEventsFragment.getFragmentTag());
-            fragmentTransaction.addToBackStack(DashboardFragment.getFragmentTag());
+            fragmentTransaction.replace(R.id.weathevent_cl_main, favouriteEventsFragment, FavouriteEventsFragment.TAG);
+            fragmentTransaction.addToBackStack(DashboardFragment.TAG);
 
             fragmentTransaction.commitAllowingStateLoss();
-            activeFragmentTag = FavouriteEventsFragment.getFragmentTag();
+            activeFragmentTag = FavouriteEventsFragment.TAG;
             getFragmentManager().executePendingTransactions();
         }
     }
 
 
     public void showMapFragment() {
-        if (activeFragmentTag != MapFragment.getFragmentTag()) {
+        if (activeFragmentTag != MapFragment.TAG) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-            MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.getFragmentTag());
+            MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.TAG);
             if (mapFragment == null) {
                 mapFragment = new MapFragment();
             }
-            fragmentTransaction.replace(R.id.weathevent_cl_main, mapFragment, MapFragment.getFragmentTag());
-            fragmentTransaction.addToBackStack(DashboardFragment.getFragmentTag());
+            fragmentTransaction.replace(R.id.weathevent_cl_main, mapFragment, MapFragment.TAG);
+            fragmentTransaction.addToBackStack(DashboardFragment.TAG);
 
             fragmentTransaction.commitAllowingStateLoss();
-            activeFragmentTag = MapFragment.getFragmentTag();
+            activeFragmentTag = MapFragment.TAG;
             getFragmentManager().executePendingTransactions();
         }
     }
 
 
     public void showEventPreviewFragment(Event event) {
-        if (activeFragmentTag != EventPreviewFragment.getFragmentTag()) {
+        if (activeFragmentTag != EventPreviewFragment.TAG) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-            EventPreviewFragment eventPreviewFragment = (EventPreviewFragment) getSupportFragmentManager().findFragmentByTag(EventPreviewFragment.getFragmentTag());
+            EventPreviewFragment eventPreviewFragment = (EventPreviewFragment) getSupportFragmentManager().findFragmentByTag(EventPreviewFragment.TAG);
             if (eventPreviewFragment == null) {
                 eventPreviewFragment = new EventPreviewFragment();
             }
-            fragmentTransaction.replace(R.id.weathevent_cl_main, eventPreviewFragment, EventPreviewFragment.getFragmentTag());
-            fragmentTransaction.addToBackStack(DashboardFragment.getFragmentTag());
+            fragmentTransaction.replace(R.id.weathevent_cl_main, eventPreviewFragment, EventPreviewFragment.TAG);
+            fragmentTransaction.addToBackStack(DashboardFragment.TAG);
 
             fragmentTransaction.commitAllowingStateLoss();
-            activeFragmentTag = EventPreviewFragment.getFragmentTag();
+            activeFragmentTag = EventPreviewFragment.TAG;
             getFragmentManager().executePendingTransactions();
         }
     }
 
 
     public void showFriendsFragment() {
-        if (activeFragmentTag != FriendsFragment.getFragmentTag()) {
+        if (activeFragmentTag != FriendsFragment.TAG) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-            FriendsFragment friendsFragment = (FriendsFragment) getSupportFragmentManager().findFragmentByTag(FriendsFragment.getFragmentTag());
+            FriendsFragment friendsFragment = (FriendsFragment) getSupportFragmentManager().findFragmentByTag(FriendsFragment.TAG);
             if (friendsFragment == null) {
                 friendsFragment = new FriendsFragment();
             }
-            fragmentTransaction.replace(R.id.weathevent_cl_main, friendsFragment, FriendsFragment.getFragmentTag());
-            fragmentTransaction.addToBackStack(DashboardFragment.getFragmentTag());
+            fragmentTransaction.replace(R.id.weathevent_cl_main, friendsFragment, FriendsFragment.TAG);
+            fragmentTransaction.addToBackStack(DashboardFragment.TAG);
 
             fragmentTransaction.commitAllowingStateLoss();
-            activeFragmentTag = FriendsFragment.getFragmentTag();
+            activeFragmentTag = FriendsFragment.TAG;
             getFragmentManager().executePendingTransactions();
         }
     }
 
 
     public void showPreferencesFragment() {
-        if (activeFragmentTag != PreferencesFragment.getFragmentTag()) {
+        if (activeFragmentTag != PreferencesFragment.TAG) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-            PreferencesFragment preferencesFragment = (PreferencesFragment) getSupportFragmentManager().findFragmentByTag(PreferencesFragment.getFragmentTag());
+            PreferencesFragment preferencesFragment = (PreferencesFragment) getSupportFragmentManager().findFragmentByTag(PreferencesFragment.TAG);
             if (preferencesFragment == null) {
                 preferencesFragment = new PreferencesFragment();
             }
-            fragmentTransaction.replace(R.id.weathevent_cl_main, preferencesFragment, PreferencesFragment.getFragmentTag());
-            fragmentTransaction.addToBackStack(DashboardFragment.getFragmentTag());
+            fragmentTransaction.replace(R.id.weathevent_cl_main, preferencesFragment, PreferencesFragment.TAG);
+            fragmentTransaction.addToBackStack(DashboardFragment.TAG);
 
             fragmentTransaction.commitAllowingStateLoss();
-            activeFragmentTag = PreferencesFragment.getFragmentTag();
+            activeFragmentTag = PreferencesFragment.TAG;
             getFragmentManager().executePendingTransactions();
         }
     }

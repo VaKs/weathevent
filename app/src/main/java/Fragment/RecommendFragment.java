@@ -15,7 +15,7 @@ import weathevent.weathevent.R;
 
 public class RecommendFragment extends Fragment implements FragmentsInterface {
 
-    private static final String tag = "RecommendFragment";
+    public static final String TAG = "RecommendFragment";
 
     @Nullable
     @Override
@@ -23,8 +23,5 @@ public class RecommendFragment extends Fragment implements FragmentsInterface {
         return inflater.inflate(R.layout.fragment_recommend, container, false);
     }
 
-    public static String getFragmentTag() {
-        return tag;
-    }
 
 }

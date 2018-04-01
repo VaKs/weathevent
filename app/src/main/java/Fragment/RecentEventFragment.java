@@ -17,15 +17,12 @@ import weathevent.weathevent.WeatheventActivity;
 
 public class RecentEventFragment extends Fragment implements FragmentsInterface {
 
-    private static final String tag = "RecentEventFragment";
+    public static final String TAG = "RecentEventFragment";
     FragmentActivity listener;
 
     private Event event;
     private Button btn_recentEventDetails;
 
-    public static String getFragmentTag() {
-        return tag;
-    }
 
     @Override
     public void onAttach(Context context) {

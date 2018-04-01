@@ -9,18 +9,18 @@ import android.view.ViewGroup;
 
 import weathevent.weathevent.R;
 
-/**
- * Created by Rafal on 2018-03-25.
- */
+public class LogoFragment extends Fragment implements FragmentsInterface {
 
-public class FriendsFragment extends Fragment implements FragmentsInterface {
-
-    public static final String TAG = "FriendsFragment";
+    public static final String TAG = "LogoFragment";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_friends, container, false);
+        return inflater.inflate(R.layout.fragment_logo, container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
 }

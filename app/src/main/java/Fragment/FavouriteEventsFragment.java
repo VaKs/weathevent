@@ -15,16 +15,12 @@ import weathevent.weathevent.R;
 
 public class FavouriteEventsFragment extends Fragment implements FragmentsInterface {
 
-    private static final String tag = "FavouriteEventsFragment";
+    public static final String TAG = "FavouriteEventsFragment";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_favourite, container, false);
-    }
-
-    public static String getFragmentTag() {
-        return tag;
     }
 
 }
