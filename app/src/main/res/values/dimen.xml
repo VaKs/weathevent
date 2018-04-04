@@ -3,4 +3,8 @@
 
     <dimen name="status_bar_height">48dp</dimen>
 
+
+    <dimen name="mtrl_card_spacing">8dp</dimen>
+
+
 </resources>

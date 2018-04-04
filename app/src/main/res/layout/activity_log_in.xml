@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_cl_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="weathevent.weathevent.LogInActivity">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    tools:context=".LogInActivity">
 
     <fragment
-        android:id="@+id/fragmentLogIn"
-        android:name="Fragment.LoginFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:id="@+id/fragment"
+        class="Fragment.LogoFragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/login_cl_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/login_cl_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment">
+
+
+    </android.support.constraint.ConstraintLayout>
+
 
 </android.support.constraint.ConstraintLayout>

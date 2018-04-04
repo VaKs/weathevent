@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import weathevent.weathevent.LogInActivity;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
 
@@ -18,10 +20,12 @@ import weathevent.weathevent.WeatheventActivity;
  * Created by Rafal on 2018-03-25.
  */
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements FragmentsInterface {
 
+    public static final String TAG = "LoginFragment";
     private Context context;
     private Button btn_login;
+    private TextView link_signup;
 
     @Nullable
     @Override
@@ -35,7 +39,9 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
 
         //initialize variables
-        btn_login = view.findViewById(R.id.form_login_btn_login);
+        btn_login = view.findViewById(R.id.btn_login);
+        link_signup = view.findViewById(R.id.link_signup);
+
 
         //listeners
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +50,14 @@ public class LoginFragment extends Fragment {
                 validateLogin();
             }
         });
+
+        link_signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((LogInActivity) getActivity()).showFragmentByTag(RegisterFragment.TAG);
+            }
+        });
+
     }
 
     private void validateLogin() {

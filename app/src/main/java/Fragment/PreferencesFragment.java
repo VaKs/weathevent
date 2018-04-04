@@ -13,11 +13,15 @@ import weathevent.weathevent.R;
  * Created by Rafal on 2018-03-25.
  */
 
-public class PreferencesFragment extends Fragment {
+public class PreferencesFragment extends Fragment implements FragmentsInterface {
+
+    public static final String TAG = "PreferencesFragment";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_preferences, container, false);
     }
+
+
 }
