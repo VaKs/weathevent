@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 
 import com.google.firebase.database.IgnoreExtraProperties;
@@ -29,8 +31,7 @@ public class User {
     @ColumnInfo(name = "surname")
     private String surname;
 
-    //@ColumnInfo(name = "friendsList")
-    @Ignore
+    @ColumnInfo(name = "friendsList")
     private ArrayList<User> friendsList;
     @NonNull
     @ColumnInfo(name = "password")
@@ -108,5 +109,12 @@ public class User {
 
     public void setPreference(Preference preference) {
         this.preference = preference;
+    }
+
+    public void addFriend(User user){
+        this.friendsList.add(user);
+    }
+    public void removeFriend(User user){
+        this.friendsList.remove(user);
     }
 }

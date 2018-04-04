@@ -42,6 +42,9 @@ public class LocalDatabaseTest {
         user1 = new User("email1","name1","surname1","pass1");
         user2 = new User("email2","name2","surname2","pass2");
 
+        user.addFriend(user1);
+        user.addFriend(user2);
+
         preference=new Preference(user.getEmail(),1000);
 
         userList= new ArrayList<>();
@@ -99,6 +102,20 @@ public class LocalDatabaseTest {
             System.out.print(e.toString());
         }
     }
+    @Test
+    public void dbFriendsList(){
+        User firtUser = userDAO.getUserByEmail("email");
+
+        assertEquals(user.getName(),firtUser.getName());
+        assertEquals(user.getEmail(),firtUser.getEmail());
+        assertEquals(user.getSurname(),firtUser.getSurname());
+        assertEquals(user.getPassword(),firtUser.getPassword());
+
+
+        for(int i=0;i<firtUser.getFriendsList().size();i++){
+            assertTrue(user1.getEmail().equals(firtUser.getFriendsList().get(i).getEmail()) || user2.getEmail().equals(firtUser.getFriendsList().get(i).getEmail()));
+        }
+    }
 
     @Test
     public void dbAddAndGetPreference() throws Exception {
@@ -137,8 +154,6 @@ public class LocalDatabaseTest {
             System.out.print(e.toString());
         }
     }
-
-
 
     @Test
     public void dbClearUsers() throws Exception {

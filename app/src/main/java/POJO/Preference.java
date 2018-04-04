@@ -48,7 +48,7 @@ public class Preference {
     }
 
     public Preference(@NotNull String userEmail, Integer distance){
-        categoriesList = new ArrayList<>();
+        this.categoriesList = new ArrayList<>();
         this.setUserEmail(userEmail);
         this.setDistance(distance);
     }

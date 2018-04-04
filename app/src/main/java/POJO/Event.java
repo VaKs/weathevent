@@ -1,21 +1,40 @@
 package POJO;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
 import android.location.Location;
 import android.media.Image;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.ArrayList;
 import java.util.Date;
-
+@IgnoreExtraProperties
+@Entity(tableName = "Events",indices = { @Index("id")})
 public class Event {
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
+    @ColumnInfo(name = "location")
     private Location location;
     private ArrayList<User> userList;
+    @ColumnInfo(name = "name")
     private String name;
+    @ColumnInfo(name = "description")
     private String description;
+    @ColumnInfo(name = "dateBeginning")
     private Date dateBeginning;
+    @ColumnInfo(name = "dateEnd")
     private Date dateEnd;
+    @ColumnInfo(name = "price")
     private Integer price;
+    @Ignore
     private Category category;
+    @Ignore
     private Image image;
 
     public Event(){
