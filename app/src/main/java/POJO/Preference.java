@@ -6,7 +6,8 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.firebase.client.annotations.NotNull;
+//import com.google.firebase.database.IgnoreExtraProperties;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.ArrayList;
@@ -19,17 +20,16 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 @IgnoreExtraProperties
 @Entity(tableName = "Preferences",
         foreignKeys = @ForeignKey(entity = User.class,
-        parentColumns = "email",
-        childColumns = "userEmail",
+        parentColumns = "id",
+        childColumns = "userId",
         onDelete = CASCADE))
 public class Preference {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @NotNull
-    @ColumnInfo(name = "userEmail")
-    private String userEmail;
+    @ColumnInfo(name = "userId")
+    private int userId;
 
     @ColumnInfo(name = "distance")
     private Integer distance;
@@ -42,31 +42,31 @@ public class Preference {
         Notifications And Define Prefered Notifications
      */
     @Ignore
-    public Preference(@NotNull String userEmail){
-        this.setUserEmail(userEmail);
+    public Preference(int userId){
+        this.setUserId(userId);
         setCategoriesList(new ArrayList<Category>());
     }
 
-    public Preference(@NotNull String userEmail, Integer distance){
+    public Preference(int userId, Integer distance){
         this.categoriesList = new ArrayList<>();
-        this.setUserEmail(userEmail);
+        this.setUserId(userId);
         this.setDistance(distance);
     }
 
     @Ignore
-    public Preference(@NotNull String userEmail, Integer distance, ArrayList<Category> categoriesList){
+    public Preference(int userId, Integer distance, ArrayList<Category> categoriesList){
         categoriesList = new ArrayList<>();
-        this.setUserEmail(userEmail);
+        this.setUserId(userId);
         this.setDistance(distance);
         this.setCategoriesList(categoriesList);
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public Integer getDistance() {

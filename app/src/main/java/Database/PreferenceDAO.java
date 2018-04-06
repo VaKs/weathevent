@@ -22,8 +22,8 @@ public interface PreferenceDAO {
     @Update
     void updatePreference(Preference preference);
 
-    @Query ("SELECT * FROM Preferences WHERE userEmail = :email ")
-    Preference getPreferenceByUserEmail(String email);
+    @Query ("SELECT * FROM Preferences WHERE userId = :userId ")
+    Preference getPreferenceByUserEmail(int userId);
 
     // Delete all
     @Query("DELETE FROM Preferences")

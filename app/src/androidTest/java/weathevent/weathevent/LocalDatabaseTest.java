@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +47,7 @@ public class LocalDatabaseTest {
         user.addFriend(user1);
         user.addFriend(user2);
 
-        preference=new Preference(user.getEmail(),1000);
+        preference=new Preference(user.getId(),1000);
 
         userList= new ArrayList<>();
         userList.add(user);
@@ -70,6 +72,10 @@ public class LocalDatabaseTest {
             assertEquals(user.getName(),userList.get(0).getName());
             assertEquals(user.getEmail(),userList.get(0).getEmail());
             assertEquals(user.getSurname(),userList.get(0).getSurname());
+            System.out.println("**************** user: "+user.getMD5(user.getPassword()));
+            System.out.println("************** userDB: "+userList.get(0).getPassword());
+            System.out.println("**************** user: "+user.getPassword());
+            System.out.println("************** userDB: "+userList.get(0).getMD5(userList.get(0).getPassword()));
             assertEquals(user.getPassword(),userList.get(0).getPassword());
 
             assertEquals(user1.getName(),userList.get(1).getName());
@@ -122,9 +128,9 @@ public class LocalDatabaseTest {
         try {
             preferenceDAO.addPreference(preference);
 
-            Preference prefFromDb = preferenceDAO.getPreferenceByUserEmail(user.getEmail());
+            Preference prefFromDb = preferenceDAO.getPreferenceByUserEmail(user.getId());
 
-            assertEquals(preference.getUserEmail(),prefFromDb.getUserEmail());
+            assertEquals(preference.getUserId(),prefFromDb.getUserId());
             assertEquals(preference.getDistance(),prefFromDb.getDistance());
             assertEquals(preference.getId(),prefFromDb.getId());
 
@@ -141,11 +147,11 @@ public class LocalDatabaseTest {
             preference.setDistance(3000);
             preferenceDAO.updatePreference(preference);
 
-            Preference prefFromDb = preferenceDAO.getPreferenceByUserEmail(user.getEmail());
+            Preference prefFromDb = preferenceDAO.getPreferenceByUserEmail(user.getId());
 
 
 
-            assertEquals(preference.getUserEmail(),prefFromDb.getUserEmail());
+            assertEquals(preference.getUserId(),prefFromDb.getUserId());
             assertEquals(preference.getDistance(),prefFromDb.getDistance());
             assertEquals(preference.getId(),prefFromDb.getId());
 
@@ -153,6 +159,33 @@ public class LocalDatabaseTest {
         } catch (Exception e){
             System.out.print(e.toString());
         }
+    }
+
+    @Test
+    public void encryptionTest(){
+        String password1 ="PaswordForTesting";
+        String password2 = "PaswordForTesting";
+
+        assertEquals(getMD5(password1),getMD5(password2));
+
+    }
+    public static String getMD5(String s) {
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest)
+                hexString.append(Integer.toHexString(0xFF & aMessageDigest));
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     @Test
