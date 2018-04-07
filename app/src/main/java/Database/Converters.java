@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import POJO.Preference;
 import POJO.User;
 
 /**
@@ -25,6 +26,19 @@ public class Converters {
     public static String fromArrayList(ArrayList<User> list) {
         Gson gson = new Gson();
         String json = gson.toJson(list);
+        return json;
+    }
+
+    @TypeConverter
+    public static Preference toPreferenceFromString(String value) {
+        Type listType = new TypeToken<User>() {}.getType();
+        return new Gson().fromJson(value, listType);
+    }
+
+    @TypeConverter
+    public static String fromArrayList(Preference preference) {
+        Gson gson = new Gson();
+        String json = gson.toJson(preference);
         return json;
     }
 }

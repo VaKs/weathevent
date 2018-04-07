@@ -44,7 +44,7 @@ public class RemoteDatabaseTest {
         user.addFriend(user1);
         user.addFriend(user2);
 
-        preference=new Preference(user.getId(),1000);
+        preference=new Preference(1000);
 
         userList= new ArrayList<>();
         userList.add(user);

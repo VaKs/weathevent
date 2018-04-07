@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Database.AppDatabase;
-import Database.PreferenceDAO;
 import Database.UserDAO;
 import POJO.Preference;
 import POJO.User;
@@ -31,7 +30,6 @@ import static org.junit.Assert.*;
 public class LocalDatabaseTest {
     static Context appContext = InstrumentationRegistry.getTargetContext();
     static UserDAO userDAO = AppDatabase.getInstance(appContext).userDAO();
-    static PreferenceDAO preferenceDAO = AppDatabase.getInstance(appContext).preferenceDAO();
     List<User> userList= new ArrayList<>();
     User user,user1,user2;
     Preference preference;
@@ -47,7 +45,7 @@ public class LocalDatabaseTest {
         user.addFriend(user1);
         user.addFriend(user2);
 
-        preference=new Preference(user.getId(),1000);
+        preference=new Preference(1000);
 
         userList= new ArrayList<>();
         userList.add(user);
@@ -57,7 +55,6 @@ public class LocalDatabaseTest {
     @AfterClass
     public static void LimpiarDb(){
         userDAO.clearUsers();
-        preferenceDAO.clearPreferences();
     }
 
     @Test
@@ -72,10 +69,6 @@ public class LocalDatabaseTest {
             assertEquals(user.getName(),userList.get(0).getName());
             assertEquals(user.getEmail(),userList.get(0).getEmail());
             assertEquals(user.getSurname(),userList.get(0).getSurname());
-            System.out.println("**************** user: "+user.getMD5(user.getPassword()));
-            System.out.println("************** userDB: "+userList.get(0).getPassword());
-            System.out.println("**************** user: "+user.getPassword());
-            System.out.println("************** userDB: "+userList.get(0).getMD5(userList.get(0).getPassword()));
             assertEquals(user.getPassword(),userList.get(0).getPassword());
 
             assertEquals(user1.getName(),userList.get(1).getName());
@@ -124,36 +117,15 @@ public class LocalDatabaseTest {
     }
 
     @Test
-    public void dbAddAndGetPreference() throws Exception {
+    public void dbAddPreferenceToUser() throws Exception {
         try {
-            preferenceDAO.addPreference(preference);
+            user.setPreference(preference);
+            userDAO.updateUser(user);
 
-            Preference prefFromDb = preferenceDAO.getPreferenceByUserEmail(user.getId());
+            User firtUser = userDAO.getUserByEmail("email");
 
-            assertEquals(preference.getUserId(),prefFromDb.getUserId());
-            assertEquals(preference.getDistance(),prefFromDb.getDistance());
-            assertEquals(preference.getId(),prefFromDb.getId());
-
-
-        } catch (Exception e){
-            System.out.print(e.toString());
-        }
-    }
-
-    @Test
-    public void dbUpdatePreference() throws Exception {
-        try {
-
-            preference.setDistance(3000);
-            preferenceDAO.updatePreference(preference);
-
-            Preference prefFromDb = preferenceDAO.getPreferenceByUserEmail(user.getId());
-
-
-
-            assertEquals(preference.getUserId(),prefFromDb.getUserId());
-            assertEquals(preference.getDistance(),prefFromDb.getDistance());
-            assertEquals(preference.getId(),prefFromDb.getId());
+            assertEquals(preference.getDistance(),firtUser.getPreference().getDistance());
+            assertEquals(preference.getCategoriesList(),firtUser.getPreference().getCategoriesList());
 
 
         } catch (Exception e){

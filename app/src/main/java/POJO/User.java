@@ -5,7 +5,6 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.google.firebase.database.IgnoreExtraProperties;
@@ -42,8 +41,7 @@ public class User {
     @ColumnInfo(name = "password")
     private String password;
 
-    //@ColumnInfo(name = "preference")
-    @Ignore
+    @ColumnInfo(name = "preference")
     private Preference preference;
 
     @Ignore
@@ -71,6 +69,7 @@ public class User {
         this.setPreference(preference);
     }
 
+    @Ignore
     public User(@NonNull int id, @NonNull String email, @NonNull String name, String surname, @NonNull String password){
         friendsList = new ArrayList<>();
         this.setEmail(email);
@@ -153,7 +152,11 @@ public class User {
         this.friendsList.remove(user);
     }
 
-    public String getMD5(String s) {
+    public boolean checkPassword(String password){
+        return this.password.equals(getMD5(password));
+    }
+
+    private String getMD5(String s) {
         try {
             // Create MD5 Hash
             MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
