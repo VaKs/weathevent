@@ -2,14 +2,17 @@ package weathevent.weathevent;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 
 import Fragment.*;
+import POJO.User;
+import Tasks.AsyncResponse;
 
-public class LogInActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity implements AsyncResponse{
 
     private String activeFragmentTag;
     private ConstraintLayout loginMainLayout;
@@ -82,6 +85,16 @@ public class LogInActivity extends AppCompatActivity {
         }
 
     }
+    @Override
+    public void processFinish(User response, String password) {
 
+        if(response!= null && response.checkPassword(password)) {
+            Intent intent = new Intent(this, WeatheventActivity.class);
+            startActivity(intent);
+        } else {
+            //TODO
+        }
+
+    }
 
 }

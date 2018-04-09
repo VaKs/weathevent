@@ -134,7 +134,8 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = getMD5(password);
+        this.password= password;
+        //this.password = getMD5(password);
     }
 
     public Preference getPreference() {
@@ -153,7 +154,8 @@ public class User {
     }
 
     public boolean checkPassword(String password){
-        return this.password.equals(getMD5(password));
+        //return this.password.equals(getMD5(password));
+        return this.password.equals(password);
     }
 
     private String getMD5(String s) {
