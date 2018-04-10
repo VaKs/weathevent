@@ -63,8 +63,8 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
 
     private void validateLogin() {
 
-        final String email = inputedEmail.getText().toString();
-        final String password = inputedPassword.getText().toString();
+        String email = inputedEmail.getText().toString();
+        String password = inputedPassword.getText().toString();
 
         new AsyncUserLogInTask(((LogInActivity) getActivity())).execute(new String[]{email, password});
 

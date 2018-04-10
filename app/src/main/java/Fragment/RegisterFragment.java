@@ -7,8 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import POJO.User;
+import Tasks.AsyncUserCreateAcountTask;
 import weathevent.weathevent.LogInActivity;
 import weathevent.weathevent.R;
 
@@ -21,6 +24,9 @@ public class RegisterFragment extends Fragment implements FragmentsInterface {
     public static final String TAG = "RegisterFragment";
     private TextView link_login;
     private Button btn_signup;
+    private EditText inputedEmail;
+    private EditText inputedPassword;
+    private EditText inputedName;
 
     @Nullable
     @Override
@@ -36,6 +42,9 @@ public class RegisterFragment extends Fragment implements FragmentsInterface {
         //references
         btn_signup = view.findViewById(R.id.btn_signup);
         link_login = view.findViewById(R.id.link_login);
+        inputedEmail= view.findViewById(R.id.input_email);
+        inputedPassword = view.findViewById(R.id.input_password);
+        inputedName = view.findViewById(R.id.input_name);
 
 
         //listeners
@@ -57,7 +66,13 @@ public class RegisterFragment extends Fragment implements FragmentsInterface {
     }
 
     private void validateSignup() {
-        // validate and
-        ((LogInActivity) getActivity()).showFragmentByTag(RegisterStatusFragment.TAG);
+        String email = inputedEmail.getText().toString();
+        String name = inputedName.getText().toString();
+        String password = inputedPassword.getText().toString();
+        //TODO: validate
+        User user = new User(email,name,password);
+
+        new AsyncUserCreateAcountTask(((LogInActivity) getActivity())).execute(user);
+
     }
 }

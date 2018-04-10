@@ -57,6 +57,13 @@ public class User {
         this.setSurname(surname);
         this.setPassword(password);
     }
+    @Ignore
+    public User(@NonNull String email, @NonNull String name, @NonNull String password){
+        friendsList = new ArrayList<>();
+        this.setEmail(email);
+        this.setName(name);
+        this.setPassword(password);
+    }
 
     @Ignore
     public User(@NonNull String email, @NonNull String name, String surname, ArrayList<User> friendsList, @NonNull String password, Preference preference){

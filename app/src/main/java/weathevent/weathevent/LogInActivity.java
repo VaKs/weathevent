@@ -10,9 +10,10 @@ import android.support.v4.app.Fragment;
 
 import Fragment.*;
 import POJO.User;
+import Tasks.AsyncFirebasePost;
 import Tasks.AsyncResponse;
 
-public class LogInActivity extends AppCompatActivity implements AsyncResponse{
+public class LogInActivity extends AppCompatActivity implements AsyncResponse, AsyncFirebasePost{
 
     private String activeFragmentTag;
     private ConstraintLayout loginMainLayout;
@@ -92,9 +93,14 @@ public class LogInActivity extends AppCompatActivity implements AsyncResponse{
             Intent intent = new Intent(this, WeatheventActivity.class);
             startActivity(intent);
         } else {
-            //TODO
+            //TODO: Error Message
         }
 
     }
 
+    @Override
+    public void processFinish(String message) {
+        //TODO: Toast showing the message
+        this.showFragmentByTag(RegisterStatusFragment.TAG);
+    }
 }
