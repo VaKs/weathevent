@@ -15,7 +15,6 @@ public class End implements JSONPopulator{
     public Date Utc;
 
 
-
     @Override
     public void populate(JSONObject data) {
         Timezone = data.optString("timezone");

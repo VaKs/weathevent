@@ -4,8 +4,6 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
-import sun.security.krb5.internal.Ticket;
-
 /**
  * Created by Agnieszka on 25.03.2018.
  */
