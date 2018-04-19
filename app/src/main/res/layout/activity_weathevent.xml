@@ -5,6 +5,8 @@
     android:id="@+id/weathevent_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".WeatheventActivity">
 
 
@@ -14,15 +16,16 @@
         android:layout_height="match_parent">
 
         <FrameLayout
-            android:id="@+id/game_cl_main"
+            android:id="@+id/weathevent_fl_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/game_cl_board"
+                android:id="@+id/weathevent_cl_main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/status_bar_height">
 
 
             </android.support.constraint.ConstraintLayout>
@@ -30,22 +33,7 @@
 
         </FrameLayout>
 
-        <android.support.design.widget.NavigationView
-            android:id="@+id/weathevent_navigation"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:itemTextColor="@color/white">
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/navigation_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-
-            </android.support.constraint.ConstraintLayout>
-
-        </android.support.design.widget.NavigationView>
+        <include layout="@layout/drawer_navigation" />
 
     </android.support.v4.widget.DrawerLayout>
 

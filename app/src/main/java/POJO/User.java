@@ -9,16 +9,22 @@ import android.support.annotation.NonNull;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 /**
  * Created by servabo on 21/03/2018.
  */
 @IgnoreExtraProperties
-@Entity(tableName = "Users",indices = { @Index("email")})
+@Entity(tableName = "Users",indices = { @Index("id")})
 public class User {
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    private Integer id;
+
     @NonNull
-    @PrimaryKey
     @ColumnInfo(name = "email")
     private String email;
 
@@ -29,21 +35,21 @@ public class User {
     @ColumnInfo(name = "surname")
     private String surname;
 
-    //@ColumnInfo(name = "friendsList")
-    @Ignore
+    @ColumnInfo(name = "friendsList")
     private ArrayList<User> friendsList;
     @NonNull
     @ColumnInfo(name = "password")
     private String password;
 
-    //@ColumnInfo(name = "preference")
-    @Ignore
+    @ColumnInfo(name = "preference")
     private Preference preference;
 
+    @Ignore
     public User(){
-        setFriendsList(new ArrayList<User>());
+        this.setFriendsList(new ArrayList<User>());
     }
 
+    @Ignore
     public User(@NonNull String email, @NonNull String name, String surname, @NonNull String password){
         friendsList = new ArrayList<>();
         this.setEmail(email);
@@ -51,7 +57,15 @@ public class User {
         this.setSurname(surname);
         this.setPassword(password);
     }
+    @Ignore
+    public User(@NonNull String email, @NonNull String name, @NonNull String password){
+        friendsList = new ArrayList<>();
+        this.setEmail(email);
+        this.setName(name);
+        this.setPassword(password);
+    }
 
+    @Ignore
     public User(@NonNull String email, @NonNull String name, String surname, ArrayList<User> friendsList, @NonNull String password, Preference preference){
         friendsList = new ArrayList<>();
         this.setEmail(email);
@@ -60,6 +74,34 @@ public class User {
         this.setFriendsList(friendsList);
         this.setPassword(password);
         this.setPreference(preference);
+    }
+
+    @Ignore
+    public User(@NonNull int id, @NonNull String email, @NonNull String name, String surname, @NonNull String password){
+        friendsList = new ArrayList<>();
+        this.setEmail(email);
+        this.setName(name);
+        this.setSurname(surname);
+        this.password=password;
+    }
+
+    public User(@NonNull int id,@NonNull String email, @NonNull String name, String surname, ArrayList<User> friendsList, @NonNull String password, Preference preference){
+        friendsList = new ArrayList<>();
+        this.setEmail(email);
+        this.setName(name);
+        this.setSurname(surname);
+        this.setFriendsList(friendsList);
+        this.password=password;
+        this.setPreference(preference);
+    }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -99,7 +141,8 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password= password;
+        //this.password = getMD5(password);
     }
 
     public Preference getPreference() {
@@ -108,5 +151,108 @@ public class User {
 
     public void setPreference(Preference preference) {
         this.preference = preference;
+    }
+
+    public void addFriend(User user){
+        this.friendsList.add(user);
+    }
+    public void removeFriend(User user){
+        this.friendsList.remove(user);
+    }
+
+    public boolean checkPassword(String password){
+        //return this.password.equals(getMD5(password));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        return this.password.equals(password);
+    }
+
+    private String getMD5(String s) {
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest)
+                hexString.append(Integer.toHexString(0xFF & aMessageDigest));
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

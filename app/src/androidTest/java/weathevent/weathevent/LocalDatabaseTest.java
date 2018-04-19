@@ -9,11 +9,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
 import Database.AppDatabase;
-import Database.PreferenceDAO;
 import Database.UserDAO;
 import POJO.Preference;
 import POJO.User;
@@ -29,7 +30,6 @@ import static org.junit.Assert.*;
 public class LocalDatabaseTest {
     static Context appContext = InstrumentationRegistry.getTargetContext();
     static UserDAO userDAO = AppDatabase.getInstance(appContext).userDAO();
-    static PreferenceDAO preferenceDAO = AppDatabase.getInstance(appContext).preferenceDAO();
     List<User> userList= new ArrayList<>();
     User user,user1,user2;
     Preference preference;
@@ -42,7 +42,10 @@ public class LocalDatabaseTest {
         user1 = new User("email1","name1","surname1","pass1");
         user2 = new User("email2","name2","surname2","pass2");
 
-        preference=new Preference(user.getEmail(),1000);
+        user.addFriend(user1);
+        user.addFriend(user2);
+
+        preference=new Preference(1000);
 
         userList= new ArrayList<>();
         userList.add(user);
@@ -52,7 +55,6 @@ public class LocalDatabaseTest {
     @AfterClass
     public static void LimpiarDb(){
         userDAO.clearUsers();
-        preferenceDAO.clearPreferences();
     }
 
     @Test
@@ -99,17 +101,31 @@ public class LocalDatabaseTest {
             System.out.print(e.toString());
         }
     }
+    @Test
+    public void dbFriendsList(){
+        User firtUser = userDAO.getUserByEmail("email");
+
+        assertEquals(user.getName(),firtUser.getName());
+        assertEquals(user.getEmail(),firtUser.getEmail());
+        assertEquals(user.getSurname(),firtUser.getSurname());
+        assertEquals(user.getPassword(),firtUser.getPassword());
+
+
+        for(int i=0;i<firtUser.getFriendsList().size();i++){
+            assertTrue(user1.getEmail().equals(firtUser.getFriendsList().get(i).getEmail()) || user2.getEmail().equals(firtUser.getFriendsList().get(i).getEmail()));
+        }
+    }
 
     @Test
-    public void dbAddAndGetPreference() throws Exception {
+    public void dbAddPreferenceToUser() throws Exception {
         try {
-            preferenceDAO.addPreference(preference);
+            user.setPreference(preference);
+            userDAO.updateUser(user);
 
-            Preference prefFromDb = preferenceDAO.getPreferenceByUserEmail(user.getEmail());
+            User firtUser = userDAO.getUserByEmail("email");
 
-            assertEquals(preference.getUserEmail(),prefFromDb.getUserEmail());
-            assertEquals(preference.getDistance(),prefFromDb.getDistance());
-            assertEquals(preference.getId(),prefFromDb.getId());
+            assertEquals(preference.getDistance(),firtUser.getPreference().getDistance());
+            assertEquals(preference.getCategoriesList(),firtUser.getPreference().getCategoriesList());
 
 
         } catch (Exception e){
@@ -118,27 +134,31 @@ public class LocalDatabaseTest {
     }
 
     @Test
-    public void dbUpdatePreference() throws Exception {
-        try {
+    public void encryptionTest(){
+        String password1 ="PaswordForTesting";
+        String password2 = "PaswordForTesting";
 
-            preference.setDistance(3000);
-            preferenceDAO.updatePreference(preference);
+        assertEquals(getMD5(password1),getMD5(password2));
 
-            Preference prefFromDb = preferenceDAO.getPreferenceByUserEmail(user.getEmail());
-
-
-
-            assertEquals(preference.getUserEmail(),prefFromDb.getUserEmail());
-            assertEquals(preference.getDistance(),prefFromDb.getDistance());
-            assertEquals(preference.getId(),prefFromDb.getId());
-
-
-        } catch (Exception e){
-            System.out.print(e.toString());
-        }
     }
+    public static String getMD5(String s) {
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
 
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest)
+                hexString.append(Integer.toHexString(0xFF & aMessageDigest));
+            return hexString.toString();
 
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
     @Test
     public void dbClearUsers() throws Exception {

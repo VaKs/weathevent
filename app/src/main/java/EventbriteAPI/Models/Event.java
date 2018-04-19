@@ -4,6 +4,11 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
+/* Rafal: I commented that import statement, because it is unknown package
+ * and it looks that it is not necesarry for us in that moment
+ */
+//import sun.security.krb5.internal.Ticket;
+
 /**
  * Created by Agnieszka on 25.03.2018.
  */

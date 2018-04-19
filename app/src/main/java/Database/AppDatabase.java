@@ -3,6 +3,7 @@ package Database;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import POJO.Preference;
@@ -12,7 +13,8 @@ import POJO.User;
  * Created by sergio on 25/03/2018.
  */
 
-@Database(version = 1, entities = {User.class, Preference.class})
+@Database(version = 1, entities = {User.class})
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     // Singleton pattern to centralize access to the database
@@ -29,5 +31,4 @@ public abstract class AppDatabase extends RoomDatabase {
 
     // Provides access to available operations on the database
     public abstract UserDAO userDAO();
-    public abstract PreferenceDAO preferenceDAO();
 }
