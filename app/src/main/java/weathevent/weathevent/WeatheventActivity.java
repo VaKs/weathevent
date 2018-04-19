@@ -19,6 +19,8 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.maps.SupportMapFragment;
+
 import Fragment.*;
 import POJO.Event;
 
@@ -298,9 +300,9 @@ public class WeatheventActivity extends AppCompatActivity {
         if (activeFragmentTag != MapFragment.TAG) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-            MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.TAG);
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.TAG);
             if (mapFragment == null) {
-                mapFragment = new MapFragment();
+                mapFragment = new SupportMapFragment();
             }
             fragmentTransaction.replace(R.id.weathevent_cl_main, mapFragment, MapFragment.TAG);
             fragmentTransaction.addToBackStack(DashboardFragment.TAG);
@@ -365,17 +367,7 @@ public class WeatheventActivity extends AppCompatActivity {
         }
     }
 
-    //Location Permissions Check
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        if (requestCode == MapFragment.MY_PERMISSIONS_REQUEST_LOCATION){
-            mapFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-        else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
+
 
 
 
