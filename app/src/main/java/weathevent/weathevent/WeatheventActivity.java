@@ -52,6 +52,7 @@ public class WeatheventActivity extends AppCompatActivity {
 
     // variables
     private Boolean isDrawerOpen;
+    MapFragment mapFragment;
 
 
     //https://stackoverflow.com/questions/19013225/best-way-to-switch-between-two-fragments
@@ -364,7 +365,17 @@ public class WeatheventActivity extends AppCompatActivity {
         }
     }
 
-
+    //Location Permissions Check
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        if (requestCode == MapFragment.MY_PERMISSIONS_REQUEST_LOCATION){
+            mapFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+        else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 
 
 
