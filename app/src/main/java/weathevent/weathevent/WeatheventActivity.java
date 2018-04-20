@@ -2,11 +2,16 @@ package weathevent.weathevent;
 
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,9 +20,25 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +55,9 @@ import Fragment.*;
 //import POJO.Event;
 
 
+public class WeatheventActivity extends AppCompatActivity implements OnMapReadyCallback,  GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener {
 public class WeatheventActivity extends AppCompatActivity implements EventbriteI{
 
 
@@ -64,13 +88,13 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
 
     // variables
     private Boolean isDrawerOpen;
-    MapFragment mapFragment;
-
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
+    private double currentLatitude;
+    private double currentLongitude;
 
     //https://stackoverflow.com/questions/19013225/best-way-to-switch-between-two-fragments
-
-
-
 
 
     @Override
@@ -182,8 +206,6 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
         fragmentTransaction.add(R.id.weathevent_cl_main, new DashboardFragment(), DashboardFragment.TAG);
         fragmentTransaction.commit();
     }
-
-
 
 
     /*
@@ -307,18 +329,35 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
 
 
     public void showMapFragment() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                // The next two lines tell the new client that “this” current class will handle connection stuff
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                //fourth line adds the LocationServices API endpoint from GooglePlayServices
+                .addApi(LocationServices.API)
+                .build();
+
+        // Create the LocationRequest object
+        mLocationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
+                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+
         if (activeFragmentTag != MapFragment.TAG) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
-            MapFragment mapFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.TAG);
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentByTag(MapFragment.TAG);
             if (mapFragment == null) {
-                mapFragment = new MapFragment();
+                mapFragment = new SupportMapFragment();
             }
             fragmentTransaction.replace(R.id.weathevent_cl_main, mapFragment, MapFragment.TAG);
             fragmentTransaction.addToBackStack(DashboardFragment.TAG);
 
             fragmentTransaction.commitAllowingStateLoss();
             activeFragmentTag = MapFragment.TAG;
+
+            mapFragment.getMapAsync(this);
+
             getFragmentManager().executePendingTransactions();
         }
     }
@@ -376,26 +415,6 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
             getFragmentManager().executePendingTransactions();
         }
     }
-
-    //Location Permissions Check
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        /*if (requestCode == MapFragment.MY_PERMISSIONS_REQUEST_LOCATION){
-            mapFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-        else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }*/
-    }
-
-
-
-
-
-
-
-
 
 
     /*
@@ -582,6 +601,75 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     public boolean eventbriteHasActiveConnection() {
         return false;
     }
+
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        FusedLocationProviderClient location = LocationServices.getFusedLocationProviderClient(this);
+
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            location.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                // Logic to handle location object
+                                currentLatitude = location.getLatitude();
+                                currentLongitude = location.getLongitude();
+                            }
+                        }
+                    });
+            Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        if (connectionResult.hasResolution()) {
+            try {
+                // Start an Activity that tries to resolve the error
+                connectionResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                    /*
+                     * Thrown if Google Play services canceled the original
+                     * PendingIntent
+                     */
+            } catch (IntentSender.SendIntentException e) {
+                // Log the error
+                e.printStackTrace();
+            }
+        } else {
+                /*
+                 * If no resolution is available, display a dialog to the
+                 * user with the error.
+                 */
+            Log.e("Error", "Location services connection failed with code " + connectionResult.getErrorCode());
+        }
+    }
+    @Override
+    public void onLocationChanged(Location location) {
+        currentLatitude = location.getLatitude();
+        currentLongitude = location.getLongitude();
+
+        Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
+    }
+    public void onMapReady(GoogleMap googleMap) {
+        LatLng currentPosition = new LatLng(currentLatitude, currentLongitude);
+        googleMap.addMarker(new MarkerOptions().position(currentPosition)
+                .title("Current Place"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
+    }
+
+
 }
 
 
