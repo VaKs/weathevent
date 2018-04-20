@@ -2,10 +2,15 @@ package weathevent.weathevent;
 
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -28,8 +33,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,6 +46,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.util.concurrent.TimeUnit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,13 +61,11 @@ import EventbriteAPI.Models.Start;
 import EventbriteAPI.Models.Venue;
 import EventbriteAPI.service.EventbriteService;
 import Fragment.*;
-//import POJO.Event;
 
 
-public class WeatheventActivity extends AppCompatActivity implements OnMapReadyCallback,  GoogleApiClient.ConnectionCallbacks,
+public class WeatheventActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
-public class WeatheventActivity extends AppCompatActivity implements EventbriteI{
+        LocationListener,EventbriteI {
 
 
     // Toolbar and NavigationView
@@ -87,12 +94,17 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     private String activeFragmentTag;
 
     // variables
+    private static final float ACCEPTED_ACCURACY = 50f;
+
     private Boolean isDrawerOpen;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private double currentLatitude;
     private double currentLongitude;
+    private LocationManager locationManager;
+    private LocationCallback mLocationCallback;
+    FusedLocationProviderClient fLocation;
 
     //https://stackoverflow.com/questions/19013225/best-way-to-switch-between-two-fragments
 
@@ -336,7 +348,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
                 //fourth line adds the LocationServices API endpoint from GooglePlayServices
                 .addApi(LocationServices.API)
                 .build();
-
+        mGoogleApiClient.connect();
         // Create the LocationRequest object
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -355,6 +367,10 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
 
             fragmentTransaction.commitAllowingStateLoss();
             activeFragmentTag = MapFragment.TAG;
+
+            //buildGoogleAPIClient();
+
+
 
             mapFragment.getMapAsync(this);
 
@@ -605,12 +621,11 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        FusedLocationProviderClient location = LocationServices.getFusedLocationProviderClient(this);
+        fLocation = LocationServices.getFusedLocationProviderClient(this);
 
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            location.getLastLocation()
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+       /* if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            fLocation.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
                             // Got last known location. In some rare situations this can be null.
@@ -624,6 +639,11 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
             Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
             return;
         }
+        */
+        createLocationCallback();
+        createLocationRequest();
+
+        getLastKnownLocation();
 
 
     }
@@ -667,6 +687,52 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
         googleMap.addMarker(new MarkerOptions().position(currentPosition)
                 .title("Current Place"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
+    }
+   /* private synchronized void buildGoogleAPIClient(){
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
+        Toast.makeText(this, "connected", Toast.LENGTH_SHORT).show();
+    }
+    */
+   private void getLastKnownLocation() {
+       if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+           return;
+       }
+       fLocation.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+           @Override
+           public void onSuccess(Location location) {
+               // Got last known location. In some rare situations this can be null.
+               if (location != null) {
+                   // Logic to handle location object
+                   if (location.getAccuracy() <= ACCEPTED_ACCURACY) {
+                       currentLatitude = location.getLatitude();
+                       currentLongitude = location.getLongitude();
+                   }
+               }
+           }
+       });
+   }
+    private void createLocationRequest() {
+        mLocationRequest = new LocationRequest();
+    }
+    private void createLocationCallback() {
+        mLocationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+                Location location = locationResult.getLastLocation();
+                if (location != null) {
+                    if (location.getAccuracy() <= ACCEPTED_ACCURACY) {
+                        currentLatitude = location.getLatitude();
+                        currentLongitude = location.getLongitude();
+                    }
+                }
+            }
+        };
     }
 
 
