@@ -57,6 +57,10 @@ public class EventbriteService extends AsyncTask<Search, Void, EventsList> {
                 builder.appendQueryParameter("start_date.range_start", params[0].rangeStart);
             if (!(params[0].rangeStartKeyWord.equals("null")))
                 builder.appendQueryParameter("start_date.keyword", params[0].rangeStartKeyWord);
+            if (!(params[0].locationLatitude.equals("null")))
+                builder.appendQueryParameter("location.latitude", params[0].locationLatitude);
+            if (!(params[0].locationLongitude.equals("null")))
+                builder.appendQueryParameter("location.longitude", params[0].locationLongitude);
         }
         builder.appendQueryParameter("token", Token);
 

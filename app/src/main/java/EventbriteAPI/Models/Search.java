@@ -19,6 +19,9 @@ public class Search {
     //Only return events with start dates after the given date.
     //FORMAT 2018-04-20T19:00:00
     public String rangeStart;
+    //The latitude of of the location you want to search for events around.
+    public String locationLatitude;
+    public String locationLongitude;
     public Set<String> categoriesSet = new HashSet<>();
     public Set<String> rangeStartKeyWordSet = new HashSet<>();
     public Set<String> sortBySet = new HashSet<>();
@@ -53,6 +56,8 @@ public class Search {
         sortBy="null";
         rangeStart="null";
         hasParameters=false;
+        locationLongitude="null";
+        locationLatitude="null";
     }
 
     public void setSortBy(String sortBy) {
@@ -174,4 +179,21 @@ public class Search {
         this.hasParameters = hasParameters;
     }
 
+    public String getLocationLatitude() {
+        return locationLatitude;
+    }
+
+    public void setLocationLatitude(String locationLatitude) {
+        this.locationLatitude = locationLatitude;
+        hasParameters = true;
+    }
+
+    public String getLocationLongitude() {
+        return locationLongitude;
+    }
+
+    public void setLocationLongitude(String locationLongitude) {
+        this.locationLongitude = locationLongitude;
+        hasParameters = true;
+    }
 }
