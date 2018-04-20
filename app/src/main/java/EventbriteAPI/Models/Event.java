@@ -29,8 +29,9 @@ public class Event implements JSONPopulator{
     public String VenueId;
     public String CategoryId;
     public String ResourceUri;
-    public Logo Logo;
-    public Venue Venue;
+    //public Logo Logo;
+    //public Venue Venue;
+    public String Venue;
     public Ticket Ticket;
 
     @Override
@@ -54,10 +55,11 @@ public class Event implements JSONPopulator{
         CategoryId = data.optString("category_id");
         //SubcategoryId;
         ResourceUri = data.optString("resource_uri");
-        Logo = new Logo();
-        Logo.populate(data.optJSONObject("logo"));
-        Venue = new Venue();
-        Venue.populate(data.optJSONObject("venue"));
+        //Logo = new Logo();
+        //Logo.populate(data.optJSONObject("logo"));
+        //Venue = new Venue();
+        //Venue.populate(data.optJSONObject("venue"));
+        Venue = data.optString("venue_id");
     }
 
     public Name getName() {
@@ -164,19 +166,11 @@ public class Event implements JSONPopulator{
         ResourceUri = resourceUri;
     }
 
-    public Logo getLogo() {
-        return Logo;
-    }
-
-    public void setLogo(Logo logo) {
-        Logo = logo;
-    }
-
-    public Venue getVenue() {
+    public String getVenue() {
         return Venue;
     }
 
-    public void setVenue(Venue venue) {
+    public void setVenue(String venue) {
         Venue = venue;
     }
 

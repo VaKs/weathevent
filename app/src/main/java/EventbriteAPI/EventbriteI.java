@@ -1,9 +1,13 @@
 package EventbriteAPI;
+import org.json.JSONArray;
+
 import java.lang.reflect.Array;
 import java.util.List;
 
 import EventbriteAPI.Models.End;
 import EventbriteAPI.Models.Event;
+import EventbriteAPI.Models.EventsList;
+import EventbriteAPI.Models.Search;
 import EventbriteAPI.Models.Start;
 import EventbriteAPI.Models.Venue;
 
@@ -21,19 +25,21 @@ public interface EventbriteI {
      * param array of objects Parameters for the eventbriteGetEvents endpoint, to be passed during the API call.
      * return object API results
      */
-    List<Event> eventbriteGetEvents(Object[] params);
+    EventsList eventbriteGetEvents();
+
     /**
      * Retrieves event data given an event ID.
      *param string id The Eventbrite event ID to be requested.
      * return object Event
      */
+
     Event eventbriteGetEvent(String id);
     /**
      * Search Eventbrite public events by any user.
      * param  array of objects Parameters for the eventSearch endpoint, to be passed during the API call.
      * return object API results
      */
-    Event eventbriteSearch(Object[] params);
+    EventsList eventbriteSearch(Search params);
 
     /**
      * Determine if a query is for an event single view.
@@ -55,7 +61,6 @@ public interface EventbriteI {
     void eventbriteEventMeta();
     /**
      * Return an event's time.
-     *
      * return string Event time.
      */
     String eventbriteEventTime();
@@ -96,5 +101,11 @@ public interface EventbriteI {
      * return bool True if a valid user token exists, false otherwise.
      */
     boolean eventbriteHasActiveConnection();
+    /**
+     * Return name of category
+     * As a parameter needs Id of the event category
+     */
+    String getCategoryName(String id);
+
 
 }

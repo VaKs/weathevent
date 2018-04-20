@@ -19,11 +19,22 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import EventbriteAPI.EventbriteI;
+import EventbriteAPI.Models.End;
+import EventbriteAPI.Models.Event;
+import EventbriteAPI.Models.EventsList;
+import EventbriteAPI.Models.Search;
+import EventbriteAPI.Models.Start;
+import EventbriteAPI.Models.Venue;
+import EventbriteAPI.service.EventbriteService;
 import Fragment.*;
-import POJO.Event;
+//import POJO.Event;
 
 
-public class WeatheventActivity extends AppCompatActivity {
+public class WeatheventActivity extends AppCompatActivity implements EventbriteI{
 
 
     // Toolbar and NavigationView
@@ -32,6 +43,7 @@ public class WeatheventActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ConstraintLayout weatheventMainLayout;
+    private EventsList eventsList = new EventsList();
 
 
     // Fragments usability
@@ -369,12 +381,12 @@ public class WeatheventActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
-        if (requestCode == MapFragment.MY_PERMISSIONS_REQUEST_LOCATION){
+        /*if (requestCode == MapFragment.MY_PERMISSIONS_REQUEST_LOCATION){
             mapFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
         else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
+        }*/
     }
 
 
@@ -402,6 +414,173 @@ public class WeatheventActivity extends AppCompatActivity {
         //setNavigationDrawer icon status
         //set activeFragment
 
+    }
+
+    public EventsList eventbriteGetEvents(){
+        Search search = new Search();
+        EventbriteService asyncTask = new EventbriteService(this);
+        asyncTask.execute(search);
+        eventsList = asyncTask.myMethod();
+        return eventsList;
+    }
+
+    @Override
+    public String getCategoryName(String id) {
+            String categoryName=null;
+            if(id.equals("101")){
+                categoryName="Business & Professional";
+            }
+            else if(id.equals("102")){
+                categoryName="Science & Technology";
+            }
+            if(id.equals("103")){
+                categoryName="Music";
+            }
+            else if(id.equals("104")){
+                categoryName="Film, Media & Entertainment";
+            }
+            else if(id.equals("105")){
+                categoryName="Performing & Visual Arts";
+            }
+            else if(id.equals("106")){
+                categoryName="Fashion & Beauty";
+            }
+            else if(id.equals("107")){
+                categoryName="Health & Wellness";
+            }
+            else if(id.equals("108")){
+                categoryName="Sports & Fitness";
+            }
+            else if(id.equals("109")){
+                categoryName="Travel & Outdoor";
+            }
+            else if(id.equals("110")){
+                categoryName="Food & Drink";
+            }
+            else if(id.equals("111")){
+                categoryName="Charity & Causes";
+            }
+            else if(id.equals("112")){
+                categoryName="Government & Politics";
+            }
+            else if(id.equals("113")){
+                categoryName="Community & Culture";
+            }
+            else if(id.equals("114")){
+                categoryName="Religion & Spirituality";
+            }
+            else if(id.equals("115")){
+                categoryName="Family & Education";
+            }
+            else if(id.equals("116")){
+                categoryName="Seasonal & Holiday";
+            }
+            else if(id.equals("117")){
+                categoryName="Home & Lifestyle";
+            }
+            else if(id.equals("118")){
+                categoryName="Auto, Boat & Air";
+            }
+            else if(id.equals("119")){
+                categoryName="Hobbies & Special Interest";
+            }
+            else if(id.equals("120")){
+                categoryName="School Activities";
+            }
+            else{
+                categoryName="Other";
+            }
+            return categoryName;
+        }
+
+    @Override
+    public Event eventbriteGetEvent(String id) {
+        List<Event> listOfEvents = new ArrayList<>();
+        Event event = new Event();
+        boolean ifExsists = false;
+        listOfEvents = eventsList.getEvents();
+        for(int i=0; i<listOfEvents.size();i++){
+            event = listOfEvents.get(i);
+            if(event.getId().equals(id)){
+                ifExsists = true;
+                break;
+            }
+        }
+        return event;
+    }
+
+    @Override
+    public EventsList eventbriteSearch(Search params) {
+        EventbriteService asyncTask = new EventbriteService(this);
+        asyncTask.execute(params);
+        eventsList = asyncTask.myMethod();
+        return eventsList;
+    }
+
+    @Override
+    public boolean eventbriteIsSingle(Integer PageCount) {
+        return false;
+    }
+
+    @Override
+    public boolean eventbriteIsEvent(String id) {
+        List<Event> listOfEvents = new ArrayList<>();
+        Event event = new Event();
+        boolean ifExsists = false;
+        listOfEvents = eventsList.getEvents();
+        for(int i=0; i<listOfEvents.size();i++){
+            event = listOfEvents.get(i);
+            if(event.getId().equals(id)){
+                ifExsists = true;
+                break;
+            }
+        }
+        return ifExsists;
+    }
+
+    @Override
+    public void eventbriteEventMeta() {
+
+    }
+
+    @Override
+    public String eventbriteEventTime() {
+        return null;
+    }
+
+    @Override
+    public boolean eventbriteIsMultidayEvent() {
+        return false;
+    }
+
+    @Override
+    public String eventbriteEventEbUrl() {
+        return null;
+    }
+
+    @Override
+    public Venue eventbriteEventVenue() {
+        return null;
+    }
+
+    @Override
+    public Start eventbriteEventStart() {
+        return null;
+    }
+
+    @Override
+    public End eventbriteEventEnd() {
+        return null;
+    }
+
+    @Override
+    public String eventbriteEditPostLink(String text, String before, String after) {
+        return null;
+    }
+
+    @Override
+    public boolean eventbriteHasActiveConnection() {
+        return false;
     }
 }
 

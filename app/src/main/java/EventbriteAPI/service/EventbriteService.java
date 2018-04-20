@@ -3,64 +3,103 @@ package EventbriteAPI.service;
 import android.net.Uri;
 import android.os.AsyncTask;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import Connection.JSONResponder;
+import EventbriteAPI.Models.Event;
+import EventbriteAPI.Models.EventsList;
+import EventbriteAPI.Models.Search;
+import weathevent.weathevent.WeatheventActivity;
 
 /**
  * Created by Agnieszka on 25.03.2018.
  */
 
-public class EventbriteService extends AsyncTask<String, Void, String> {
+public class EventbriteService extends AsyncTask<Search, Void, EventsList> {
 
     private static final String Token = "FRBVU4556DR3S6HFNKBH";
+    private EventsList eventsList;
+    private WeakReference<WeatheventActivity> weakReference;
 
-    private EventbriteServiceCallback callback;
-
-    public EventbriteService(EventbriteServiceCallback callback){
-        this.callback = callback;
+    public EventbriteService(WeatheventActivity activity){
+        weakReference = new WeakReference<WeatheventActivity>(activity);
     }
 
     @Override
-    protected String doInBackground(String... strings) {
-        String endpoint = String.format("https://www.eventbriteapi.com/v3/events/?token=FRBVU4556DR3S6HFNKBH", Token);
+    protected EventsList doInBackground(Search... params) {
+        eventsList = new EventsList();
+        StringBuilder sBuilder = new StringBuilder();
+        JSONArray events = null;
         Uri.Builder builder = new Uri.Builder();
-        builder.scheme("https")
-                .authority("www.eventbriteapi.com")
-                .appendPath("v3")
-                //.appendPath(params[])
-                .appendQueryParameter("token", Token);
+        builder.scheme("https");
+        builder.authority("www.eventbriteapi.com");
+        builder.appendPath("v3");
+        builder.appendPath("events");
+        if(params[0].isHasParameters()==true) {
+            builder.appendPath("search");
+            if (!(params[0].sortBy.equals("null")))
+                builder.appendQueryParameter("sort_by", params[0].sortBy);
+            if (!(params[0].locationAddress.equals("null")))
+                builder.appendQueryParameter("location.address", params[0].locationAddress);
+            if (!(params[0].locationWithin.equals("null")))
+                builder.appendQueryParameter("location.within", params[0].locationWithin);
+            if (!(params[0].categories.equals("null")))
+                builder.appendQueryParameter("categories", params[0].categories);
+            if (!(params[0].rangeStart.equals("null")))
+                builder.appendQueryParameter("start_date.range_start", params[0].rangeStart);
+            if (!(params[0].rangeStartKeyWord.equals("null")))
+                builder.appendQueryParameter("start_date.keyword", params[0].rangeStartKeyWord);
+        }
+        builder.appendQueryParameter("token", Token);
 
-        /*
-        Rafal: instead of that, try get the information from JSONobject
-        which you receive from our new function (example below)
-
-                try {
-                    URL url = new URL(builder.build().toString());
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("GET");
-                    connection.setDoInput(true);
-                        // Get response
-                    connection.disconnect();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-        */
         try {
-            final JSONObject jsonFromURL = JSONResponder.getJSONFromURL(new URL(builder.build().toString()));
-            // here you can extract your data from JSONobject
-            String id = jsonFromURL.getString("id");
+            URL url = new URL(builder.build().toString());
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setDoInput(true);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String s = null;
+            while ((s = reader.readLine()) != null) {
+                sBuilder.append(s);
+            }
+            reader.close();
+            connection.disconnect();
         } catch (IOException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
+        }
+
+        try {
+            JSONObject object = new JSONObject(sBuilder.toString());
+            JSONObject pagination = object.getJSONObject("pagination");
+            events = object.getJSONArray("events");
+
+            for (int i=0; i<events.length(); i++){
+                JSONObject eventJSONObject = events.getJSONObject(i);
+                Event eventObject = new Event();
+                eventObject.populate(eventJSONObject);
+                eventsList.add(eventObject);
+            }
         } catch (JSONException e) {
             System.out.println(e.toString());
         }
-        return null;
+        return eventsList;
+    }
+
+    @Override
+    protected void onPostExecute(EventsList eventsList) {
+        myMethod();
+    }
+
+    public EventsList myMethod (){
+        return eventsList;
     }
 }
 
