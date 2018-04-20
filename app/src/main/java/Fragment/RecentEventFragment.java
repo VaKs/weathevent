@@ -51,12 +51,12 @@ public class RecentEventFragment extends Fragment implements FragmentsInterface 
         btn_recentEventDetails = view.findViewById(R.id.btn_toEventDetails);
 
         //listeners
-        btn_recentEventDetails.setOnClickListener(new View.OnClickListener() {
+        /*btn_recentEventDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((WeatheventActivity) getActivity()).showEventPreviewFragment(event);
             }
-        });
+        });*/
     }
 
     @Override

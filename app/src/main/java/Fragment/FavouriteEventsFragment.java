@@ -7,6 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import EventbriteAPI.Models.Event;
+import EventbriteAPI.Models.EventsList;
+import EventbriteAPI.service.EventbriteService;
 import weathevent.weathevent.R;
 
 /**
@@ -22,5 +30,4 @@ public class FavouriteEventsFragment extends Fragment implements FragmentsInterf
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_favourite, container, false);
     }
-
 }

@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.SimpleAdapter;
 
 import weathevent.weathevent.R;
 
@@ -22,6 +24,4 @@ public class RecommendFragment extends Fragment implements FragmentsInterface {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_recommend, container, false);
     }
-
-
 }
