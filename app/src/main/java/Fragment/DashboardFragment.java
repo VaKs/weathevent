@@ -10,9 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import EventbriteAPI.Models.EventsList;
-import EventbriteAPI.Models.Search;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
 
@@ -24,7 +21,6 @@ public class DashboardFragment extends Fragment implements FragmentsInterface {
 
     public static final String TAG = "DashboardFragment";
     FragmentActivity listener;
-    private EventsList eventsList;
 
     private Button btn_explore;
     private Button btn_recommended;
