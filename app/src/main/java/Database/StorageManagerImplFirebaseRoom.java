@@ -1,19 +1,13 @@
 package Database;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 
 import java.util.List;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseException;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import POJO.User;
-import Tasks.AsyncUserLogInTask;
-import weathevent.weathevent.LogInActivity;
 
 /**
  * Created by vaks on 07/04/2018.
@@ -59,12 +53,6 @@ public class StorageManagerImplFirebaseRoom implements StorageManager {
 
     @Override
     public User getUserByEmail(final String email) {
-
-
-
-
-
-
         return null;
 
         /*

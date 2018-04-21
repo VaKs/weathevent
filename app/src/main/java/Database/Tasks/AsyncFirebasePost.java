@@ -1,4 +1,4 @@
-package Tasks;
+package Database.Tasks;
 
 
 import POJO.User;

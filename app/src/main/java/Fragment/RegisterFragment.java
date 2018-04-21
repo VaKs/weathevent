@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import POJO.User;
-import Tasks.AsyncUserCreateAcountTask;
+import Database.Tasks.AsyncUserCreateAcountTask;
 import weathevent.weathevent.LogInActivity;
 import weathevent.weathevent.R;
 

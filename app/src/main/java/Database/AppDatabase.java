@@ -17,9 +17,9 @@ import POJO.User;
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
-    // Singleton pattern to centralize access to the database
     private static AppDatabase database;
 
+    // Singleton pattern to centralize access to the database
     public synchronized static AppDatabase getInstance(Context context) {
         if (database == null) {
             database = Room.databaseBuilder(context, AppDatabase.class, "weathevent_db")

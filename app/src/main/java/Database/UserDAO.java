@@ -8,6 +8,7 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
+import POJO.StoredUser;
 import POJO.User;
 
 /**
@@ -18,7 +19,7 @@ import POJO.User;
 public interface UserDAO {
 
     @Query("SELECT * FROM Users")
-    List<User> getUsers();
+    List<StoredUser> getUsers();
 
     @Insert
     void addUser(User user);
@@ -30,7 +31,7 @@ public interface UserDAO {
     String getPasswordByEmail(String email);
 
     @Query ("SELECT * FROM Users WHERE email = :email ")
-    User getUserByEmail(String email);
+    StoredUser getUserByEmail(String email);
 
     // Delete all
     @Query("DELETE FROM Users")

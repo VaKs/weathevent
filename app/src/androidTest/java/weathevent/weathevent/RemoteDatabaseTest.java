@@ -82,8 +82,6 @@ public class RemoteDatabaseTest {
 
             User usuario = new User("EmailDePrueba","Nombre","Apellido","Contraseña3");
 
-            test.child(usuario.getId().toString()).setValue(usuario);
-
 
         } catch (Exception e){
             System.out.print(e.toString());

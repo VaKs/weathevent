@@ -24,7 +24,6 @@ public class User {
     @ColumnInfo(name = "id")
     private Integer id;
 
-    @NonNull
     @ColumnInfo(name = "email")
     private String email;
 
@@ -36,20 +35,18 @@ public class User {
     private String surname;
 
     @ColumnInfo(name = "friendsList")
-    private ArrayList<User> friendsList;
+    protected ArrayList<User> friendsList;
     @NonNull
     @ColumnInfo(name = "password")
-    private String password;
+    protected String password;
 
     @ColumnInfo(name = "preference")
     private Preference preference;
 
-    @Ignore
     public User(){
         this.setFriendsList(new ArrayList<User>());
     }
 
-    @Ignore
     public User(@NonNull String email, @NonNull String name, String surname, @NonNull String password){
         friendsList = new ArrayList<>();
         this.setEmail(email);
@@ -57,7 +54,7 @@ public class User {
         this.setSurname(surname);
         this.setPassword(password);
     }
-    @Ignore
+
     public User(@NonNull String email, @NonNull String name, @NonNull String password){
         friendsList = new ArrayList<>();
         this.setEmail(email);
@@ -65,9 +62,7 @@ public class User {
         this.setPassword(password);
     }
 
-    @Ignore
     public User(@NonNull String email, @NonNull String name, String surname, ArrayList<User> friendsList, @NonNull String password, Preference preference){
-        friendsList = new ArrayList<>();
         this.setEmail(email);
         this.setName(name);
         this.setSurname(surname);
@@ -75,26 +70,6 @@ public class User {
         this.setPassword(password);
         this.setPreference(preference);
     }
-
-    @Ignore
-    public User(@NonNull int id, @NonNull String email, @NonNull String name, String surname, @NonNull String password){
-        friendsList = new ArrayList<>();
-        this.setEmail(email);
-        this.setName(name);
-        this.setSurname(surname);
-        this.password=password;
-    }
-
-    public User(@NonNull int id,@NonNull String email, @NonNull String name, String surname, ArrayList<User> friendsList, @NonNull String password, Preference preference){
-        friendsList = new ArrayList<>();
-        this.setEmail(email);
-        this.setName(name);
-        this.setSurname(surname);
-        this.setFriendsList(friendsList);
-        this.password=password;
-        this.setPreference(preference);
-    }
-
 
     public Integer getId() {
         return id;
@@ -141,8 +116,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password= password;
-        //this.password = getMD5(password);
+        this.password = getMD5(password);
     }
 
     public Preference getPreference() {
@@ -161,80 +135,7 @@ public class User {
     }
 
     public boolean checkPassword(String password){
-        //return this.password.equals(getMD5(password));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        return this.password.equals(password);
+        return this.password.equals(getMD5(password));
     }
 
     private String getMD5(String s) {

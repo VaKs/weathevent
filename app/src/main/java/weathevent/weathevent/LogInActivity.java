@@ -6,12 +6,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
 
 import Fragment.*;
 import POJO.User;
-import Tasks.AsyncFirebasePost;
-import Tasks.AsyncResponse;
+import Database.Tasks.AsyncFirebasePost;
+import Database.Tasks.AsyncResponse;
 
 public class LogInActivity extends AppCompatActivity implements AsyncResponse, AsyncFirebasePost{
 
@@ -87,9 +86,9 @@ public class LogInActivity extends AppCompatActivity implements AsyncResponse, A
 
     }
     @Override
-    public void processFinish(User response, String password) {
+    public void processFinish(User user, String password) {
 
-        if(response!= null && response.checkPassword(password)) {
+        if(user!= null && user.checkPassword(password)) {
             Intent intent = new Intent(this, WeatheventActivity.class);
             startActivity(intent);
         } else {

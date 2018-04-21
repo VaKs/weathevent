@@ -17,6 +17,7 @@ import java.util.List;
 import Database.AppDatabase;
 import Database.UserDAO;
 import POJO.Preference;
+import POJO.StoredUser;
 import POJO.User;
 
 import static org.junit.Assert.*;
@@ -64,7 +65,7 @@ public class LocalDatabaseTest {
             userDAO.addUser(user1);
             userDAO.addUser(user2);
 
-            List<User> userList = userDAO.getUsers();
+            List<StoredUser> userList = userDAO.getUsers();
 
             assertEquals(user.getName(),userList.get(0).getName());
             assertEquals(user.getEmail(),userList.get(0).getEmail());
@@ -89,14 +90,13 @@ public class LocalDatabaseTest {
     @Test
     public void dbGetUsers() throws Exception {
         try {
-            List<User> userListDb = userDAO.getUsers();
+            List<StoredUser> userListDb = userDAO.getUsers();
             for(int i=0;i<=userListDb.size();i++){
                 assertEquals(userListDb.get(i).getName(),userList.get(i).getName());
                 assertEquals(userListDb.get(i).getEmail(),userList.get(i).getEmail());
                 assertEquals(userListDb.get(i).getSurname(),userList.get(i).getSurname());
                 assertEquals(userListDb.get(i).getPassword(),userList.get(i).getPassword());
             }
-
         } catch (Exception e) {
             System.out.print(e.toString());
         }
@@ -164,7 +164,7 @@ public class LocalDatabaseTest {
     public void dbClearUsers() throws Exception {
         try {
             userDAO.clearUsers();
-            List<User> userListDb = userDAO.getUsers();
+            List<StoredUser> userListDb = userDAO.getUsers();
             assertEquals(userListDb.isEmpty(),true);
 
 

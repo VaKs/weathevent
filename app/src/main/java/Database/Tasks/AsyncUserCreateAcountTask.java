@@ -1,4 +1,4 @@
-package Tasks;
+package Database.Tasks;
 import android.os.AsyncTask;
 
 import com.google.firebase.database.DataSnapshot;
@@ -10,6 +10,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.lang.ref.WeakReference;
 import Database.AppDatabase;
 import Database.UserDAO;
+import POJO.StoredUser;
 import POJO.User;
 import weathevent.weathevent.LogInActivity;
 
@@ -41,7 +42,7 @@ public class AsyncUserCreateAcountTask extends AsyncTask<User, Void, String> {
             ValueEventListener postListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    user[0] = dataSnapshot.getValue(User.class);
+                    user[0] = dataSnapshot.getValue(StoredUser.class);
                 }
 
                 @Override

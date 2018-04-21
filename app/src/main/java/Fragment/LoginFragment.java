@@ -1,6 +1,7 @@
 package Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,9 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import Tasks.AsyncUserLogInTask;
+import Database.Tasks.AsyncUserLogInTask;
 import weathevent.weathevent.LogInActivity;
 import weathevent.weathevent.R;
+import weathevent.weathevent.WeatheventActivity;
 
 /**
  * Created by Rafal on 2018-03-25.
@@ -63,10 +65,15 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
 
     private void validateLogin() {
 
+        // to Enable the Login delete this 2 lines and uncomment the 3 lines of below
+        Intent intent = new Intent(context, WeatheventActivity.class);
+        startActivity(intent);
+/*
         String email = inputedEmail.getText().toString();
         String password = inputedPassword.getText().toString();
 
         new AsyncUserLogInTask(((LogInActivity) getActivity())).execute(new String[]{email, password});
+*/
 
     }
 

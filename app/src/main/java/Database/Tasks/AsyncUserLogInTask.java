@@ -1,7 +1,5 @@
-package Tasks;
-import android.content.Intent;
+package Database.Tasks;
 import android.os.AsyncTask;
-import android.support.v4.app.FragmentActivity;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,10 +11,9 @@ import java.lang.ref.WeakReference;
 
 import Database.AppDatabase;
 import Database.UserDAO;
-import Fragment.LoginFragment;
+import POJO.StoredUser;
 import POJO.User;
 import weathevent.weathevent.LogInActivity;
-import weathevent.weathevent.WeatheventActivity;
 
 public class AsyncUserLogInTask extends AsyncTask<String, Void, User> {
     public AsyncResponse delegate;
@@ -39,26 +36,24 @@ public class AsyncUserLogInTask extends AsyncTask<String, Void, User> {
         this.password=params[1];
         final User[] user = {null};
         try {
-            DatabaseReference firebaseUser = mDatabase.child("Users").child(params[0]);
-
-            ValueEventListener postListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    user[0] = dataSnapshot.getValue(User.class);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            };
-
             User userFromDb= userDAO.getUserByEmail(params[0]);
 
             if (userFromDb!= null){
                 user[0]=userFromDb;
 
-
             } else {
+                DatabaseReference firebaseUser = mDatabase.child("Users").child(params[0]);
+
+                ValueEventListener postListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        user[0] = dataSnapshot.getValue(StoredUser.class);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                };
                 firebaseUser.addListenerForSingleValueEvent(postListener);
                 Thread.sleep(1200);
             }
