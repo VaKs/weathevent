@@ -42,5 +42,32 @@
 
     <!-- Descriptions -->
     <string name="logo_description">Description</string>
+    
+    <!-- Categories -->
+    <string name="category_101">Business &amp; Professional</string>
+    <string name="category_102">Science &amp; Technology</string>
+    <string name="category_103">Music</string>
+    <string name="category_104">Film, Media &amp; Entertainment</string>
+    <string name="category_105">Performing &amp; Visual Arts</string>
+    <string name="category_106">Fashion &amp; Beauty</string>
+    <string name="category_107">Health &amp; Wellness</string>
+    <string name="category_108">Sports &amp; Fitness</string>
+    <string name="category_109">Travel &amp; Outdoor</string>
+    <string name="category_110">Food &amp; Drink</string>
+    <string name="category_111">Charity &amp; Causes</string>
+    <string name="category_112">Government &amp; Politics</string>
+    <string name="category_113">Community &amp; Culture</string>
+    <string name="category_114">Religion &amp; Spirituality</string>
+    <string name="category_115">Family &amp; Education</string>
+    <string name="category_116">Seasonal &amp; Holiday</string>
+    <string name="category_117">Home &amp; Lifestyle</string>
+    <string name="category_118">Auto, Boat &amp; Air</string>
+    <string name="category_119">Hobbies &amp; Special Interest</string>
+    <string name="category_120">School Activities</string>
+    <string name="category_199">Other</string>
+
+
+    <string name="hint_select_city">Select city</string>
+    <string name="search_event">Search Events</string>
 
 </resources>
