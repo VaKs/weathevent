@@ -627,14 +627,14 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoomLevel));
                     CircleOptions circleOptions = new CircleOptions()
                             .center(currentPosition)
-                            .radius(1000)
+                            .radius(50000)
                             .strokeWidth(2)
                             .strokeColor(Color.BLUE)
                             .fillColor(Color.parseColor("#500084d3"));
                     // Supported formats are: #RRGGBB #AARRGGBB
                     //   #AA is the alpha, or amount of transparency
                     mMap.addCircle(circleOptions);
-                    ArrayList<Tuple> eventsLocation = getCloserEvents();
+                    ArrayList<Tuple> eventsLocation = getCloserEvents(currentLatitude,currentLongitude);
                     for(int i = 0; i<eventsLocation.size();i++){
                         LatLng eventPosition = (LatLng) eventsLocation.get(i).getLatLang();
                         String eventName = (String) eventsLocation.get(i).getEventName();
@@ -710,16 +710,18 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
         Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
     }
 
-    public ArrayList<Tuple> getCloserEvents(){
+    public ArrayList<Tuple> getCloserEvents(Double currentLatitude, Double currentLongitude){
         ArrayList<Tuple> closerEventsList = new ArrayList<>();
         Search searchEvents = new Search();
-        searchEvents.setLocationWithin("5km");
+        searchEvents.setLocationLatitude(currentLatitude.toString());
+        searchEvents.setLocationLongitude(currentLongitude.toString());
+        searchEvents.setLocationWithin("50km");
         EventsList eventsList = eventbriteSearch(searchEvents);
         ArrayList<Event> events = eventsList.getEvents();
         LatLng eventLocation;
         for(int i = 0; i < events.size(); i++) {
             String venueId = events.get(i).getVenueId();
-            Venue venue = new Venue();
+            Venue venue;
             venue = eventbritegetVenue(venueId);
             Double evLatitude = Double.parseDouble(venue.getLatitude());
             Double evLongitude = Double.parseDouble(venue.getLongitude());
