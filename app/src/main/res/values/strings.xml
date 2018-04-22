@@ -65,6 +65,9 @@
     <string name="category_119">Hobbies &amp; Special Interest</string>
     <string name="category_120">School Activities</string>
     <string name="category_199">Other</string>
+    <string name="button_distance">Distance</string>
+    <string name="button_date">Date</string>
+    <string name="button_partOfTime">When?</string>
 
 
     <string name="hint_select_city">Select city</string>

@@ -7,7 +7,7 @@ import org.json.JSONObject;
  */
 
 public class Venue implements JSONPopulator{
-    public Address Address;
+    //public JSONObject Address;
     public String ResourceUri;
     public String Id;
     public String Name;
@@ -16,20 +16,12 @@ public class Venue implements JSONPopulator{
 
     @Override
     public void populate(JSONObject data) {
-        //Address = data.optString("address");
+        //Address = data.optJSONObject("address");
         ResourceUri = data.optString("resource_uri");
         Id = data.optString("id");
         Name = data.optString("name");
         Latitude = data.optString("latitude");
         Longitude = data.optString("longitude");
-    }
-
-    public EventbriteAPI.Models.Address getAddress() {
-        return Address;
-    }
-
-    public void setAddress(EventbriteAPI.Models.Address address) {
-        Address = address;
     }
 
     public String getResourceUri() {

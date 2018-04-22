@@ -9,13 +9,14 @@
     <LinearLayout
         android:id="@+id/linearLayout_fragment_explore"
         android:layout_width="368dp"
-        android:layout_height="wrap_content"
+        android:layout_height="69dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="8dp">
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/EditText_select_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -24,20 +25,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_select_city" />
+
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/select_data"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="date" />
-        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
     <ScrollView
@@ -52,7 +42,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button_searchEvent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout_fragment_explore">
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayout_setOptions">
 
         <android.support.v7.widget.GridLayout
             android:id="@+id/grid_fragment_explore"
@@ -68,11 +58,13 @@
             <!--Row 1 -->
             <!--column 1-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_101"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
+                android:tag="101"
                 app:cardBackgroundColor="@color/cardview_light_background"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
@@ -104,6 +96,8 @@
             </android.support.v7.widget.CardView>
             <!--column 2-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_102"
+                android:tag="102"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -142,6 +136,8 @@
             <!--Row 2 -->
             <!--column 1-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_103"
+                android:tag="103"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -178,6 +174,8 @@
             </android.support.v7.widget.CardView>
             <!--column 2-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_104"
+                android:tag="104"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -216,6 +214,8 @@
             <!--Row 3 -->
             <!--column 1-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_105"
+                android:tag="105"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -252,6 +252,8 @@
             </android.support.v7.widget.CardView>
             <!--column 2-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_106"
+                android:tag="106"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -290,6 +292,8 @@
             <!--Row 4 -->
             <!--column 1-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_107"
+                android:tag="107"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -326,6 +330,8 @@
             </android.support.v7.widget.CardView>
             <!--column 2-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_108"
+                android:tag="108"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -364,6 +370,8 @@
             <!--Row 5 -->
             <!--column 1-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_109"
+                android:tag="109"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -400,6 +408,8 @@
             </android.support.v7.widget.CardView>
             <!--column 2-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_110"
+                android:tag="110"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -429,7 +439,7 @@
                         android:id="@+id/textView_category110"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@string/category_110"
                         android:textAlignment="center"
                         android:textSize="16dp" />
                 </LinearLayout>
@@ -438,6 +448,8 @@
             <!--Row 6 -->
             <!--column 1-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_111"
+                android:tag="111"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -474,6 +486,8 @@
             </android.support.v7.widget.CardView>
             <!--column 2-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_112"
+                android:tag="112"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -512,6 +526,8 @@
             <!--Row 7 -->
             <!--column 1-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_113"
+                android:tag="113"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -548,6 +564,8 @@
             </android.support.v7.widget.CardView>
             <!--column 2-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_114"
+                android:tag="114"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -586,6 +604,8 @@
             <!--Row 8 -->
             <!--column 1-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_115"
+                android:tag="115"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -625,6 +645,8 @@
             <!--Row 9 -->
             <!--column 1-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_116"
+                android:tag="116"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -661,6 +683,8 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_117"
+                android:tag="117"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -697,6 +721,8 @@
             </android.support.v7.widget.CardView>
             <!--column 2-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_118"
+                android:tag="118"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -735,6 +761,8 @@
             <!--Row 10 -->
             <!--column 1-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_119"
+                android:tag="119"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -771,6 +799,8 @@
             </android.support.v7.widget.CardView>
             <!--column 2-->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_120"
+                android:tag="120"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -807,6 +837,8 @@
             </android.support.v7.widget.CardView>
             <!--Row 11 -->
             <android.support.v7.widget.CardView
+                android:id="@+id/CardView_199"
+                android:tag="199"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -855,6 +887,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout_setOptions"
+        android:layout_width="368dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_fragment_explore"
+        tools:layout_editor_absoluteX="8dp">
+
+        <Button
+            android:id="@+id/button_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_distance"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="56dp" />
+
+        <Button
+            android:id="@+id/button_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_date" />
+
+        <Button
+            android:id="@+id/button_partOfTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/button_partOfTime" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
 

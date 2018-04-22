@@ -16,6 +16,14 @@ public class EventsList {
         return events;
     }
 
+    public Event getEvent(int id){
+        return events.get(id);
+    }
+
+    public int size(){
+        return events.size();
+    }
+
     public List<Event> getEvents() {
             return events;
         }
