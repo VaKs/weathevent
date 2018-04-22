@@ -53,6 +53,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import EventbriteAPI.EventbriteI;
 import EventbriteAPI.Models.End;
@@ -470,7 +471,13 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     public EventsList eventbriteGetEvents() {
         Search search = new Search();
         EventbriteService asyncTask = new EventbriteService(this);
-        asyncTask.execute(search);
+        try {
+            asyncTask.execute(search).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         eventsList = asyncTask.myMethod();
         return eventsList;
     }
@@ -551,7 +558,14 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public EventsList eventbriteSearch(Search params) {
         EventbriteService asyncTask = new EventbriteService(this);
-        asyncTask.execute(params);
+        try {
+            asyncTask.execute(params).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        ;
         eventsList = asyncTask.myMethod();
         return eventsList;
     }

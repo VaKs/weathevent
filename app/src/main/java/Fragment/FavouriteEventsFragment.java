@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import EventbriteAPI.Models.Event;
 import EventbriteAPI.Models.EventsList;
+import EventbriteAPI.Models.Search;
 import EventbriteAPI.Models.Venue;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
@@ -22,11 +24,9 @@ import weathevent.weathevent.WeatheventActivity;
 public class FavouriteEventsFragment extends Fragment implements FragmentsInterface {
 
     public static final String TAG = "FavouriteEventsFragment";
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_favourite, container, false);
     }
-
 }
