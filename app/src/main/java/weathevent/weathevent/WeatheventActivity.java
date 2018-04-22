@@ -710,9 +710,7 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
             //TODO
         }
         return closerEventsList;
-    }
-    */
-
+    }*/
 }
 
 

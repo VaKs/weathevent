@@ -27,6 +27,10 @@
 
         </activity>
         <meta-data
+            android:name="com.google.android.awareness.API_KEY"
+            android:value="AIzaSyCr86TVCDIiKlMhdzX89OoefCLkrJDMLHI"/>
+
+        <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCGzV5nTUmgXqnf3hivFUGpTEHDD5bY8og"/>
         <meta-data
