@@ -46,8 +46,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         Description description = event.getDescription();
         Ticket ticket = event.getTicket();
         //binding the data with the viewholder views
-        holder.textViewTitle.setText(name.getText());
-        holder.textViewShortDesc.setText(description.getText());
+        String eventName = name.getText();
+        String eventDescription = description.getText();
+        holder.textViewTitle.setText(eventName);
+        holder.textViewShortDesc.setText(eventDescription);
         if(ticket.getFree() == true){
             holder.textViewPrice.setText(String.valueOf("Free"));
         }

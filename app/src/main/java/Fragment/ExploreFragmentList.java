@@ -33,9 +33,13 @@ public class ExploreFragmentList extends Fragment implements FragmentsInterface 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         context = getActivity().getApplicationContext();
-        WeatheventActivity weatheventActivity = new WeatheventActivity();
-        categories = weatheventActivity.getCategories();
-        location = weatheventActivity.getLocation();
+        categories = ((WeatheventActivity) getActivity()).getCategories();
+        location = ((WeatheventActivity) getActivity()).getLocation();
+        Search searchEvents = new Search();
+        //searchEvents.setLocationAddress(location);
+        searchEvents.setSortBy("best");
+        searchEvents.setCategories(categories);
+        eventList = ((WeatheventActivity) getActivity()).eventbriteSearch(searchEvents);
         return inflater.inflate(R.layout.fragment_explore_list, container, false);
     }
 
@@ -45,15 +49,6 @@ public class ExploreFragmentList extends Fragment implements FragmentsInterface 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
-        //initializing the eventlist
-        eventList = new EventsList();
-        WeatheventActivity weatheventActivity = new WeatheventActivity();
-        Search searchEvents = new Search();
-        searchEvents.setLocationAddress(location);
-        searchEvents.setSortBy("best");
-        searchEvents.setCategories(categories);
-        eventList = weatheventActivity.eventbriteSearch(searchEvents);
 
         //creating recyclerview adapter
         EventAdapter adapter = new EventAdapter(context, eventList);

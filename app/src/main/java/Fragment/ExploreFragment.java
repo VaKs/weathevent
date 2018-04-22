@@ -103,8 +103,10 @@ public class ExploreFragment extends Fragment implements FragmentsInterface, Vie
         if( v == buttonSearch){
             WeatheventActivity weatheventActivity = new WeatheventActivity();
             categories = getCategories(mainGrid);
-            weatheventActivity.setCategories(categories);
-            weatheventActivity.setLocation(locationText.getText().toString());
+            ((WeatheventActivity) getActivity()).setCategories(categories);
+            if(!(locationText.getText().toString().equals(""))) {
+                weatheventActivity.setLocation(locationText.getText().toString());
+            }
             ((WeatheventActivity) getActivity()).showExploreFragmentList();
         }
     }

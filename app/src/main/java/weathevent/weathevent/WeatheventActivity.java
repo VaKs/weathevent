@@ -81,8 +81,8 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     private ConstraintLayout weatheventMainLayout;
     private EventsList eventsList = new EventsList();
     private Venue venue = new Venue();
-    private String categories;
-    private String location;
+    public String categories;
+    public String location;
 
 
     // Fragments usability
@@ -441,7 +441,7 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
                 exploreFragment = new ExploreFragmentList();
             }
             fragmentTransaction.replace(R.id.weathevent_cl_main, exploreFragment, ExploreFragmentList.TAG);
-            fragmentTransaction.addToBackStack(ExploreFragmentList.TAG);
+            fragmentTransaction.addToBackStack(ExploreFragment.TAG);
 
             fragmentTransaction.commitAllowingStateLoss();
             activeFragmentTag = ExploreFragmentList.TAG;
@@ -550,7 +550,13 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
 
     public Venue eventbritegetVenue(String id) {
         EventbriteServiceOtherParameters asyncTask = new EventbriteServiceOtherParameters(this);
-        asyncTask.execute(id);
+        try {
+            asyncTask.execute(id).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         venue = asyncTask.myMethod();
         return venue;
     }
