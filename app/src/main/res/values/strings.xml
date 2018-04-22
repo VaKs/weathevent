@@ -70,4 +70,9 @@
     <string name="hint_select_city">Select city</string>
     <string name="search_event">Search Events</string>
 
+    <!--Location -->
+    <string name="title_location_permission">Location permission</string>
+    <string name="text_location_permission">Please give us location permissions</string>
+    <string name="ok">OK</string>
+
 </resources>
