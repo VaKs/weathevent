@@ -10,12 +10,11 @@ import POJO.User;
 
 public interface StorageManager {
 
-    void addUser(User user);
-    void deleteUser(User user);
+    void addNewUser(User user);
     void updateUser(User user);
     User getUserByEmail(String email);
-    Boolean validateLogin(String email);
-    List<User> getUsers();
+    boolean validateLogin(String email, String password);
+    public User getCurrentUser();
 
     void addCategory(User user);
     void deleteCategory(User user);

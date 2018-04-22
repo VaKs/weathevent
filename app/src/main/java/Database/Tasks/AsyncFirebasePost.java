@@ -4,5 +4,5 @@ package Database.Tasks;
 import POJO.User;
 
 public interface AsyncFirebasePost {
-    void processFinish(String mesage);
+    void processFinish(String message);
 }

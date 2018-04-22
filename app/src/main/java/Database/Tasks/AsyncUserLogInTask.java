@@ -10,64 +10,38 @@ import com.google.firebase.database.ValueEventListener;
 import java.lang.ref.WeakReference;
 
 import Database.AppDatabase;
+import Database.StorageManager;
+import Database.StorageManagerImplFirebaseRoom;
 import Database.UserDAO;
 import POJO.StoredUser;
 import POJO.User;
 import weathevent.weathevent.LogInActivity;
 
-public class AsyncUserLogInTask extends AsyncTask<String, Void, User> {
+public class AsyncUserLogInTask extends AsyncTask<String, Void, Boolean> {
     public AsyncResponse delegate;
     private WeakReference<LogInActivity> activity = null;
     public User user;
-    private DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
-    private String password;
-    private UserDAO userDAO;
+    private StorageManager storageManager;
 
     public AsyncUserLogInTask(LogInActivity activity) {
         this.activity = new WeakReference<>(activity);
-        userDAO = AppDatabase.getInstance(activity.getApplicationContext()).userDAO();
+        storageManager = StorageManagerImplFirebaseRoom.getInstance(activity.getApplicationContext());
     }
 
     public AsyncUserLogInTask() {
     }
 
     @Override
-    protected User doInBackground(final String... params) {
-        this.password=params[1];
-        final User[] user = {null};
-        try {
-            User userFromDb= userDAO.getUserByEmail(params[0]);
+    protected Boolean doInBackground(final String... params) {
+        String email=params[0];
+        String password=params[1];
 
-            if (userFromDb!= null){
-                user[0]=userFromDb;
-
-            } else {
-                DatabaseReference firebaseUser = mDatabase.child("Users").child(params[0]);
-
-                ValueEventListener postListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        user[0] = dataSnapshot.getValue(StoredUser.class);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                };
-                firebaseUser.addListenerForSingleValueEvent(postListener);
-                Thread.sleep(1200);
-            }
-       } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return user[0];
+        return storageManager.validateLogin(email,password);
     }
 
     @Override
-    protected void onPostExecute(User user) {
-        activity.get().processFinish(user,password);
+    protected void onPostExecute(Boolean loginPassed) {
+        activity.get().processFinish(loginPassed);
     }
 
 }
