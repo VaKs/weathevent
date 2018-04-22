@@ -7,7 +7,7 @@ import EventbriteAPI.EventbriteI;
 
 public class EventsList {
 
-    private List<Event> events=new ArrayList<>();
+    private ArrayList<Event> events=new ArrayList<>();
     public Pagination Pagination;
     public Location Location;
 
@@ -24,11 +24,11 @@ public class EventsList {
         return events.size();
     }
 
-    public List<Event> getEvents() {
+    public ArrayList<Event> getEvents() {
             return events;
         }
 
-    public void setEvents(List<Event> events) {
+    public void setEvents(ArrayList<Event> events) {
             this.events = events;
         }
 

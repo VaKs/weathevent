@@ -1,18 +1,31 @@
 package weathevent.weathevent;
 
+import android.Manifest;
+import android.app.DialogFragment;
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +45,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -50,11 +64,12 @@ import EventbriteAPI.Models.Venue;
 import EventbriteAPI.service.EventbriteService;
 import EventbriteAPI.service.EventbriteServiceOtherParameters;
 import Fragment.*;
+import POJO.Tuple;
 
 
 public class WeatheventActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener,EventbriteI {
+        LocationListener, EventbriteI {
 
 
     // Toolbar and NavigationView
@@ -84,7 +99,7 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     private String activeFragmentTag;
 
     // variables
-    private static final float ACCEPTED_ACCURACY = 50f;
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     private Boolean isDrawerOpen;
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
@@ -92,9 +107,10 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     private LocationRequest mLocationRequest;
     private double currentLatitude;
     private double currentLongitude;
-    private LocationManager locationManager;
     private LocationCallback mLocationCallback;
     FusedLocationProviderClient fLocation;
+    String provider;
+    GoogleMap mMap;
 
     //https://stackoverflow.com/questions/19013225/best-way-to-switch-between-two-fragments
 
@@ -331,19 +347,13 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
 
 
     public void showMapFragment() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                // The next two lines tell the new client that “this” current class will handle connection stuff
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                //fourth line adds the LocationServices API endpoint from GooglePlayServices
-                .addApi(LocationServices.API)
-                .build();
-        mGoogleApiClient.connect();
+
         // Create the LocationRequest object
         mLocationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+
 
         if (activeFragmentTag != MapFragment.TAG) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -357,9 +367,6 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
 
             fragmentTransaction.commitAllowingStateLoss();
             activeFragmentTag = MapFragment.TAG;
-
-            //buildGoogleAPIClient();
-
 
 
             mapFragment.getMapAsync(this);
@@ -441,7 +448,7 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
 
     }
 
-    public EventsList eventbriteGetEvents(){
+    public EventsList eventbriteGetEvents() {
         Search search = new Search();
         EventbriteService asyncTask = new EventbriteService(this);
         asyncTask.execute(search);
@@ -451,72 +458,53 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public String getCategoryName(String id) {
-            String categoryName=null;
-            if(id.equals("101")){
-                categoryName="Business & Professional";
-            }
-            else if(id.equals("102")){
-                categoryName="Science & Technology";
-            }
-            if(id.equals("103")){
-                categoryName="Music";
-            }
-            else if(id.equals("104")){
-                categoryName="Film, Media & Entertainment";
-            }
-            else if(id.equals("105")){
-                categoryName="Performing & Visual Arts";
-            }
-            else if(id.equals("106")){
-                categoryName="Fashion & Beauty";
-            }
-            else if(id.equals("107")){
-                categoryName="Health & Wellness";
-            }
-            else if(id.equals("108")){
-                categoryName="Sports & Fitness";
-            }
-            else if(id.equals("109")){
-                categoryName="Travel & Outdoor";
-            }
-            else if(id.equals("110")){
-                categoryName="Food & Drink";
-            }
-            else if(id.equals("111")){
-                categoryName="Charity & Causes";
-            }
-            else if(id.equals("112")){
-                categoryName="Government & Politics";
-            }
-            else if(id.equals("113")){
-                categoryName="Community & Culture";
-            }
-            else if(id.equals("114")){
-                categoryName="Religion & Spirituality";
-            }
-            else if(id.equals("115")){
-                categoryName="Family & Education";
-            }
-            else if(id.equals("116")){
-                categoryName="Seasonal & Holiday";
-            }
-            else if(id.equals("117")){
-                categoryName="Home & Lifestyle";
-            }
-            else if(id.equals("118")){
-                categoryName="Auto, Boat & Air";
-            }
-            else if(id.equals("119")){
-                categoryName="Hobbies & Special Interest";
-            }
-            else if(id.equals("120")){
-                categoryName="School Activities";
-            }
-            else{
-                categoryName="Other";
-            }
-            return categoryName;
+        String categoryName = null;
+        if (id.equals("101")) {
+            categoryName = "Business & Professional";
+        } else if (id.equals("102")) {
+            categoryName = "Science & Technology";
         }
+        if (id.equals("103")) {
+            categoryName = "Music";
+        } else if (id.equals("104")) {
+            categoryName = "Film, Media & Entertainment";
+        } else if (id.equals("105")) {
+            categoryName = "Performing & Visual Arts";
+        } else if (id.equals("106")) {
+            categoryName = "Fashion & Beauty";
+        } else if (id.equals("107")) {
+            categoryName = "Health & Wellness";
+        } else if (id.equals("108")) {
+            categoryName = "Sports & Fitness";
+        } else if (id.equals("109")) {
+            categoryName = "Travel & Outdoor";
+        } else if (id.equals("110")) {
+            categoryName = "Food & Drink";
+        } else if (id.equals("111")) {
+            categoryName = "Charity & Causes";
+        } else if (id.equals("112")) {
+            categoryName = "Government & Politics";
+        } else if (id.equals("113")) {
+            categoryName = "Community & Culture";
+        } else if (id.equals("114")) {
+            categoryName = "Religion & Spirituality";
+        } else if (id.equals("115")) {
+            categoryName = "Family & Education";
+        } else if (id.equals("116")) {
+            categoryName = "Seasonal & Holiday";
+        } else if (id.equals("117")) {
+            categoryName = "Home & Lifestyle";
+        } else if (id.equals("118")) {
+            categoryName = "Auto, Boat & Air";
+        } else if (id.equals("119")) {
+            categoryName = "Hobbies & Special Interest";
+        } else if (id.equals("120")) {
+            categoryName = "School Activities";
+        } else {
+            categoryName = "Other";
+        }
+        return categoryName;
+    }
 
     @Override
     public Event eventbriteGetEvent(String id) {
@@ -524,9 +512,9 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
         Event event = new Event();
         boolean ifExsists = false;
         listOfEvents = eventsList.getEvents();
-        for(int i=0; i<listOfEvents.size();i++){
+        for (int i = 0; i < listOfEvents.size(); i++) {
             event = listOfEvents.get(i);
-            if(event.getId().equals(id)){
+            if (event.getId().equals(id)) {
                 ifExsists = true;
                 break;
             }
@@ -560,9 +548,9 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
         Event event = new Event();
         boolean ifExsists = false;
         listOfEvents = eventsList.getEvents();
-        for(int i=0; i<listOfEvents.size();i++){
+        for (int i = 0; i < listOfEvents.size(); i++) {
             event = listOfEvents.get(i);
-            if(event.getId().equals(id)){
+            if (event.getId().equals(id)) {
                 ifExsists = true;
                 break;
             }
@@ -621,27 +609,36 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
         fLocation = LocationServices.getFusedLocationProviderClient(this);
 
 
-       /* if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            fLocation.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            // Got last known location. In some rare situations this can be null.
-                            if (location != null) {
-                                // Logic to handle location object
-                                currentLatitude = location.getLatitude();
-                                currentLongitude = location.getLongitude();
-                            }
-                        }
-                    });
-            Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
-            return;
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
         }
-        */
-        createLocationCallback();
-        createLocationRequest();
+        fLocation.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                // Got last known location. In some rare situations this can be null.
+                if (location != null) {
+                    // Logic to handle location object
+                    currentLatitude = location.getLatitude();
+                    currentLongitude = location.getLongitude();
+                    LatLng currentPosition = new LatLng(currentLatitude, currentLongitude);
+                    mMap.addMarker(new MarkerOptions().position(currentPosition)
+                            .title("Current Place"));
+                    float zoomLevel = 16.0f; //This goes up to 21
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoomLevel));
+                    CircleOptions circleOptions = new CircleOptions()
+                            .center(currentPosition)
+                            .radius(1000)
+                            .strokeWidth(2)
+                            .strokeColor(Color.BLUE)
+                            .fillColor(Color.parseColor("#500084d3"));
+                    // Supported formats are: #RRGGBB #AARRGGBB
+                    //   #AA is the alpha, or amount of transparency
 
-        getLastKnownLocation();
-
+                    mMap.addCircle(circleOptions);
+                }
+            }
+        });
+        Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
 
     }
 
@@ -672,20 +669,24 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
             Log.e("Error", "Location services connection failed with code " + connectionResult.getErrorCode());
         }
     }
-    @Override
-    public void onLocationChanged(Location location) {
-        currentLatitude = location.getLatitude();
-        currentLongitude = location.getLongitude();
 
-        Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
-    }
     public void onMapReady(GoogleMap googleMap) {
-        LatLng currentPosition = new LatLng(currentLatitude, currentLongitude);
-        googleMap.addMarker(new MarkerOptions().position(currentPosition)
-                .title("Current Place"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
+        mMap = googleMap;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
+
+        buildGoogleAPIClient();
     }
-   /* private synchronized void buildGoogleAPIClient(){
+    private synchronized void buildGoogleAPIClient(){
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -694,45 +695,30 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
         mGoogleApiClient.connect();
         Toast.makeText(this, "connected", Toast.LENGTH_SHORT).show();
     }
-    */
-   private void getLastKnownLocation() {
-       if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-           return;
-       }
-       fLocation.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-           @Override
-           public void onSuccess(Location location) {
-               // Got last known location. In some rare situations this can be null.
-               if (location != null) {
-                   // Logic to handle location object
-                   if (location.getAccuracy() <= ACCEPTED_ACCURACY) {
-                       currentLatitude = location.getLatitude();
-                       currentLongitude = location.getLongitude();
-                   }
-               }
-           }
-       });
-   }
-    private void createLocationRequest() {
-        mLocationRequest = new LocationRequest();
-    }
-    private void createLocationCallback() {
-        mLocationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                super.onLocationResult(locationResult);
-                Location location = locationResult.getLastLocation();
-                if (location != null) {
-                    if (location.getAccuracy() <= ACCEPTED_ACCURACY) {
-                        currentLatitude = location.getLatitude();
-                        currentLongitude = location.getLongitude();
-                    }
-                }
-            }
-        };
+
+    @Override
+    public void onLocationChanged(Location location) {
+        currentLatitude = location.getLatitude();
+        currentLongitude = location.getLongitude();
+
+        Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
     }
 
-
+    /*public ArrayList<Tuple> getCloserEvents(){
+        ArrayList<Tuple> closerEventsList = new ArrayList<>();
+        Search searchEvents = new Search();
+        searchEvents.setLocationWithin("5km");
+        EventsList eventsList = eventbriteSearch(searchEvents);
+        ArrayList<Event> events = eventsList.getEvents();
+        LatLng eventLocation;
+        for(int i = 0; i <= events.size(); i++) {
+            String venueId = events.get(i).getVenueId();
+            Venue venue = new Venue();
+            String name =
+            //TODO
+        }
+        return closerEventsList;
+    }*/
 }
 
 
