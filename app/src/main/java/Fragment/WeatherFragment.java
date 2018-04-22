@@ -71,7 +71,7 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Goo
                 weather = weatherResponse.getWeather();
                 conditions = weather.getConditions()[0];
                 temperature = weather.getTemperature(2);
-                Log.i(TAG, "conditions: " + conditions + " temperature: " + temperature);
+
             }
         });
 

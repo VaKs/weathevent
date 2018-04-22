@@ -625,8 +625,9 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
                             .fillColor(Color.parseColor("#500084d3"));
                     // Supported formats are: #RRGGBB #AARRGGBB
                     //   #AA is the alpha, or amount of transparency
-
                     mMap.addCircle(circleOptions);
+                    ArrayList<Tuple> eventsLocation = getCloserEvents();
+                    for(int i = 0; i<eventsLocation.size())
                 }
             }
         });
@@ -696,21 +697,25 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
         Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
     }
 
-    /*public ArrayList<Tuple> getCloserEvents(){
+    public ArrayList<Tuple> getCloserEvents(){
         ArrayList<Tuple> closerEventsList = new ArrayList<>();
         Search searchEvents = new Search();
         searchEvents.setLocationWithin("5km");
         EventsList eventsList = eventbriteSearch(searchEvents);
         ArrayList<Event> events = eventsList.getEvents();
         LatLng eventLocation;
-        for(int i = 0; i <= events.size(); i++) {
+        for(int i = 0; i < events.size(); i++) {
             String venueId = events.get(i).getVenueId();
             Venue venue = new Venue();
-            String name =
-            //TODO
+            Double evLatitude = Double.parseDouble(venue.getLatitude());
+            Double evLongitude = Double.parseDouble(venue.getLongitude());
+            eventLocation = new LatLng(evLatitude,evLongitude);
+            String name = venue.getName();
+            Tuple tuple = new Tuple(eventLocation,name);
+            closerEventsList.add(tuple);
         }
         return closerEventsList;
-    }*/
+    }
 }
 
 
