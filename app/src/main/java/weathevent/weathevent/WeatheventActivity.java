@@ -635,7 +635,12 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
                     //   #AA is the alpha, or amount of transparency
                     mMap.addCircle(circleOptions);
                     ArrayList<Tuple> eventsLocation = getCloserEvents();
-                    for(int i = 0; i<eventsLocation.size())
+                    for(int i = 0; i<eventsLocation.size();i++){
+                        LatLng eventPosition = (LatLng) eventsLocation.get(i).getLatLang();
+                        String eventName = (String) eventsLocation.get(i).getEventName();
+                        mMap.addMarker(new MarkerOptions().position(eventPosition)
+                                            .title(eventName));
+                    }
                 }
             }
         });
@@ -715,6 +720,7 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
         for(int i = 0; i < events.size(); i++) {
             String venueId = events.get(i).getVenueId();
             Venue venue = new Venue();
+            venue = eventbritegetVenue(venueId);
             Double evLatitude = Double.parseDouble(venue.getLatitude());
             Double evLongitude = Double.parseDouble(venue.getLongitude());
             eventLocation = new LatLng(evLatitude,evLongitude);

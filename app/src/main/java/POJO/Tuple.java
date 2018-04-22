@@ -13,5 +13,5 @@ public class Tuple<LatLang, String> {
         this.name = name;
     }
     public LatLang getLatLang() {return latLang;}
-    public String getName() {return  name;}
+    public String getEventName() {return  name;}
 }
