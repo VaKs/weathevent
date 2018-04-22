@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.provider.Settings;
@@ -45,6 +46,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -613,7 +615,17 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
                     mMap.addMarker(new MarkerOptions().position(currentPosition)
                             .title("Current Place"));
                     float zoomLevel = 16.0f; //This goes up to 21
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoomLevel));;
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoomLevel));
+                    CircleOptions circleOptions = new CircleOptions()
+                            .center(currentPosition)
+                            .radius(1000)
+                            .strokeWidth(2)
+                            .strokeColor(Color.BLUE)
+                            .fillColor(Color.parseColor("#500084d3"));
+                    // Supported formats are: #RRGGBB #AARRGGBB
+                    //   #AA is the alpha, or amount of transparency
+
+                    mMap.addCircle(circleOptions);
                 }
             }
         });
