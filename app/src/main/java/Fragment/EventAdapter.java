@@ -1,6 +1,4 @@
 package Fragment;
-
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,7 +15,6 @@ import weathevent.weathevent.R;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
-
     //this context we will use to inflate the layout
     private Context mCtx;
 
@@ -33,8 +30,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //inflating and returning our view holder
+
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.fragment_explore_list, null);
+        View view = inflater.inflate(R.layout.fragment_explore_listofevents, null);
         return new EventViewHolder(view);
     }
 
@@ -50,12 +48,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         String eventDescription = description.getText();
         holder.textViewTitle.setText(eventName);
         holder.textViewShortDesc.setText(eventDescription);
-        if(ticket.getFree() == true){
+        /*if(ticket.getFree() == true){
             holder.textViewPrice.setText(String.valueOf("Free"));
         }
         if(ticket.getDonation() == true){
             holder.textViewPrice.setText(String.valueOf("Charity"));
-        }
+        }*/
 
         //holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(event.getImage()));
 
@@ -67,14 +65,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
 
-    class EventViewHolder extends RecyclerView.ViewHolder {
+    public class EventViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textViewTitle, textViewShortDesc, textViewRating, textViewPrice;
+        TextView textViewTitle;
+        TextView textViewShortDesc;
+        TextView textViewRating;
+        TextView textViewPrice;
         ImageView imageView;
 
         public EventViewHolder(View itemView) {
             super(itemView);
-
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewShortDesc = itemView.findViewById(R.id.textViewShortDesc);
             textViewRating = itemView.findViewById(R.id.textViewRating);

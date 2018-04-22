@@ -23,6 +23,7 @@ public class ExploreFragmentList extends Fragment implements FragmentsInterface 
     //a list to store all the events
     //the recyclerview
     RecyclerView recyclerView;
+    EventAdapter adapter;
     EventsList eventList;
     Context context;
     String categories;
@@ -33,6 +34,13 @@ public class ExploreFragmentList extends Fragment implements FragmentsInterface 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         context = getActivity().getApplicationContext();
+        return inflater.inflate(R.layout.fragment_explore_list, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        //getting the recyclerview from xml
+
         categories = ((WeatheventActivity) getActivity()).getCategories();
         location = ((WeatheventActivity) getActivity()).getLocation();
         Search searchEvents = new Search();
@@ -40,20 +48,13 @@ public class ExploreFragmentList extends Fragment implements FragmentsInterface 
         searchEvents.setSortBy("best");
         searchEvents.setCategories(categories);
         eventList = ((WeatheventActivity) getActivity()).eventbriteSearch(searchEvents);
-        return inflater.inflate(R.layout.fragment_explore_list, container, false);
-    }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        //getting the recyclerview from xml
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        //creating recyclerview adapter
-        EventAdapter adapter = new EventAdapter(context, eventList);
-
-        //setting adapter to recyclerview
+        adapter = new EventAdapter(context, eventList);
         recyclerView.setAdapter(adapter);
+
     }
 }
