@@ -78,4 +78,10 @@
     <string name="text_location_permission">Please give us location permissions</string>
     <string name="ok">OK</string>
 
+    <!--Weather -->
+    <string name="current_conditions_text">Current Condition: </string>
+    <string name="condition_icon">condition</string>
+    <string name="temperature_text">Current Temperature</string>
+    <string name="temperature_degree">temperature</string>
+
 </resources>

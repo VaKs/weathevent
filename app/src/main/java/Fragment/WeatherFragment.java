@@ -1,7 +1,6 @@
 package Fragment;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -9,16 +8,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.google.android.gms.awareness.Awareness;
 import com.google.android.gms.awareness.SnapshotClient;
 import com.google.android.gms.awareness.snapshot.WeatherResponse;
-import com.google.android.gms.awareness.snapshot.WeatherResult;
 import com.google.android.gms.awareness.state.Weather;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -41,6 +38,8 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Goo
     Weather weather;
     float temperature;
     int conditions;
+    private TextView conditions_icon;
+    private TextView temperature_degree;
 
     @Nullable
     @Override
@@ -51,17 +50,11 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Goo
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
+        conditions_icon = view.findViewById(R.id.conditions_icon);
+        temperature_degree = view.findViewById(R.id.temperature_degree);
         client = Awareness.getSnapshotClient(context);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
         }
         client.getWeather().addOnSuccessListener(new OnSuccessListener<WeatherResponse>(){
 
@@ -71,6 +64,10 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Goo
                 weather = weatherResponse.getWeather();
                 conditions = weather.getConditions()[0];
                 temperature = weather.getTemperature(2);
+                temperature_degree.setText(temperature + "º");
+                setConditionIcon(conditions);
+
+
 
             }
         });
@@ -79,6 +76,41 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Goo
     }
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+    public void setConditionIcon(int conditions){
+        switch (conditions){
+            case 1 :
+                conditions_icon.setText("CLEAR");
+                break;
+            case 2 :
+                conditions_icon.setText("CLOUDY");
+                break;
+            case 3 :
+                conditions_icon.setText("FOGGY");
+                break;
+            case 4 :
+                conditions_icon.setText("HAZY");
+                break;
+            case 5 :
+                conditions_icon.setText("ICY");
+                break;
+            case 6 :
+                conditions_icon.setText("RAINY");
+                break;
+            case 7 :
+                conditions_icon.setText("SNOWY");
+                break;
+            case 8 :
+                conditions_icon.setText("STORMY");
+                break;
+            case 9 :
+                conditions_icon.setText("WINDY");
+                break;
+            case 0 :
+                conditions_icon.setText("UNKNOWN");
+                break;
+        }
 
     }
 
