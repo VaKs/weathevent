@@ -2,8 +2,11 @@ package Fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -99,11 +102,10 @@ public class ExploreFragment extends Fragment implements FragmentsInterface, Vie
 
         if( v == buttonSearch){
             WeatheventActivity weatheventActivity = new WeatheventActivity();
-            Search searchEvents = new Search();
-            searchEvents.setLocationAddress(locationText.getText().toString());
-            searchEvents.setSortBy("best");
-            searchEvents.setCategories(getCategories(mainGrid));
-            weatheventActivity.eventbriteSearch(searchEvents);
+            categories = getCategories(mainGrid);
+            weatheventActivity.setCategories(categories);
+            weatheventActivity.setLocation(locationText.getText().toString());
+            ((WeatheventActivity) getActivity()).showExploreFragmentList();
         }
     }
 

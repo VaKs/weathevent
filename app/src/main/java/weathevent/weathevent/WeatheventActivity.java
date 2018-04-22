@@ -80,6 +80,8 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     private ConstraintLayout weatheventMainLayout;
     private EventsList eventsList = new EventsList();
     private Venue venue = new Venue();
+    private String categories;
+    private String location;
 
 
     // Fragments usability
@@ -429,6 +431,23 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
         }
     }
 
+    public void showExploreFragmentList() {
+        if (activeFragmentTag != ExploreFragmentList.TAG) {
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+            ExploreFragmentList exploreFragment = (ExploreFragmentList) getSupportFragmentManager().findFragmentByTag(ExploreFragmentList.TAG);
+            if (exploreFragment == null) {
+                exploreFragment = new ExploreFragmentList();
+            }
+            fragmentTransaction.replace(R.id.weathevent_cl_main, exploreFragment, ExploreFragmentList.TAG);
+            fragmentTransaction.addToBackStack(ExploreFragmentList.TAG);
+
+            fragmentTransaction.commitAllowingStateLoss();
+            activeFragmentTag = ExploreFragmentList.TAG;
+            getFragmentManager().executePendingTransactions();
+        }
+    }
+
 
     /*
         This function is called when user want logout.
@@ -731,6 +750,22 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
             closerEventsList.add(tuple);
         }
         return closerEventsList;
+    }
+
+    public String getCategories() {
+        return categories;
+    }
+
+    public void setCategories(String categories) {
+        this.categories = categories;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
 

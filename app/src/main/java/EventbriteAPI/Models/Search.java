@@ -133,12 +133,8 @@ public class Search {
     }
 
     public void setCategories(String categories) {
-        if(categories.contains(categories)) {
-            this.categories = categories;
-            hasParameters = true;
-        }else {
-            this.categories = "null";
-        }
+        this.categories = categories;
+        hasParameters = true;
     }
 
     public String getSortBy() {
