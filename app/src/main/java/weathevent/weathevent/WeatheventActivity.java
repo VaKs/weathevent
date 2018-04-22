@@ -64,6 +64,7 @@ import EventbriteAPI.Models.Start;
 import EventbriteAPI.Models.Venue;
 import EventbriteAPI.service.EventbriteService;
 import Fragment.*;
+import POJO.Tuple;
 
 
 public class WeatheventActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
@@ -694,6 +695,23 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
 
         Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
     }
+
+    /*public ArrayList<Tuple> getCloserEvents(){
+        ArrayList<Tuple> closerEventsList = new ArrayList<>();
+        Search searchEvents = new Search();
+        searchEvents.setLocationWithin("5km");
+        EventsList eventsList = eventbriteSearch(searchEvents);
+        ArrayList<Event> events = eventsList.getEvents();
+        LatLng eventLocation;
+        for(int i = 0; i <= events.size(); i++) {
+            String venueId = events.get(i).getVenueId();
+            Venue venue = new Venue();
+            String name =
+            //TODO
+        }
+        return closerEventsList;
+    }
+    */
 
 }
 
