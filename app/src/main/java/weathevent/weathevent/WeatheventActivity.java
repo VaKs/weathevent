@@ -65,7 +65,9 @@ import EventbriteAPI.Models.Venue;
 import EventbriteAPI.service.EventbriteService;
 import EventbriteAPI.service.EventbriteServiceOtherParameters;
 import Fragment.*;
+import POJO.Preference;
 import POJO.Tuple;
+import POJO.User;
 
 
 public class WeatheventActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
@@ -81,8 +83,7 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     private ConstraintLayout weatheventMainLayout;
     private EventsList eventsList = new EventsList();
     private Venue venue = new Venue();
-    public String categories;
-    public String location;
+
 
 
     // Fragments usability
@@ -110,10 +111,13 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     private LocationRequest mLocationRequest;
     private double currentLatitude;
     private double currentLongitude;
-    private LocationCallback mLocationCallback;
     FusedLocationProviderClient fLocation;
-    String provider;
     GoogleMap mMap;
+    public String categories;
+    public String location;
+    public String km;
+    public Integer meters;
+    User user;
 
     //https://stackoverflow.com/questions/19013225/best-way-to-switch-between-two-fragments
 
@@ -646,8 +650,14 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         fLocation = LocationServices.getFusedLocationProviderClient(this);
+        Preference preference = user.getPreference();
+        if(preference.getDistance() != null){
+            meters = preference.getDistance();
 
-
+        }else{
+            meters = 5000;
+            km = "5km";
+        }
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
         }
@@ -666,7 +676,7 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoomLevel));
                     CircleOptions circleOptions = new CircleOptions()
                             .center(currentPosition)
-                            .radius(50000)
+                            .radius(meters)
                             .strokeWidth(2)
                             .strokeColor(Color.BLUE)
                             .fillColor(Color.parseColor("#500084d3"));
@@ -754,7 +764,7 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
         Search searchEvents = new Search();
         searchEvents.setLocationLatitude(currentLatitude.toString());
         searchEvents.setLocationLongitude(currentLongitude.toString());
-        searchEvents.setLocationWithin("50km");
+        searchEvents.setLocationWithin(km);
         EventsList eventsList = eventbriteSearch(searchEvents);
         ArrayList<Event> events = eventsList.getEvents();
         LatLng eventLocation;
@@ -787,6 +797,14 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     public void setLocation(String location) {
         this.location = location;
     }
+
+    public String metersToKm(Integer meters){
+        meters = meters/100;
+        km = meters + "km";
+        return km;
+    }
 }
+
+
 
 
