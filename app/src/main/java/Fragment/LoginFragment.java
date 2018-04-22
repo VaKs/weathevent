@@ -2,6 +2,7 @@ package Fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,10 +12,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import Database.StorageManager;
+import Database.StorageManagerImplFirebaseRoom;
 import Database.Tasks.AsyncUserLogInTask;
 import weathevent.weathevent.LogInActivity;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Rafal on 2018-03-25.
@@ -28,7 +34,6 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
     private TextView link_signup;
     private EditText inputedEmail;
     private EditText inputedPassword;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,7 +70,7 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
 
     private void validateLogin() {
 
-        // to Enable the Login delete this 2 lines and uncomment the 3 lines of below
+        //TODO: to Enable the Login delete this lines and uncomment the lines of below
         Intent intent = new Intent(context, WeatheventActivity.class);
         startActivity(intent);
 /*

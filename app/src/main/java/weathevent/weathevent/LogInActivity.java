@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 
 import Fragment.*;
-import POJO.User;
 import Database.Tasks.AsyncFirebasePost;
 import Database.Tasks.AsyncResponse;
 
@@ -31,11 +30,6 @@ public class LogInActivity extends AppCompatActivity implements AsyncResponse, A
         //initializeFragments
         initializeLogoFragment();
         initializeFragmentByTag(LoginFragment.TAG);
-
-
-        //Intent intent = new Intent(LogInActivity.this, WeatheventActivity.class);
-        //startActivity(intent);
-        //finish();
     }
 
     protected void initializeLogoFragment() {
@@ -86,15 +80,11 @@ public class LogInActivity extends AppCompatActivity implements AsyncResponse, A
 
     }
     @Override
-    public void processFinish(User user, String password) {
-
-        if(user!= null && user.checkPassword(password)) {
+    public void processFinish(boolean loginPassed) {
+        if(loginPassed){
             Intent intent = new Intent(this, WeatheventActivity.class);
             startActivity(intent);
-        } else {
-            //TODO: Error Message
         }
-
     }
 
     @Override
