@@ -12,12 +12,12 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -30,7 +30,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -63,6 +62,7 @@ import EventbriteAPI.Models.Search;
 import EventbriteAPI.Models.Start;
 import EventbriteAPI.Models.Venue;
 import EventbriteAPI.service.EventbriteService;
+import EventbriteAPI.service.EventbriteServiceOtherParameters;
 import Fragment.*;
 import POJO.Tuple;
 
@@ -79,6 +79,7 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     private ActionBarDrawerToggle mDrawerToggle;
     private ConstraintLayout weatheventMainLayout;
     private EventsList eventsList = new EventsList();
+    private Venue venue = new Venue();
 
 
     // Fragments usability
@@ -519,6 +520,13 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
             }
         }
         return event;
+    }
+
+    public Venue eventbritegetVenue(String id) {
+        EventbriteServiceOtherParameters asyncTask = new EventbriteServiceOtherParameters(this);
+        asyncTask.execute(id);
+        venue = asyncTask.myMethod();
+        return venue;
     }
 
     @Override
