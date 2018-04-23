@@ -52,6 +52,7 @@ import EventbriteAPI.Models.EventsList;
 import EventbriteAPI.Models.Search;
 import EventbriteAPI.Models.Start;
 import EventbriteAPI.Models.Venue;
+import EventbriteAPI.service.EventbriteGetByID;
 import EventbriteAPI.service.EventbriteService;
 import EventbriteAPI.service.EventbriteServiceOtherParameters;
 import Fragment.*;
@@ -111,6 +112,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     public String km;
     public Integer meters;
     User user;
+    Event event;
     MyWeather myWeather;
     SnapshotClient client;
     Weather weather;
@@ -538,17 +540,15 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
 
     @Override
     public Event eventbriteGetEvent(String id) {
-        List<Event> listOfEvents = new ArrayList<>();
-        Event event = new Event();
-        boolean ifExsists = false;
-        listOfEvents = eventsList.getEvents();
-        for (int i = 0; i < listOfEvents.size(); i++) {
-            event = listOfEvents.get(i);
-            if (event.getId().equals(id)) {
-                ifExsists = true;
-                break;
-            }
+        EventbriteGetByID asyncTask = new EventbriteGetByID(this);
+        try {
+            asyncTask.execute(id).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
+        event = asyncTask.myMethod();
         return event;
     }
 

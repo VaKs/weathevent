@@ -12,12 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
+
 import EventbriteAPI.Models.EventsList;
 import EventbriteAPI.Models.Search;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
 
-public class ExploreFragmentList extends Fragment implements FragmentsInterface {
+public class ExploreFragmentList extends Fragment implements FragmentsInterface, View.OnClickListener {
 
     public static final String TAG = "ExploreFragmentList";
     //a list to store all the events
@@ -28,6 +30,8 @@ public class ExploreFragmentList extends Fragment implements FragmentsInterface 
     Context context;
     String categories;
     String location;
+    Button button_read_more;
+    int position;
 
 
     @Nullable
@@ -44,7 +48,7 @@ public class ExploreFragmentList extends Fragment implements FragmentsInterface 
         categories = ((WeatheventActivity) getActivity()).getCategories();
         location = ((WeatheventActivity) getActivity()).getLocation();
         Search searchEvents = new Search();
-        //searchEvents.setLocationAddress(location);
+        searchEvents.setLocationAddress(location);
         searchEvents.setSortBy("best");
         searchEvents.setCategories(categories);
         eventList = ((WeatheventActivity) getActivity()).eventbriteSearch(searchEvents);
@@ -56,5 +60,11 @@ public class ExploreFragmentList extends Fragment implements FragmentsInterface 
         adapter = new EventAdapter(context, eventList);
         recyclerView.setAdapter(adapter);
 
+        recyclerView.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        ((WeatheventActivity) getActivity()).showEventPreviewFragment(eventList.getEvent(recyclerView.getId()));
     }
 }

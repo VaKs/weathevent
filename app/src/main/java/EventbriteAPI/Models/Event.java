@@ -29,7 +29,8 @@ public class Event implements JSONPopulator{
     public String VenueId;
     public String CategoryId;
     public String ResourceUri;
-    //public Logo Logo;
+    public boolean isFree;
+    public Logo Logo;
     //public Venue Venue;
     public String Venue;
     public Ticket Ticket;
@@ -55,11 +56,12 @@ public class Event implements JSONPopulator{
         CategoryId = data.optString("category_id");
         //SubcategoryId;
         ResourceUri = data.optString("resource_uri");
-        //Logo = new Logo();
-        //Logo.populate(data.optJSONObject("logo"));
+        Logo = new Logo();
+        Logo.populate(data.optJSONObject("logo"));
         //Venue = new Venue();
         //Venue.populate(data.optJSONObject("venue"));
         Venue = data.optString("venue_id");
+        isFree = data.optBoolean("is_free");
     }
 
     public Name getName() {
@@ -182,11 +184,19 @@ public class Event implements JSONPopulator{
         Id = id;
     }
 
-    public Ticket getTicket() {
-        return Ticket;
+    public boolean isFree() {
+        return isFree;
     }
 
-    public void setTicket(Ticket ticket) {
-        Ticket = ticket;
+    public void setFree(boolean free) {
+        isFree = free;
+    }
+
+    public EventbriteAPI.Models.Logo getLogo() {
+        return Logo;
+    }
+
+    public void setLogo(EventbriteAPI.Models.Logo logo) {
+        Logo = logo;
     }
 }

@@ -35,7 +35,7 @@ public class ExploreFragment extends Fragment implements FragmentsInterface, Vie
     public static final String TAG = "ExploreFragment";
     android.support.v7.widget.GridLayout mainGrid;
     private Context context;
-    Button buttonDate, buttonPeriod, buttonDistance;
+    //Button buttonDate, buttonPeriod, buttonDistance;
     Button buttonSearch;
     private int dayChoosed, monthChoosed, yearChoosed;
     EditText locationText;
@@ -53,14 +53,11 @@ public class ExploreFragment extends Fragment implements FragmentsInterface, Vie
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mainGrid = (android.support.v7.widget.GridLayout) view.findViewById(R.id.grid_fragment_explore);
         setColorEvent(mainGrid);
-        buttonDate = view.findViewById(R.id.button_date);
-        buttonPeriod = view.findViewById(R.id.button_partOfTime);
-        buttonDistance = view.findViewById(R.id.button_distance);
         buttonSearch = view.findViewById(R.id.button_searchEvent);
         locationText = view.findViewById(R.id.select_city);
-        buttonDate.setOnClickListener(this);
-        buttonPeriod.setOnClickListener(this);
-        buttonDistance.setOnClickListener(this);
+          //buttonDate.setOnClickListener(this);
+        //buttonPeriod.setOnClickListener(this);
+        //buttonDistance.setOnClickListener(this);
         buttonSearch.setOnClickListener(this);
     }
 
@@ -85,7 +82,7 @@ public class ExploreFragment extends Fragment implements FragmentsInterface, Vie
 
     @Override
     public void onClick(View v) {
-        if(v == buttonDate){
+        /*if(v == buttonDate){
             final Calendar c = Calendar.getInstance();
             dayChoosed = c.get(Calendar.DAY_OF_MONTH);
             monthChoosed = c.get(Calendar.MONTH);
@@ -98,15 +95,12 @@ public class ExploreFragment extends Fragment implements FragmentsInterface, Vie
                 }
             },dayChoosed,monthChoosed,yearChoosed);
             datePickerDialog.show();
-        }
+        }*/
 
         if( v == buttonSearch){
-            WeatheventActivity weatheventActivity = new WeatheventActivity();
             categories = getCategories(mainGrid);
             ((WeatheventActivity) getActivity()).setCategories(categories);
-            if(!(locationText.getText().toString().equals(""))) {
-                weatheventActivity.setLocation(locationText.getText().toString());
-            }
+            ((WeatheventActivity) getActivity()).setLocation(locationText.getText().toString());
             ((WeatheventActivity) getActivity()).showExploreFragmentList();
         }
     }
