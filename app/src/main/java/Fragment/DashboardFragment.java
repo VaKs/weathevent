@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +23,12 @@ public class DashboardFragment extends Fragment implements FragmentsInterface {
     public static final String TAG = "DashboardFragment";
     FragmentActivity listener;
 
-    private Button btn_explore;
-    private Button btn_recommended;
-    private Button btn_map;
-    private Button btn_weather;
-    private Button btn_favourites;
-    private Button btn_friends;
+    private CardView btn_explore;
+    private CardView btn_recommended;
+    private CardView btn_map;
+    private CardView btn_weather;
+    private CardView btn_favourites;
+    private CardView btn_friends;
 
     @Override
     public void onAttach(Context context) {
