@@ -469,7 +469,7 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
+        activeFragmentTag = DashboardFragment.TAG;
         //setNavigationDrawer icon status
         //set activeFragment
 
