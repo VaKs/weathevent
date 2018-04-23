@@ -67,9 +67,6 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Asy
         iv_condition = view.findViewById(R.id.iv_weather_icon);
         tv_condition = view.findViewById(R.id.tv_weather_condition);
 
-
-        conditions_icon = view.findViewById(R.id.conditions_icon);
-        temperature_degree = view.findViewById(R.id.temperature_degree);
         /*
         client = Awareness.getSnapshotClient(context);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
