@@ -84,6 +84,16 @@
     <string name="condition_icon">condition</string>
     <string name="temperature_text">Current Temperature</string>
     <string name="temperature_degree">temperature</string>
+    <string name="clear_recommendation">Today is beautiful weather! Check our sport events for today</string>
+    <string name="cloudy_recommendation">A little bit cloudy today. How about cultural events? </string>
+    <string name="foggy_recommendation">Uff... Foggy weather. Be careful on the streets! It is the best time for spiritual events!</string>
+    <string name="hazy_recommendation">Hazy today. The best time for Film, Media &amp; Entertainment</string>
+    <string name="icy_recommendation">Icy today. How about Politics events to warm the atmosphere?</string>
+    <string name="rainy_recommendation">Rainy now! Best time to eat something good!</string>
+    <string name="snowy_recommendation">Let in snow! Let it snow! Let it snow!</string>
+    <string name="stormy_recommendation">Stormy today. Good time for Family &amp; Education events</string>
+    <string name="windy_recommendation">It is windy now. Good time for interesting meeting with...</string>
+    <string name="unknown_recommendation">Time for your hobby! </string>
 
     <!--  Event preview   -->
     <string name="label_title">Title</string>
