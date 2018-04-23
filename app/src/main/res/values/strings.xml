@@ -106,4 +106,10 @@
     <string name="weather_windy">Windy</string>
     <string name="weather_unknown">Unknown</string>
 
+    <!-- dialog add friends -->
+    <string name="label_cancel">Cancel</string>
+    <string name="label_accept">Accept</string>
+    <string name="label_email">email@domain</string>
+    <string name="label_addFriend">To add friend put his email below.</string>
+
 </resources>
