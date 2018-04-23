@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import EventbriteAPI.Models.EventsList;
@@ -20,7 +21,7 @@ import weathevent.weathevent.WeatheventActivity;
  * Created by Rafal on 2018-03-25.
  */
 
-public class RecommendFragment extends Fragment implements FragmentsInterface {
+public class RecommendFragment extends Fragment implements FragmentsInterface,View.OnClickListener {
 
     public static final String TAG = "RecommendFragment";
     RecyclerView recyclerView;
@@ -31,6 +32,7 @@ public class RecommendFragment extends Fragment implements FragmentsInterface {
     String location;
     TextView weatherInfo;
     String textRecommended;
+    Button seeMore;
 
     @Nullable
     @Override
@@ -40,12 +42,13 @@ public class RecommendFragment extends Fragment implements FragmentsInterface {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        //getting the recyclerview from xml
-
-        //categories = ((WeatheventActivity) getActivity()).getCategories();
+        seeMore=view.findViewById(R.id.button_more_events);
+        seeMore.setOnClickListener(this);
+        //Location should be taken from userPreferences
         location = ((WeatheventActivity) getActivity()).getLocation();
         Search searchEvents = new Search();
-        if(){
+        //to if we have to add Weather object get.condition();
+        /*if(){
             //weatherInfo.setBackground();
             textRecommended=getString(R.string.clear_recommendation);
             weatherInfo.setText(textRecommended);
@@ -89,17 +92,28 @@ public class RecommendFragment extends Fragment implements FragmentsInterface {
             textRecommended=getString(R.string.unknown_recommendation);
             weatherInfo.setText(textRecommended);
             categories = "199";
-        }
+        }*/
         searchEvents.setLocationAddress(location);
         searchEvents.setSortBy("best");
         searchEvents.setCategories(categories);
         eventList = ((WeatheventActivity) getActivity()).eventbriteSearch(searchEvents);
+        EventsList eventsRecommended = new EventsList();
+        for(int i=0; i<10; i++){
+            eventsRecommended.add(eventList.getEvent(i));
+        }
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        adapter = new EventAdapter(context, eventList);
+        adapter = new EventAdapter(context, eventsRecommended);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if( v == seeMore){
+            ((WeatheventActivity) getActivity()).showExploreFragment();
+        }
     }
 }

@@ -69,6 +69,7 @@
     <string name="button_date">Date</string>
     <string name="button_partOfTime">When?</string>
     <string name="button_read_more">Read more</string>
+    <string name="button_see_more">See more events</string>
 
 
     <string name="hint_select_city">Select city</string>
