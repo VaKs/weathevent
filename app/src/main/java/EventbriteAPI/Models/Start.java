@@ -10,13 +10,13 @@ import java.util.Date;
 
 public class Start implements JSONPopulator{
     public String Timezone;
-    public Date Local;
-    public Date Utc;
+    public String Local;
+    public String Utc;
 
     @Override
     public void populate(JSONObject data) {
         Timezone = data.optString("timezone");
-        //Local
+        Local = data.optString("local");
         //utc
     }
 
@@ -28,19 +28,19 @@ public class Start implements JSONPopulator{
         Timezone = timezone;
     }
 
-    public Date getLocal() {
+    public String getLocal() {
         return Local;
     }
 
-    public void setLocal(Date local) {
+    public void setLocal(String local) {
         Local = local;
     }
 
-    public Date getUtc() {
+    public String getUtc() {
         return Utc;
     }
 
-    public void setUtc(Date utc) {
+    public void setUtc(String utc) {
         Utc = utc;
     }
 }

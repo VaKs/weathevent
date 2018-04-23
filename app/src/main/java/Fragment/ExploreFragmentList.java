@@ -44,7 +44,7 @@ public class ExploreFragmentList extends Fragment implements FragmentsInterface 
         categories = ((WeatheventActivity) getActivity()).getCategories();
         location = ((WeatheventActivity) getActivity()).getLocation();
         Search searchEvents = new Search();
-        //searchEvents.setLocationAddress(location);
+        searchEvents.setLocationAddress(location);
         searchEvents.setSortBy("best");
         searchEvents.setCategories(categories);
         eventList = ((WeatheventActivity) getActivity()).eventbriteSearch(searchEvents);
@@ -55,6 +55,8 @@ public class ExploreFragmentList extends Fragment implements FragmentsInterface 
 
         adapter = new EventAdapter(context, eventList);
         recyclerView.setAdapter(adapter);
+
+
 
     }
 }

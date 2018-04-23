@@ -68,6 +68,7 @@
     <string name="button_distance">Distance</string>
     <string name="button_date">Date</string>
     <string name="button_partOfTime">When?</string>
+    <string name="button_read_more">Read more</string>
 
 
     <string name="hint_select_city">Select city</string>

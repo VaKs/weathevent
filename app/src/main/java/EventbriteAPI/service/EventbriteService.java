@@ -47,7 +47,7 @@ public class EventbriteService extends AsyncTask<Search, Void, EventsList> {
             builder.appendPath("search");
             if (!(params[0].sortBy.equals("null")))
                 builder.appendQueryParameter("sort_by", params[0].sortBy);
-            if (!(params[0].locationAddress.equals("null")))
+            if (!(params[0].locationAddress==null))
                 builder.appendQueryParameter("location.address", params[0].locationAddress);
             if (!(params[0].locationWithin.equals("null")))
                 builder.appendQueryParameter("location.within", params[0].locationWithin);

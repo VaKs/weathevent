@@ -1,16 +1,30 @@
 package Fragment;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.ExecutionException;
+
 import EventbriteAPI.Models.Description;
+import EventbriteAPI.Models.End;
 import EventbriteAPI.Models.Event;
 import EventbriteAPI.Models.EventsList;
+import EventbriteAPI.Models.Logo;
 import EventbriteAPI.Models.Name;
+import EventbriteAPI.Models.Start;
 import EventbriteAPI.Models.Ticket;
+import EventbriteAPI.service.EventBriteDownloadImage;
 import weathevent.weathevent.R;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
@@ -42,20 +56,46 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         Event event = eventList.getEvent(position);
         Name name = event.getName();
         Description description = event.getDescription();
-        Ticket ticket = event.getTicket();
+        Start start = event.getStart();
+        End end = event.getEnd();
+        Boolean isFree = event.isFree();
+        Logo eventLogo = event.getLogo();
         //binding the data with the viewholder views
+        String eventLogoURL = eventLogo.getUrl();
         String eventName = name.getText();
         String eventDescription = description.getText();
+        String eventStart = start.getLocal();
+        String eventEnd = end.getLocal();
         holder.textViewTitle.setText(eventName);
         holder.textViewShortDesc.setText(eventDescription);
-        /*if(ticket.getFree() == true){
-            holder.textViewPrice.setText(String.valueOf("Free"));
+        Date dateStart = new Date();
+        Date dateEnd = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        try {
+            dateStart = format.parse(eventStart);
+            dateEnd = format.parse(eventEnd);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        if(ticket.getDonation() == true){
-            holder.textViewPrice.setText(String.valueOf("Charity"));
-        }*/
 
-        //holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(event.getImage()));
+        String fullData = dateStart.getDay() + "." + dateStart.getMonth() + " " + dateStart.getHours() + ":" + dateStart.getMinutes();
+
+        if (isFree == true) {
+            holder.textViewPrice.setText(String.valueOf("Free"));
+        } else {
+            holder.textViewPrice.setText(String.valueOf("Consult the price"));
+        }
+        holder.textViewRating.setText(dateStart.toLocaleString());
+
+        try {
+            new EventBriteDownloadImage((ImageView) holder.imageView)
+                    .execute(eventLogoURL).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        holder.button_read_more.setTag(event.getUrl());
 
     }
 
@@ -65,13 +105,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
 
-    public class EventViewHolder extends RecyclerView.ViewHolder {
+    public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView textViewTitle;
         TextView textViewShortDesc;
         TextView textViewRating;
         TextView textViewPrice;
         ImageView imageView;
+        Button button_read_more;
 
         public EventViewHolder(View itemView) {
             super(itemView);
@@ -80,7 +121,17 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             textViewRating = itemView.findViewById(R.id.textViewRating);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             imageView = itemView.findViewById(R.id.imageView);
+            button_read_more = itemView.findViewById(R.id.button_read_more);
+            button_read_more.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == button_read_more.getId()) {
+                Uri uri = Uri.parse(button_read_more.getTag().toString()); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                mCtx.startActivity(intent);
+            }
         }
     }
 }
-
