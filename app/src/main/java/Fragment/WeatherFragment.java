@@ -28,7 +28,7 @@ import weathevent.weathevent.WeatheventActivity;
  * Created by Rafal on 2018-03-25.
  */
 
-public class WeatherFragment extends Fragment implements FragmentsInterface, AsyncResponseWeather {
+public class WeatherFragment extends Fragment implements FragmentsInterface {
 
     public static final String TAG = "WeatherFragment";
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -38,6 +38,7 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Asy
     float temperature;
     int conditions;
     int humidity;
+    String conditionstext;
     private TextView tv_city;
     private TextView tv_temperature;
     private TextView tv_humidity;
@@ -91,17 +92,17 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Asy
                 setConditionIcon(conditions);
             }
         });*/
-        WeatherGoogle google = new WeatherGoogle(activity,context, this);
-        google.execute();
-        System.out.println("PARA COÑO");
-    }
-
-    @Override
-    public void processFinish(MyWeather myWeather) {
-        this.myWeather = myWeather;
+        myWeather = activity.getMyWeather();
+        /*
         conditions_icon.setText(myWeather.getConditions());
         temperature_degree.setText(myWeather.getTemperature() + "º");
+        */
+        conditionstext = myWeather.getConditions();
+        temperature = myWeather.getTemperature();
+        System.out.println("condition: " + conditions_icon + " temperature: " + temperature);
     }
+
+
 
     /*
     @Override

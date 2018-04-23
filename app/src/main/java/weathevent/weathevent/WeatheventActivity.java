@@ -22,6 +22,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.awareness.Awareness;
+import com.google.android.gms.awareness.SnapshotClient;
+import com.google.android.gms.awareness.snapshot.WeatherResponse;
+import com.google.android.gms.awareness.state.Weather;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -51,14 +55,18 @@ import EventbriteAPI.Models.Venue;
 import EventbriteAPI.service.EventbriteService;
 import EventbriteAPI.service.EventbriteServiceOtherParameters;
 import Fragment.*;
+import Google.AsyncResponseWeather;
+import Google.WeatherGoogle;
+import POJO.MyWeather;
 import POJO.Preference;
 import POJO.Tuple;
 import POJO.User;
+import Google.GoogleWheather;
 
 
 public class WeatheventActivity extends AppCompatActivity implements EventbriteI, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener  {
+        LocationListener, AsyncResponseWeather {
 
 
     // Toolbar and NavigationView
@@ -69,7 +77,6 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     private ConstraintLayout weatheventMainLayout;
     private EventsList eventsList = new EventsList();
     private Venue venue = new Venue();
-
 
 
     // Fragments usability
@@ -104,6 +111,11 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     public String km;
     public Integer meters;
     User user;
+    MyWeather myWeather;
+    SnapshotClient client;
+    Weather weather;
+    GoogleWheather googleWheather;
+
 
     //https://stackoverflow.com/questions/19013225/best-way-to-switch-between-two-fragments
 
@@ -638,7 +650,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         fLocation = LocationServices.getFusedLocationProviderClient(this);
-        if(user != null) {
+        if (user != null) {
             Preference preference = user.getPreference();
             if (preference.getDistance() != null) {
                 meters = preference.getDistance();
@@ -648,7 +660,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
                 meters = 1000;
                 km = "1km";
             }
-        }else{
+        } else {
             meters = 1000;
             km = "1km";
         }
@@ -673,19 +685,19 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoomLevel));
                     CircleOptions circleOptions = new CircleOptions()
                             .center(currentPosition)
-                            .radius(meters/2)
+                            .radius(meters / 2)
                             .strokeWidth(2)
                             .strokeColor(Color.BLUE)
                             .fillColor(Color.parseColor("#500084d3"));
                     // Supported formats are: #RRGGBB #AARRGGBB
                     //   #AA is the alpha, or amount of transparency
                     mMap.addCircle(circleOptions);
-                    ArrayList<Tuple> eventsLocation = getCloserEvents(currentLatitude,currentLongitude);
-                    for(int i = 0; i<eventsLocation.size();i++){
+                    ArrayList<Tuple> eventsLocation = getCloserEvents(currentLatitude, currentLongitude);
+                    for (int i = 0; i < eventsLocation.size(); i++) {
                         LatLng eventPosition = (LatLng) eventsLocation.get(i).getLatLang();
                         String eventName = (String) eventsLocation.get(i).getEventName();
                         mMap.addMarker(new MarkerOptions().position(eventPosition)
-                                            .title(eventName));
+                                .title(eventName));
                     }
                 }
             }
@@ -730,7 +742,8 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
 
         buildGoogleAPIClient();
     }
-    private synchronized void buildGoogleAPIClient(){
+
+    private synchronized void buildGoogleAPIClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -748,7 +761,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
         Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
     }
 
-    public ArrayList<Tuple> getCloserEvents(Double currentLatitude, Double currentLongitude){
+    public ArrayList<Tuple> getCloserEvents(Double currentLatitude, Double currentLongitude) {
         ArrayList<Tuple> closerEventsList = new ArrayList<>();
         Search searchEvents = new Search();
         searchEvents.setLocationLatitude(currentLatitude.toString());
@@ -757,15 +770,15 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
         EventsList eventsList = eventbriteSearch(searchEvents);
         ArrayList<Event> events = eventsList.getEvents();
         LatLng eventLocation;
-        for(int i = 0; i < events.size(); i++) {
+        for (int i = 0; i < events.size(); i++) {
             String venueId = events.get(i).getVenueId();
             Venue venue;
             venue = eventbritegetVenue(venueId);
             Double evLatitude = Double.parseDouble(venue.getLatitude());
             Double evLongitude = Double.parseDouble(venue.getLongitude());
-            eventLocation = new LatLng(evLatitude,evLongitude);
+            eventLocation = new LatLng(evLatitude, evLongitude);
             String name = venue.getName();
-            Tuple tuple = new Tuple(eventLocation,name);
+            Tuple tuple = new Tuple(eventLocation, name);
             closerEventsList.add(tuple);
         }
         return closerEventsList;
@@ -787,11 +800,36 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
         this.location = location;
     }
 
-    public String metersToKm(Integer meters){
-        meters = meters/100;
+    public String metersToKm(Integer meters) {
+        meters = meters / 100;
         km = meters + "km";
         return km;
     }
+
+    public MyWeather getMyWeather() {
+        client = Awareness.getSnapshotClient(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        }
+
+        client.getWeather().addOnSuccessListener(this, new OnSuccessListener<WeatherResponse>() {
+            @Override
+            public void onSuccess(WeatherResponse weatherResponse) {
+                weather = weatherResponse.getWeather();
+                myWeather = googleWheather.setMyWeather(weather);
+            }
+        });
+
+
+
+        return myWeather;
+    }
+    @Override
+    public void processFinish(MyWeather myWeather) {
+        this.myWeather = myWeather;
+
+    }
+
 }
 
 
