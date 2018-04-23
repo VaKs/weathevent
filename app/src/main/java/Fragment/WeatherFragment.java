@@ -1,36 +1,30 @@
 package Fragment;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.awareness.Awareness;
 import com.google.android.gms.awareness.SnapshotClient;
-import com.google.android.gms.awareness.snapshot.WeatherResponse;
 import com.google.android.gms.awareness.state.Weather;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 
+import Google.AsyncResponseWeather;
+import POJO.MyWeather;
+import Google.WeatherGoogle;
 import weathevent.weathevent.R;
+import weathevent.weathevent.WeatheventActivity;
 
-import static com.google.android.gms.awareness.Awareness.getSnapshotClient;
 
 /**
  * Created by Rafal on 2018-03-25.
  */
 
-public class WeatherFragment extends Fragment implements FragmentsInterface, GoogleApiClient.OnConnectionFailedListener {
+public class WeatherFragment extends Fragment implements FragmentsInterface, AsyncResponseWeather {
 
     public static final String TAG = "WeatherFragment";
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -41,10 +35,12 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Goo
     int conditions;
     private TextView conditions_icon;
     private TextView temperature_degree;
-
+    MyWeather myWeather;
+    WeatheventActivity activity;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        activity = (WeatheventActivity) getActivity();
         context = getActivity().getApplicationContext();
         return inflater.inflate(R.layout.fragment_weather, container, false);
     }
@@ -53,6 +49,7 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Goo
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         conditions_icon = view.findViewById(R.id.conditions_icon);
         temperature_degree = view.findViewById(R.id.temperature_degree);
+        /*
         client = Awareness.getSnapshotClient(context);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -75,10 +72,20 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Goo
 
 
             }
-        });
-
-
+        });*/
+        WeatherGoogle google = new WeatherGoogle(activity,context, this);
+        google.execute();
+        System.out.println("PARA COÑO");
     }
+
+    @Override
+    public void processFinish(MyWeather myWeather) {
+        this.myWeather = myWeather;
+        conditions_icon.setText(myWeather.getConditions());
+        temperature_degree.setText(myWeather.getTemperature() + "º");
+    }
+
+    /*
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
@@ -117,6 +124,5 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Goo
                 break;
         }
 
-    }
-
+    }*/
 }
