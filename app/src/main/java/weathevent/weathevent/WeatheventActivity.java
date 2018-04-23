@@ -125,6 +125,9 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                MY_PERMISSIONS_REQUEST_LOCATION);
         setContentView(R.layout.activity_weathevent);
 
         //references
@@ -650,15 +653,23 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         fLocation = LocationServices.getFusedLocationProviderClient(this);
-        Preference preference = user.getPreference();
-        if(preference.getDistance() != null){
-            meters = preference.getDistance();
+        if(user != null) {
+            Preference preference = user.getPreference();
+            if (preference.getDistance() != null) {
+                meters = preference.getDistance();
 
+            } else {
+                meters = 1000;
+                km = "1km";
+            }
         }else{
             meters = 5000;
-            km = "5km";
+            km = "1km";
         }
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
 
         }
         fLocation.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -676,7 +687,7 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoomLevel));
                     CircleOptions circleOptions = new CircleOptions()
                             .center(currentPosition)
-                            .radius(meters)
+                            .radius(meters/2)
                             .strokeWidth(2)
                             .strokeColor(Color.BLUE)
                             .fillColor(Color.parseColor("#500084d3"));
@@ -728,13 +739,10 @@ public class WeatheventActivity extends AppCompatActivity implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
+
             return;
         }
         mMap.setMyLocationEnabled(true);
