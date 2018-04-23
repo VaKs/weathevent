@@ -454,7 +454,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
+        activeFragmentTag = DashboardFragment.TAG;
         //setNavigationDrawer icon status
         //set activeFragment
 

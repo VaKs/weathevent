@@ -1,12 +1,16 @@
 package Fragment;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.gms.awareness.SnapshotClient;
@@ -33,6 +37,15 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Asy
     Weather weather;
     float temperature;
     int conditions;
+    int humidity;
+    private TextView tv_city;
+    private TextView tv_temperature;
+    private TextView tv_humidity;
+    private TextView tv_condition;
+    private ImageView iv_condition;
+    private ProgressBar pb_humidity;
+    private ProgressBar pb_rain;
+
     private TextView conditions_icon;
     private TextView temperature_degree;
     MyWeather myWeather;
@@ -47,6 +60,14 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Asy
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
+        tv_city = view.findViewById(R.id.tv_weather_city);
+        tv_temperature = view.findViewById(R.id.tv_weather_temperature);
+        tv_humidity = view.findViewById(R.id.tv_humidity);
+        pb_humidity = view.findViewById(R.id.pg_humidity);
+        iv_condition = view.findViewById(R.id.iv_weather_icon);
+        tv_condition = view.findViewById(R.id.tv_weather_condition);
+
+
         conditions_icon = view.findViewById(R.id.conditions_icon);
         temperature_degree = view.findViewById(R.id.temperature_degree);
         /*
@@ -66,11 +87,11 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Asy
                 weather = weatherResponse.getWeather();
                 conditions = weather.getConditions()[0];
                 temperature = weather.getTemperature(2);
-                temperature_degree.setText(temperature + "º");
+                humidity = weather.getHumidity();
+                tv_temperature.setText(String.format("%.02f",temperature) + "º");
+                tv_humidity.setText(humidity+"%");
+                pb_humidity.setProgress(humidity);
                 setConditionIcon(conditions);
-
-
-
             }
         });*/
         WeatherGoogle google = new WeatherGoogle(activity,context, this);
@@ -93,34 +114,53 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Asy
     public void setConditionIcon(int conditions){
         switch (conditions){
             case 1 :
-                conditions_icon.setText("CLEAR");
+                iv_condition.setVisibility(View.VISIBLE);
+                iv_condition.setImageDrawable(getResources().getDrawable(R.drawable.clear));
+                tv_condition.setText(getString(R.string.weather_clear));
                 break;
             case 2 :
-                conditions_icon.setText("CLOUDY");
+                iv_condition.setVisibility(View.VISIBLE);
+                iv_condition.setImageDrawable(getResources().getDrawable(R.drawable.cloudy));
+                tv_condition.setText(getString(R.string.weather_cloudy));
                 break;
             case 3 :
-                conditions_icon.setText("FOGGY");
+                iv_condition.setVisibility(View.VISIBLE);
+                iv_condition.setImageDrawable(getResources().getDrawable(R.drawable.fog));
+                tv_condition.setText(getString(R.string.weather_foggy));
                 break;
             case 4 :
-                conditions_icon.setText("HAZY");
+                iv_condition.setVisibility(View.VISIBLE);
+                iv_condition.setImageDrawable(getResources().getDrawable(R.drawable.haze));
+                tv_condition.setText(getString(R.string.weather_hazy));
                 break;
             case 5 :
-                conditions_icon.setText("ICY");
+                iv_condition.setVisibility(View.VISIBLE);
+                iv_condition.setImageDrawable(getResources().getDrawable(R.drawable.icy));
+                tv_condition.setText(getString(R.string.weather_icy));
                 break;
             case 6 :
-                conditions_icon.setText("RAINY");
+                iv_condition.setVisibility(View.VISIBLE);
+                iv_condition.setImageDrawable(getResources().getDrawable(R.drawable.rain));
+                tv_condition.setText(getString(R.string.weather_rainy));
                 break;
             case 7 :
-                conditions_icon.setText("SNOWY");
+                iv_condition.setVisibility(View.VISIBLE);
+                iv_condition.setImageDrawable(getResources().getDrawable(R.drawable.snow));
+                tv_condition.setText(getString(R.string.weather_snowy));
                 break;
             case 8 :
-                conditions_icon.setText("STORMY");
+                iv_condition.setVisibility(View.VISIBLE);
+                iv_condition.setImageDrawable(getResources().getDrawable(R.drawable.storm));
+                tv_condition.setText(getString(R.string.weather_stormy));
                 break;
             case 9 :
-                conditions_icon.setText("WINDY");
+                iv_condition.setVisibility(View.VISIBLE);
+                iv_condition.setImageDrawable(getResources().getDrawable(R.drawable.windy));
+                tv_condition.setText(getString(R.string.weather_windy));
                 break;
             case 0 :
-                conditions_icon.setText("UNKNOWN");
+                iv_condition.setVisibility(View.INVISIBLE);
+                tv_condition.setText(getString(R.string.weather_unknown));
                 break;
         }
 
