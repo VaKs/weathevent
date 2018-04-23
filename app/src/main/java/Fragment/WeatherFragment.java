@@ -33,6 +33,7 @@ import static com.google.android.gms.awareness.Awareness.getSnapshotClient;
 public class WeatherFragment extends Fragment implements FragmentsInterface, GoogleApiClient.OnConnectionFailedListener {
 
     public static final String TAG = "WeatherFragment";
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private Context context;
     SnapshotClient client;
     Weather weather;
@@ -54,6 +55,10 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Goo
         temperature_degree = view.findViewById(R.id.temperature_degree);
         client = Awareness.getSnapshotClient(context);
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
 
         }
         client.getWeather().addOnSuccessListener(new OnSuccessListener<WeatherResponse>(){
