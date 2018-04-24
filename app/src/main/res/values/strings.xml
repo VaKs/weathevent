@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Weathevent</string>
+    <string name="app_name" translatable="false">Weathevent</string>
 
 
     <!-- Drawer content -->
@@ -128,6 +128,7 @@
     <string name="label_settings">Here you can set your preferences</string>
     <string name="label_pref_map">Map preferences</string>
     <string name="label_pref_events">Events preferences</string>
-    <string name="hint_distance">Distance: 5km</string>
+    <string name="hint_distance">Distance: 5000 (on meters please)</string>
     <string name="hint_city">City</string>
+    <string name="user_added_successfully">User added successfully</string>
 </resources>
