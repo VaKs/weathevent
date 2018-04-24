@@ -1,4 +1,4 @@
-package Fragment.Adapters;
+package Fragment;
 
 import POJO.MyWeather;
 

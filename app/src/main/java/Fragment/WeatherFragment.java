@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.awareness.state.Weather;
 
-import Fragment.Adapters.WeatherInterface;
 import POJO.MyWeather;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
@@ -64,7 +63,7 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Wea
 
 
 
-        activity.getMyWeather(this);
+        activity.getMyWeatherWeather(this);
 
 
     }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import EventbriteAPI.Models.EventsList;
 import EventbriteAPI.Models.Search;
+import POJO.MyWeather;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
 
@@ -21,7 +22,7 @@ import weathevent.weathevent.WeatheventActivity;
  * Created by Rafal on 2018-03-25.
  */
 
-public class RecommendFragment extends Fragment implements FragmentsInterface,View.OnClickListener {
+public class RecommendFragment extends Fragment implements FragmentsInterface,View.OnClickListener, WeatherInterface {
 
     public static final String TAG = "RecommendFragment";
     RecyclerView recyclerView;
@@ -33,15 +34,19 @@ public class RecommendFragment extends Fragment implements FragmentsInterface,Vi
     TextView weatherInfo;
     String textRecommended;
     Button seeMore;
+    MyWeather myWeather;
+    WeatheventActivity activity;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        activity = (WeatheventActivity) getActivity();
         return inflater.inflate(R.layout.fragment_recommend, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        activity.getMyWeatherRecommended(this);
         seeMore=view.findViewById(R.id.button_more_events);
         seeMore.setOnClickListener(this);
         //Location should be taken from userPreferences
@@ -117,5 +122,13 @@ public class RecommendFragment extends Fragment implements FragmentsInterface,Vi
         if( v == seeMore){
             ((WeatheventActivity) getActivity()).showExploreFragment();
         }
+    }
+
+    @Override
+    public void weatherReceived(MyWeather myWeather) {
+        //TODO
+        /*
+        HERE IS WHERE YOU NEED TO WORK
+         */
     }
 }

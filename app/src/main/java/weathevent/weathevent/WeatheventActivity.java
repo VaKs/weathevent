@@ -825,7 +825,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     }
 
     //GET WEATHER FOR WHEATHER FRAGMENT
-    public void getMyWeather(Fragment fragment) {
+    public void getMyWeatherWeather(Fragment fragment) {
         final WeatherFragment weatherFragment =  (WeatherFragment) fragment;
         client = Awareness.getSnapshotClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -840,6 +840,33 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
                 weather = weatherResponse.getWeather();
                 myWeather = googleWheather.setMyWeather(weather);
                 weatherFragment.weatherReceived(myWeather);
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("FAIL WEATHER", "failed to retrieve weather");
+            }
+        });
+
+
+    }
+    //GET WEATHER FOR RECOMMEND FRAGMENT
+    public void getMyWeatherRecommended(Fragment fragment) {
+        final RecommendFragment recommendFragment =  (RecommendFragment) fragment;
+        client = Awareness.getSnapshotClient(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
+        }
+        Task<WeatherResponse> weatherResponse = client.getWeather();
+        weatherResponse.addOnSuccessListener(this, new OnSuccessListener<WeatherResponse>() {
+            @Override
+            public void onSuccess(WeatherResponse weatherResponse) {
+                weather = weatherResponse.getWeather();
+                myWeather = googleWheather.setMyWeather(weather);
+                recommendFragment.weatherReceived(myWeather);
 
             }
         }).addOnFailureListener(new OnFailureListener() {
