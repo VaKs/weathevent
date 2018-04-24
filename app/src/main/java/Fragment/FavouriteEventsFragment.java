@@ -1,8 +1,11 @@
 package Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import Database.StorageManager;
+import Database.StorageManagerImplFirebaseRoom;
 import EventbriteAPI.Models.Description;
 import EventbriteAPI.Models.End;
 import EventbriteAPI.Models.Event;
@@ -37,10 +42,17 @@ public class FavouriteEventsFragment extends Fragment implements FragmentsInterf
     public static final String TAG = "FavouriteEventsFragment";
     EventsList eventsList;
     Event favouriteEvent;
+    private StorageManager storageManager;
+    private Context context;
+    RecyclerView rvFavourites;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_favourite, container, false);
+        View view = inflater.inflate(R.layout.fragment_favourite, container, false);
+        context = getActivity().getApplicationContext();
+        storageManager = StorageManagerImplFirebaseRoom.getInstance(context);
+        return view;
     }
 
     @Override
@@ -48,8 +60,42 @@ public class FavouriteEventsFragment extends Fragment implements FragmentsInterf
         super.onViewCreated(view, savedInstanceState);
         favouriteEvent = ((WeatheventActivity) getActivity()).getEvent();
 
+        /*
+        rvFavourites=view.findViewById(R.id.rv_favourites);
+        rvFavourites.setLayoutManager(new LinearLayoutManager(context));
+        favorites = new ArrayList<>();
+        adapter = new FriendsListAdapter(context,friends);
+        rvFavourites.setAdapter(adapter);
+
+
+        /*
+        public ArrayList<Tuple> getCloserEvents(Double currentLatitude, Double currentLongitude) {
+        ArrayList<Tuple> closerEventsList = new ArrayList<>();
+        Search searchEvents = new Search();
+        searchEvents.setLocationLatitude(currentLatitude.toString());
+        searchEvents.setLocationLongitude(currentLongitude.toString());
+        searchEvents.setLocationWithin(km);
+        EventsList eventsList = eventbriteSearch(searchEvents);
+        ArrayList<Event> events = eventsList.getEvents();
+        LatLng eventLocation;
+        for (int i = 0; i < events.size(); i++) {
+            String venueId = events.get(i).getVenueId();
+            Venue venue;
+            venue = eventbritegetVenue(venueId);
+            Double evLatitude = Double.parseDouble(venue.getLatitude());
+            Double evLongitude = Double.parseDouble(venue.getLongitude());
+            eventLocation = new LatLng(evLatitude, evLongitude);
+            String name = venue.getName();
+            Tuple tuple = new Tuple(eventLocation, name);
+            closerEventsList.add(tuple);
+        }
+        return closerEventsList;
+    }
+
+        */
+
         //geting parameters from object Event
-        Name name = favouriteEvent.getName();
+       /* Name name = favouriteEvent.getName();
         Description description = favouriteEvent.getDescription();
         Start start = favouriteEvent.getStart();
         End end = favouriteEvent.getEnd();
