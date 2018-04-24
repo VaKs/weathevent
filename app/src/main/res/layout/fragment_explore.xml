@@ -12,8 +12,8 @@
         android:layout_height="69dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="8dp">
+        tools:layout_editor_absoluteX="8dp"
+        tools:ignore="MissingConstraints">
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/EditText_select_location"
@@ -83,6 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_business_100" />
 
                     <TextView
@@ -121,6 +122,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_science_100" />
 
                     <TextView
@@ -161,6 +163,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_music_100" />
 
                     <TextView
@@ -199,6 +202,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_film_100" />
 
                     <TextView
@@ -239,6 +243,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_performance_mask_100" />
 
                     <TextView
@@ -277,6 +282,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_beauty_100" />
 
                     <TextView
@@ -317,6 +323,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_health100" />
 
                     <TextView
@@ -355,6 +362,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_sport_100" />
 
                     <TextView
@@ -395,6 +403,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_travelmap_100" />
 
                     <TextView
@@ -433,6 +442,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_food_100" />
 
                     <TextView
@@ -473,6 +483,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_charity_100" />
 
                     <TextView
@@ -511,6 +522,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_museum_100" />
 
                     <TextView
@@ -551,6 +563,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_user_groups_100" />
 
                     <TextView
@@ -589,6 +602,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_religion_100" />
 
                     <TextView
@@ -629,6 +643,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_family_100" />
 
                     <TextView
@@ -670,6 +685,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_holiday_100" />
 
                     <TextView
@@ -708,6 +724,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_home_100" />
 
                     <TextView
@@ -746,6 +763,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_auto_100" />
 
                     <TextView
@@ -786,6 +804,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_entert_100" />
 
                     <TextView
@@ -824,6 +843,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_school_100" />
 
                     <TextView
@@ -862,6 +882,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
                         app:srcCompat="@drawable/icons8_other_100" />
 
                     <TextView
@@ -882,7 +903,10 @@
         android:id="@+id/button_searchEvent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:padding="8dp"
         android:text="@string/search_event"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

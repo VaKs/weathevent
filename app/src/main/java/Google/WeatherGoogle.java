@@ -42,16 +42,13 @@ public class WeatherGoogle extends AsyncTask<Void, Void , MyWeather> implements 
     int humidity;
     String conditions_icon;
     public AsyncResponseWeather delegate;
-    WeakReference<WeatherFragment> fragmentWeak;
-    WeatherFragment fragment;
 
 
-    public WeatherGoogle (WeatheventActivity activity, Context context, WeatherFragment fragment){
+    public WeatherGoogle (WeatheventActivity activity, Context context){
 
         this.context = context;
         this.activityWeak = new WeakReference<>(activity);
         this.activity = activity;
-        this.fragmentWeak = new WeakReference<WeatherFragment>(fragment);
     }
 
     @Override
@@ -82,7 +79,7 @@ public class WeatherGoogle extends AsyncTask<Void, Void , MyWeather> implements 
     }
     @Override
     protected void onPostExecute(MyWeather myWeather){
-        fragmentWeak.get().processFinish(myWeather);
+        activityWeak.get().processFinish(myWeather);
     }
 
     @Override
@@ -90,7 +87,7 @@ public class WeatherGoogle extends AsyncTask<Void, Void , MyWeather> implements 
 
     }
     private float setTemperature(WeatheventActivity activity, Context context) {
-        AsyncTask weatherTask = new WeatherGoogle(activity, context, fragment);
+        AsyncTask weatherTask = new WeatherGoogle(activity, context);
         try {
             weather = (Weather) weatherTask.execute().get();
         } catch (InterruptedException e) {
@@ -103,7 +100,7 @@ public class WeatherGoogle extends AsyncTask<Void, Void , MyWeather> implements 
     }
 
     private float setDewPoint(WeatheventActivity activity, Context context) {
-        AsyncTask weatherTask = new WeatherGoogle(activity, context, fragment);
+        AsyncTask weatherTask = new WeatherGoogle(activity, context);
         try {
             weather = (Weather) weatherTask.execute().get();
         } catch (InterruptedException e) {
@@ -116,7 +113,7 @@ public class WeatherGoogle extends AsyncTask<Void, Void , MyWeather> implements 
     }
 
     private float setFeelsLikeTemeperature(WeatheventActivity activity, Context context) {
-        AsyncTask weatherTask = new WeatherGoogle(activity, context, fragment);
+        AsyncTask weatherTask = new WeatherGoogle(activity, context);
         try {
             weather = (Weather) weatherTask.execute().get();
         } catch (InterruptedException e) {
@@ -128,7 +125,7 @@ public class WeatherGoogle extends AsyncTask<Void, Void , MyWeather> implements 
         return feelsLikeTemeperature;
     }
     private String setConditions(WeatheventActivity activity, Context context){
-        AsyncTask weatherTask = new WeatherGoogle(activity, context, fragment);
+        AsyncTask weatherTask = new WeatherGoogle(activity, context);
         try {
             weather = (Weather) weatherTask.execute().get();
         } catch (InterruptedException e) {
@@ -141,7 +138,7 @@ public class WeatherGoogle extends AsyncTask<Void, Void , MyWeather> implements 
         return conditions_icon;
     }
     private String setConditionsNumber(WeatheventActivity activity, Context context){
-        AsyncTask weatherTask = new WeatherGoogle(activity, context, fragment);
+        AsyncTask weatherTask = new WeatherGoogle(activity, context);
         try {
             weather = (Weather) weatherTask.execute().get();
         } catch (InterruptedException e) {
@@ -153,7 +150,7 @@ public class WeatherGoogle extends AsyncTask<Void, Void , MyWeather> implements 
         return conditions_icon;
     }
     private int setHumidity(WeatheventActivity activity, Context context){
-        AsyncTask weatherTask = new WeatherGoogle(activity, context, fragment);
+        AsyncTask weatherTask = new WeatherGoogle(activity, context);
         try {
             weather = (Weather) weatherTask.execute().get();
         } catch (InterruptedException e) {

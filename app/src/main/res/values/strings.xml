@@ -123,5 +123,6 @@
     <string name="label_accept">Accept</string>
     <string name="label_email">email@domain</string>
     <string name="label_addFriend">To add friend put his email below.</string>
+    <string name="toast_friendNotFound">Friend not found</string>
 
 </resources>
