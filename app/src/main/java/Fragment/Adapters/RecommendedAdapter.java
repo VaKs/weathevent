@@ -1,7 +1,5 @@
 package Fragment.Adapters;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +23,6 @@ import EventbriteAPI.Models.Start;
 import EventbriteAPI.service.EventBriteDownloadImage;
 import Fragment.RecommendFragment;
 import weathevent.weathevent.R;
-import weathevent.weathevent.WeatheventActivity;
 
 public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.RecommendedViewHolder> {
 
@@ -43,7 +40,7 @@ public class RecommendedAdapter extends RecyclerView.Adapter<RecommendedAdapter.
     @Override
     public RecommendedAdapter.RecommendedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.fragment_recommend, null);
+        View view = inflater.inflate(R.layout.recomended_listitem, null);
         return new RecommendedAdapter.RecommendedViewHolder(view);
     }
 
