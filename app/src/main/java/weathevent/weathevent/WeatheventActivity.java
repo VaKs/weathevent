@@ -2,6 +2,7 @@ package weathevent.weathevent;
 
 import android.Manifest;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -41,6 +42,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -460,6 +462,11 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
         All status saving should be implemented here.
      */
     protected void actionLogout() {
+        SharedPreferences shared;
+        SharedPreferences.Editor editor;
+        shared = this.getApplicationContext().getSharedPreferences("weatheventSharedPreferences", MODE_PRIVATE);
+        editor = shared.edit();
+        editor.putBoolean("logged",false);
         finish();
     }
 
@@ -812,8 +819,9 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_LOCATION);
         }
-
-        client.getWeather().addOnSuccessListener(this, new OnSuccessListener<WeatherResponse>() {
+        Task<WeatherResponse> weatherResponse = client.getWeather();
+        waitSucced(weatherResponse);
+        weatherResponse.addOnSuccessListener(this, new OnSuccessListener<WeatherResponse>() {
             @Override
             public void onSuccess(WeatherResponse weatherResponse) {
                 weather = weatherResponse.getWeather();
@@ -825,7 +833,19 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
                 Log.i("FAIL WEATHER", "failed to retrieve weather");
             }
         });
+
+        Toast.makeText(this, myWeather.getConditions() + " WORKS " + myWeather.getTemperature() + "", Toast.LENGTH_LONG).show();
         return myWeather;
+    }
+    public void waitSucced(Task<WeatherResponse> weatherResponse){
+        if(!weatherResponse.isSuccessful()){
+            try {
+                wait(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            waitSucced(weatherResponse);
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package Database;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ import com.google.firebase.database.ValueEventListener;
 import POJO.StoredUser;
 import POJO.User;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by vaks on 07/04/2018.
  */
@@ -24,9 +27,11 @@ public class StorageManagerImplFirebaseRoom implements StorageManager {
     private UserDAO userDAO;
     private static StorageManagerImplFirebaseRoom storageManagerImplFirebaseRoom;
     private User currentUser;
+    private Context context;
 
     private StorageManagerImplFirebaseRoom(Context context){
         userDAO = AppDatabase.getInstance(context).userDAO();
+        this.context=context;
     }
     public static StorageManagerImplFirebaseRoom getInstance(Context context){
         if(storageManagerImplFirebaseRoom==null) storageManagerImplFirebaseRoom= new StorageManagerImplFirebaseRoom(context);
@@ -128,6 +133,16 @@ public class StorageManagerImplFirebaseRoom implements StorageManager {
                 Thread.sleep(1200);
             } if(user[0]!= null && user[0].checkPassword(password)){
                 currentUser = user[0];
+
+                SharedPreferences shared;
+                SharedPreferences.Editor editor;
+                shared = context.getSharedPreferences("weatheventSharedPreferences", MODE_PRIVATE);
+                editor = shared.edit();
+                editor.putBoolean("logged",true);
+
+                editor.apply();
+
+
                 return true;
             } else {
                 return false;
