@@ -81,7 +81,7 @@ public class RecommendFragment extends Fragment implements FragmentsInterface,Vi
             categories="113,112,111";
         }
         else if(conditionNow=="foggy"){
-            //weatherInfo.setBackground();
+            //weatherInfo.setBackground()
             textRecommended=getString(R.string.foggy_recommendation);
             weatherInfo.setText(textRecommended);
             categories="113,112,114";
