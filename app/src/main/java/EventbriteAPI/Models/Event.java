@@ -57,7 +57,9 @@ public class Event implements JSONPopulator{
         //SubcategoryId;
         ResourceUri = data.optString("resource_uri");
         Logo = new Logo();
-        Logo.populate(data.optJSONObject("logo"));
+        if(!(data.optJSONObject("logo") == null)) {
+            Logo.populate(data.optJSONObject("logo"));
+        }
         //Venue = new Venue();
         //Venue.populate(data.optJSONObject("venue"));
         Venue = data.optString("venue_id");

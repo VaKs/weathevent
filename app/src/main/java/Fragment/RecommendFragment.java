@@ -12,8 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.awareness.state.Weather;
+
 import EventbriteAPI.Models.EventsList;
 import EventbriteAPI.Models.Search;
+import POJO.MyWeather;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
 
@@ -33,7 +36,7 @@ public class RecommendFragment extends Fragment implements FragmentsInterface,Vi
     TextView weatherInfo;
     String textRecommended;
     Button seeMore;
-
+    MyWeather weather;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class RecommendFragment extends Fragment implements FragmentsInterface,Vi
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         seeMore=view.findViewById(R.id.button_more_events);
         seeMore.setOnClickListener(this);
+
         //Location should be taken from userPreferences
         location = ((WeatheventActivity) getActivity()).getLocation();
         Search searchEvents = new Search();
