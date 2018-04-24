@@ -98,4 +98,9 @@
     <string name="hint_distance">Distancia: 5000 (en metros por favor)</string>
     <string name="hint_city">Ciudad</string>
     <string name="user_added_successfully">Usuario añadido correctamente</string>
+    <string name="hint_surname">Apellido</string>
+    <string name="hint_name">Nombre</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="create_account">Crear Cuenta</string>
 </resources>
