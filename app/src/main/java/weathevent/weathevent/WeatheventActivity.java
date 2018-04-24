@@ -39,6 +39,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
@@ -56,8 +57,6 @@ import EventbriteAPI.service.EventbriteGetByID;
 import EventbriteAPI.service.EventbriteService;
 import EventbriteAPI.service.EventbriteServiceOtherParameters;
 import Fragment.*;
-import Google.AsyncResponseWeather;
-import Google.WeatherGoogle;
 import POJO.MyWeather;
 import POJO.Preference;
 import POJO.Tuple;
@@ -67,7 +66,7 @@ import Google.GoogleWheather;
 
 public class WeatheventActivity extends AppCompatActivity implements EventbriteI, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener, AsyncResponseWeather {
+        LocationListener {
 
 
     // Toolbar and NavigationView
@@ -818,16 +817,13 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
                 weather = weatherResponse.getWeather();
                 myWeather = googleWheather.setMyWeather(weather);
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("FAIL WEATHER", "failed to retrieve weather");
+            }
         });
-
-
-
         return myWeather;
-    }
-    @Override
-    public void processFinish(MyWeather myWeather) {
-        this.myWeather = myWeather;
-
     }
 
 }
