@@ -31,8 +31,7 @@ public class PreferencesFragment extends Fragment implements FragmentsInterface 
     private StorageManager storageManager;
 
     private EditText et_distance;
-    private EditText et_min;
-    private EditText et_max;
+    private EditText et_city;
 
 
     @Nullable
@@ -46,8 +45,17 @@ public class PreferencesFragment extends Fragment implements FragmentsInterface 
         //Get current user
         currentUser=storageManager.getCurrentUser();
         et_distance = view.findViewById(R.id.et_distance);
-        et_max = view.findViewById(R.id.et_max_temp);
-        et_min = view.findViewById(R.id.et_min_temp);
+        et_city = view.findViewById(R.id.et_city);
+
+        int distance = Integer.parseInt(et_distance.getText().toString());
+        String city = et_city.getText().toString();
+
+        currentUser.getPreference().setDistance(distance);
+        currentUser.getPreference().setCity(city);
+
+
+
+
     }
 
     @Override
@@ -55,6 +63,12 @@ public class PreferencesFragment extends Fragment implements FragmentsInterface 
         super.onDestroy();
 
         //save new preferences if they are different
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                storageManager.updateUser(currentUser);
+            }
+        }).start();
 
     }
 }

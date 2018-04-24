@@ -35,11 +35,14 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
     private EditText inputedEmail;
     private EditText inputedPassword;
     private SharedPreferences shared;
+    private StorageManager storageManager;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_log_in, container, false);
         context = getActivity().getApplicationContext();
+        storageManager = StorageManagerImplFirebaseRoom.getInstance(context);
         return view;
     }
 
@@ -73,6 +76,13 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
         });
 
         if(logged){
+            new Thread(new Runnable() {
+                @Override
+                public void run(){
+                    storageManager.setCurrentUser();
+                }
+            }).start();
+
             Intent intent = new Intent(context, WeatheventActivity.class);
             startActivity(intent);
         }
@@ -81,27 +91,10 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
 
     private void validateLogin() {
 
-        Intent intent = new Intent(context, WeatheventActivity.class);
-        startActivity(intent);
-        /*
-            String email = inputedEmail.getText().toString();
-            String password = inputedPassword.getText().toString();
-=======
-
-            //TODO: to Enable the Login delete this lines and uncomment the lines of below
-            //String email = "testPref";
-            //String password = "pass";
-
             String email = inputedEmail.getText().toString();
             String password = inputedPassword.getText().toString();
 
             new AsyncUserLogInTask(((LogInActivity) getActivity())).execute(new String[]{email, password});
-
-
->>>>>>> 4f30e2f1bcc5ecd78763b8b73772e0b2afdac5a8
-
-            new AsyncUserLogInTask(((LogInActivity) getActivity())).execute(new String[]{email, password});
-         */
     }
 
 }

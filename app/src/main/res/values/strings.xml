@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Weathevent</string>
+    <string name="app_name" translatable="false">Weathevent</string>
 
 
     <!-- Drawer content -->
@@ -34,15 +34,22 @@
     <string name="login_ed_hint_password">Password</string>
     <string name="login_cb_remember">Remember me</string>
     <string name="login_tv_signin">No account yet? Create one</string>
-
+    <string name="hint_login">Login</string>
 
     <!-- Register Fragment -->
     <string name="register_success">You successfuly created account. Now you can login.</string>
     <string name="register_tv_login">Already a member? Login</string>
+    <string name="hint_surname">Surname</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="create_account">Create Account</string>
+
 
     <!-- Descriptions -->
     <string name="logo_description">Description</string>
-    
+    <string name="label_tologin">Back to login</string>
+
     <!-- Categories -->
     <string name="category_101">Business &amp; Professional</string>
     <string name="category_102">Science &amp; Technology</string>
@@ -102,6 +109,7 @@
     <string name="label_date">Date</string>
     <string name="label_price">Price</string>
     <string name="label_rating">Rating</string>
+    <string name="label_details">Details</string>
 
     <!-- weather fragment -->
     <string name="label_humidity">Humidity</string>
@@ -127,8 +135,8 @@
 
     <string name="label_settings">Here you can set your preferences</string>
     <string name="label_pref_map">Map preferences</string>
-    <string name="label_pref_weather">Weather preferences</string>
-    <string name="hint_distance">Distance: 5km</string>
-    <string name="hint_min_temperature">Your min temp: 15</string>
-    <string name="hint_max_temperature">Your max temp: 25</string>
+    <string name="label_pref_events">Events preferences</string>
+    <string name="hint_distance">Distance: 5000 (on meters please)</string>
+    <string name="hint_city">City</string>
+    <string name="user_added_successfully">User added successfully</string>
 </resources>

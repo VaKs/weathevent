@@ -43,12 +43,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import Database.StorageManager;
+import Database.StorageManagerImplFirebaseRoom;
 import EventbriteAPI.EventbriteI;
 import EventbriteAPI.Models.End;
 import EventbriteAPI.Models.Event;
@@ -114,13 +116,13 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     public String km;
     public Integer meters;
     User user;
+    StorageManager storageManager;
     Event event;
     MyWeather myWeather = new MyWeather();
     SnapshotClient client;
     Weather weather;
     GoogleWheather googleWheather = new GoogleWheather();
     Event currentEvent;
-    Fragment fragment;
     Event favouriteEvent;
 
 
@@ -130,6 +132,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        storageManager = StorageManagerImplFirebaseRoom.getInstance(this);
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 MY_PERMISSIONS_REQUEST_LOCATION);
@@ -668,6 +671,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         fLocation = LocationServices.getFusedLocationProviderClient(this);
+        user = storageManager.getCurrentUser();
         if (user != null) {
             Preference preference = user.getPreference();
             if (preference.getDistance() != null) {

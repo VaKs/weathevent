@@ -11,12 +11,9 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
  */
 @IgnoreExtraProperties
 public class Preference {
-    /*
-            Weather Type
-         */
-    /*
-        Notifications And Define Prefered Notifications
-     */
+
+    private String city;
+
     private Integer distance;
 
     private ArrayList<Category> categoriesList;
@@ -51,4 +48,11 @@ public class Preference {
         this.categoriesList = categoriesList;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 }

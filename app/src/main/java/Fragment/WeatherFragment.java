@@ -39,9 +39,7 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Wea
     private ImageView iv_condition;
     private ProgressBar pb_humidity;
     private ProgressBar pb_rain;
-
-    private TextView conditions_icon;
-    private TextView temperature_degree;
+    
     MyWeather myWeather;
     WeatheventActivity activity;
     @Nullable
@@ -61,11 +59,12 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Wea
         iv_condition = view.findViewById(R.id.iv_weather_icon);
         tv_condition = view.findViewById(R.id.tv_weather_condition);
 
-
-
         activity.getMyWeatherWeather(this);
 
 
+
+
+        //tv_temperature.setText(getString(R.string.temperature_text) + String.format("%.02f", temperature));
     }
     @Override
     public void weatherReceived(MyWeather myWeather){
@@ -76,6 +75,12 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Wea
         setConditionIcon(conditions);
         humidity = myWeather.getHumidity();
         temperature = myWeather.getTemperature();
+
+        tv_city.setText("");
+        tv_humidity.setText(humidity+"%");
+        pb_humidity.setProgress(humidity);
+        tv_temperature.setText(String.format("%.02f",temperature)+"°C");
+
 
     }
 
