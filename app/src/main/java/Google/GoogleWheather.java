@@ -12,7 +12,7 @@ import POJO.MyWeather;
 public class GoogleWheather {
 
     Weather weather;
-    MyWeather myWeather;
+    MyWeather myWeather = new MyWeather();
     float temperature;
     int conditions;
     float dewPoint;
@@ -87,6 +87,7 @@ public class GoogleWheather {
 
     }
     public MyWeather setMyWeather(Weather weather){
+        this.weather = weather;
         myWeather.setConditions(setConditions());
         myWeather.setDewPoint(setDewPoint());
         myWeather.setFeelsLikeTemeperature(setFeelsLikeTemeperature());

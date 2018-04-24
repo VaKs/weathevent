@@ -81,7 +81,6 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
 
     private void validateLogin() {
 
-<<<<<<< HEAD
         Intent intent = new Intent(context, WeatheventActivity.class);
         startActivity(intent);
         /*

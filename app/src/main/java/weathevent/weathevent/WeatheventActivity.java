@@ -115,10 +115,10 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     public Integer meters;
     User user;
     Event event;
-    MyWeather myWeather;
+    MyWeather myWeather = new MyWeather();
     SnapshotClient client;
     Weather weather;
-    GoogleWheather googleWheather;
+    GoogleWheather googleWheather = new GoogleWheather();
     Event currentEvent;
     Fragment fragment;
     Event favouriteEvent;
@@ -703,7 +703,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, zoomLevel));
                     CircleOptions circleOptions = new CircleOptions()
                             .center(currentPosition)
-                            .radius(meters / 2)
+                            .radius(meters)
                             .strokeWidth(2)
                             .strokeColor(Color.BLUE)
                             .fillColor(Color.parseColor("#500084d3"));
@@ -833,8 +833,8 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_LOCATION);
         }
-        Task<WeatherResponse> weatherResponse = client.getWeather();
-        weatherResponse.addOnSuccessListener(this, new OnSuccessListener<WeatherResponse>() {
+
+        client.getWeather().addOnSuccessListener(new OnSuccessListener<WeatherResponse>() {
             @Override
             public void onSuccess(WeatherResponse weatherResponse) {
                 weather = weatherResponse.getWeather();
@@ -860,8 +860,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_LOCATION);
         }
-        Task<WeatherResponse> weatherResponse = client.getWeather();
-        weatherResponse.addOnSuccessListener(this, new OnSuccessListener<WeatherResponse>() {
+        client.getWeather().addOnSuccessListener(this, new OnSuccessListener<WeatherResponse>() {
             @Override
             public void onSuccess(WeatherResponse weatherResponse) {
                 weather = weatherResponse.getWeather();
