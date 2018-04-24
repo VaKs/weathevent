@@ -12,11 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.awareness.state.Weather;
-
 import EventbriteAPI.Models.EventsList;
 import EventbriteAPI.Models.Search;
-import POJO.MyWeather;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
 
@@ -36,7 +33,7 @@ public class RecommendFragment extends Fragment implements FragmentsInterface,Vi
     TextView weatherInfo;
     String textRecommended;
     Button seeMore;
-    MyWeather weather;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,7 +44,6 @@ public class RecommendFragment extends Fragment implements FragmentsInterface,Vi
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         seeMore=view.findViewById(R.id.button_more_events);
         seeMore.setOnClickListener(this);
-
         //Location should be taken from userPreferences
         location = ((WeatheventActivity) getActivity()).getLocation();
         Search searchEvents = new Search();
@@ -95,22 +91,24 @@ public class RecommendFragment extends Fragment implements FragmentsInterface,Vi
         }else(){
             textRecommended=getString(R.string.unknown_recommendation);
             weatherInfo.setText(textRecommended);
-            categories = "199";
+            categories = "199,119,120";
         }*/
         searchEvents.setLocationAddress(location);
         searchEvents.setSortBy("best");
+        searchEvents.setRangeStartKeyWord("today");
         searchEvents.setCategories(categories);
         eventList = ((WeatheventActivity) getActivity()).eventbriteSearch(searchEvents);
         EventsList eventsRecommended = new EventsList();
         for(int i=0; i<10; i++){
-            eventsRecommended.add(eventList.getEvent(i));
+            if(eventList.size()>i) {
+                eventsRecommended.add(eventList.getEvent(i));
+            }
         }
-
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        adapter = new EventAdapter(context, eventsRecommended);
+        //adapter = new EventAdapter(context, eventsRecommended);
         recyclerView.setAdapter(adapter);
     }
 

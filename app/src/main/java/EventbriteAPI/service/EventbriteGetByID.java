@@ -30,15 +30,9 @@ public class EventbriteGetByID extends AsyncTask<String, Void, Event> {
     protected Event doInBackground(String... params) {
         StringBuilder sBuilder = new StringBuilder();
         eventObject = new Event();
-        Uri.Builder builder = new Uri.Builder();
-        builder.scheme("https");
-        builder.authority("www.eventbriteapi.com");
-        builder.appendPath("v3");
-        builder.appendPath("events");
-        builder.appendPath(params[0]);
-        builder.appendQueryParameter("token", Token);
+        String urlSttring = params[0]+"?token="+Token;
         try {
-            URL url = new URL(builder.build().toString());
+            URL url = new URL(urlSttring);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setDoInput(true);
