@@ -34,6 +34,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
+
+import Fragment.Adapters.WeatherInterface;
+import POJO.MyWeather;
 import POJO.Preference;
 import POJO.Tuple;
 import POJO.User;
@@ -50,4 +53,5 @@ public class MapFragment extends SupportMapFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_map, container, false);
     }
+
 }
