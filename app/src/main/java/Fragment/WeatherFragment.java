@@ -1,8 +1,7 @@
 package Fragment;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,14 +12,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.awareness.SnapshotClient;
 import com.google.android.gms.awareness.state.Weather;
 
-
 import Fragment.Adapters.WeatherInterface;
-import Google.AsyncResponseWeather;
 import POJO.MyWeather;
-import Google.WeatherGoogle;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
 
@@ -67,6 +62,8 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Wea
         iv_condition = view.findViewById(R.id.iv_weather_icon);
         tv_condition = view.findViewById(R.id.tv_weather_condition);
 
+
+
         activity.getMyWeather(this);
 
 
@@ -80,7 +77,7 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Wea
         setConditionIcon(conditions);
         humidity = myWeather.getHumidity();
         temperature = myWeather.getTemperature();
-        System.out.println("condition: " + conditions_icon + " temperature: " + temperature);
+
     }
 
 

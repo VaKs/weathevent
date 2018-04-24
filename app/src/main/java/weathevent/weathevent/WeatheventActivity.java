@@ -120,6 +120,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     Weather weather;
     GoogleWheather googleWheather;
     Event currentEvent;
+    Fragment fragment;
 
 
     //https://stackoverflow.com/questions/19013225/best-way-to-switch-between-two-fragments
@@ -822,7 +823,9 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
         return km;
     }
 
+    //GET WEATHER FOR WHEATHER FRAGMENT
     public void getMyWeather(Fragment fragment) {
+        final WeatherFragment weatherFragment =  (WeatherFragment) fragment;
         client = Awareness.getSnapshotClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -835,6 +838,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
             public void onSuccess(WeatherResponse weatherResponse) {
                 weather = weatherResponse.getWeather();
                 myWeather = googleWheather.setMyWeather(weather);
+                weatherFragment.weatherReceived(myWeather);
 
             }
         }).addOnFailureListener(new OnFailureListener() {
