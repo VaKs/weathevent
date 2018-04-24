@@ -28,6 +28,7 @@ public class StorageManagerImplFirebaseRoom implements StorageManager {
     private static StorageManagerImplFirebaseRoom storageManagerImplFirebaseRoom;
     private User currentUser;
     private Context context;
+    private SharedPreferences shared;
 
     private StorageManagerImplFirebaseRoom(Context context){
         userDAO = AppDatabase.getInstance(context).userDAO();
@@ -134,15 +135,14 @@ public class StorageManagerImplFirebaseRoom implements StorageManager {
             } if(user[0]!= null && user[0].checkPassword(password)){
                 currentUser = user[0];
 
-                SharedPreferences shared;
+
                 SharedPreferences.Editor editor;
                 shared = context.getSharedPreferences("weatheventSharedPreferences", MODE_PRIVATE);
                 editor = shared.edit();
                 editor.putBoolean("logged",true);
+                editor.putString("currentUserEmail",currentUser.getEmail());
 
                 editor.apply();
-
-
                 return true;
             } else {
                 return false;
@@ -153,6 +153,11 @@ public class StorageManagerImplFirebaseRoom implements StorageManager {
             e.printStackTrace();
         }
         return false;
+    }
+    public void setCurrentUser(){
+        shared = context.getSharedPreferences("weatheventSharedPreferences", MODE_PRIVATE);
+        String email= shared.getString("currentUserEmail","");
+        this.currentUser=getUserByEmail(email);
     }
     public User getCurrentUser(){
         return currentUser;

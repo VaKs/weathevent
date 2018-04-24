@@ -15,6 +15,7 @@ public interface StorageManager {
     User getUserByEmail(String email);
     boolean validateLogin(String email, String password);
     public User getCurrentUser();
+    void setCurrentUser();
 
     void addCategory(User user);
     void deleteCategory(User user);
