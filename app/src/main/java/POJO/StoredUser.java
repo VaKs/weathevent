@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class StoredUser extends User {
 
-    public StoredUser(@NonNull int id,@NonNull String email, @NonNull String name, String surname, ArrayList<User> friendsList, @NonNull String password, Preference preference){
+    public StoredUser(@NonNull int id,@NonNull String email, @NonNull String name, String surname, ArrayList<String> friendsList, @NonNull String password, Preference preference){
         this.setEmail(email);
         this.setName(name);
         this.setSurname(surname);
