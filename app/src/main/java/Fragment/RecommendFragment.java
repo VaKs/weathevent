@@ -63,7 +63,9 @@ public class RecommendFragment extends Fragment implements FragmentsInterface,Vi
 
         seeMore=view.findViewById(R.id.button_more_events);
         seeMore.setOnClickListener(this);
-        conditionNow = "cloudy";
+        if(conditionNow==null) {
+            conditionNow = "clear";
+        }
         String textRecommended;
         TextView weatherInfo;
         weatherInfo = view.findViewById(R.id.recommendedText);
