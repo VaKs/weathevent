@@ -103,4 +103,7 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Contraseña</string>
     <string name="create_account">Crear Cuenta</string>
+    <string name="hint_login">Iniciar Sesión</string>
+    <string name="label_tologin">Volver a Iniciar Sesión</string>
+    <string name="label_details">Detalles</string>
 </resources>
