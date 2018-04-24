@@ -16,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
+import Database.StorageManager;
+import Database.StorageManagerImplFirebaseRoom;
 import EventbriteAPI.Models.Name;
 import EventbriteAPI.Models.Description;
 import EventbriteAPI.Models.End;
@@ -24,6 +26,7 @@ import EventbriteAPI.Models.Logo;
 import EventbriteAPI.Models.Search;
 import EventbriteAPI.Models.Start;
 import EventbriteAPI.service.EventBriteDownloadImage;
+import POJO.User;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
 
@@ -43,16 +46,22 @@ public class EventPreviewFragment extends Fragment implements FragmentsInterface
     TextView tv_event_price;
     FloatingActionButton fab_favourite;
     FloatingActionButton fab_map;
+    StorageManager storageManager;
+    User currentUser;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        storageManager= StorageManagerImplFirebaseRoom.getInstance(this.getContext());
         return inflater.inflate(R.layout.fragment_event_preview, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        currentUser=storageManager.getCurrentUser();
+
         //looking for event in eventbrite
         foundEvent = ((WeatheventActivity) getActivity()).getCurrentEvent();
 
@@ -117,6 +126,17 @@ public class EventPreviewFragment extends Fragment implements FragmentsInterface
         if(v == fab_favourite){
             ((WeatheventActivity) getActivity()).setEvent(foundEvent);
             //information thet we have added this event to favoutire
+
+            currentUser.addFavoriteEventId(foundEvent.getId());
+            new Thread(new Runnable() {
+                @Override
+                public void run(){
+                    storageManager.updateUser(currentUser);
+                }
+            }).start();
+
+
+
         }else if(v == fab_map){
             ((WeatheventActivity) getActivity()).setEvent(foundEvent);
             ((WeatheventActivity) getActivity()).showMapFragment();
