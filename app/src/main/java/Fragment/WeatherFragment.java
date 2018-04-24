@@ -40,8 +40,6 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Wea
     private ProgressBar pb_humidity;
     private ProgressBar pb_rain;
 
-    private TextView conditions_icon;
-    private TextView temperature_degree;
     MyWeather myWeather;
     WeatheventActivity activity;
     @Nullable
@@ -81,7 +79,7 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Wea
         tv_city.setText("");
         tv_humidity.setText(humidity+"%");
         pb_humidity.setProgress(humidity);
-        tv_temperature.setText(temperature+"°C");
+        tv_temperature.setText(String.format("%.02f",temperature)+"°C");
 
 
     }
