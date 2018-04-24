@@ -81,18 +81,14 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
 
     private void validateLogin() {
 
-
-            //TODO: to Enable the Login delete this lines and uncomment the lines of below
-            String email = "testPref";
-            String password = "pass";
-/*
+        Intent intent = new Intent(context, WeatheventActivity.class);
+        startActivity(intent);
+        /*
             String email = inputedEmail.getText().toString();
             String password = inputedPassword.getText().toString();
-*/
+
             new AsyncUserLogInTask(((LogInActivity) getActivity())).execute(new String[]{email, password});
-
-
-
+         */
     }
 
 }
