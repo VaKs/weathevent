@@ -119,6 +119,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     Weather weather;
     GoogleWheather googleWheather;
     Event currentEvent;
+    Event favouriteEvent;
 
 
     //https://stackoverflow.com/questions/19013225/best-way-to-switch-between-two-fragments
@@ -857,6 +858,13 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
         }
     }
 
+    public Event getEvent() {
+        return favouriteEvent;
+    }
+
+    public void setEvent(Event favouriteEvent) {
+        this.favouriteEvent = favouriteEvent;
+    }
 }
 
 

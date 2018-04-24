@@ -31,7 +31,7 @@ import weathevent.weathevent.WeatheventActivity;
  * Created by Rafal on 2018-03-25.
  */
 
-public class EventPreviewFragment extends Fragment implements FragmentsInterface {
+public class EventPreviewFragment extends Fragment implements FragmentsInterface,View.OnClickListener {
 
     public static final String TAG = "EventPreviewFragment";
     Event foundEvent;
@@ -107,7 +107,20 @@ public class EventPreviewFragment extends Fragment implements FragmentsInterface
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+        fab_favourite.setOnClickListener(this);
+        fab_map.setOnClickListener(this);
 
     }
 
+    @Override
+    public void onClick(View v) {
+        if(v == fab_favourite){
+            ((WeatheventActivity) getActivity()).setEvent(foundEvent);
+            //information thet we have added this event to favoutire
+        }else if(v == fab_map){
+            ((WeatheventActivity) getActivity()).setEvent(foundEvent);
+            ((WeatheventActivity) getActivity()).showMapFragment();
+            //do getEvent in map and set necessary latitude, longitude etc.
+        }
+    }
 }
