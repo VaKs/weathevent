@@ -27,6 +27,7 @@ public class RegisterFragment extends Fragment implements FragmentsInterface {
     private EditText inputedEmail;
     private EditText inputedPassword;
     private EditText inputedName;
+    private EditText inputedSurname;
 
     @Nullable
     @Override
@@ -45,6 +46,7 @@ public class RegisterFragment extends Fragment implements FragmentsInterface {
         inputedEmail= view.findViewById(R.id.input_email);
         inputedPassword = view.findViewById(R.id.input_password);
         inputedName = view.findViewById(R.id.input_name);
+        inputedSurname = view.findViewById(R.id.input_surname);
 
 
         //listeners
