@@ -1,6 +1,7 @@
 package Fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -19,7 +20,7 @@ import EventbriteAPI.Models.Search;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
 
-public class ExploreFragmentList extends Fragment implements FragmentsInterface, View.OnClickListener {
+public class ExploreFragmentList extends Fragment implements FragmentsInterface{
 
     public static final String TAG = "ExploreFragmentList";
     //a list to store all the events
@@ -30,7 +31,6 @@ public class ExploreFragmentList extends Fragment implements FragmentsInterface,
     Context context;
     String categories;
     String location;
-    Button button_read_more;
     int position;
 
 
@@ -38,6 +38,7 @@ public class ExploreFragmentList extends Fragment implements FragmentsInterface,
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         context = getActivity().getApplicationContext();
+
         return inflater.inflate(R.layout.fragment_explore_list, container, false);
     }
 
@@ -56,15 +57,12 @@ public class ExploreFragmentList extends Fragment implements FragmentsInterface,
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-
-        adapter = new EventAdapter(context, eventList);
+        adapter = new EventAdapter(context, eventList, ExploreFragmentList.this);
         recyclerView.setAdapter(adapter);
 
-        recyclerView.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        ((WeatheventActivity) getActivity()).showEventPreviewFragment(eventList.getEvent(recyclerView.getId()));
+    public void goToPreview(String eventId){
+        ((WeatheventActivity) getActivity()).showEventPreviewFragment(eventId);
     }
 }

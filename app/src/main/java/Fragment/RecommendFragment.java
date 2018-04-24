@@ -91,22 +91,24 @@ public class RecommendFragment extends Fragment implements FragmentsInterface,Vi
         }else(){
             textRecommended=getString(R.string.unknown_recommendation);
             weatherInfo.setText(textRecommended);
-            categories = "199";
+            categories = "199,119,120";
         }*/
         searchEvents.setLocationAddress(location);
         searchEvents.setSortBy("best");
+        searchEvents.setRangeStartKeyWord("today");
         searchEvents.setCategories(categories);
         eventList = ((WeatheventActivity) getActivity()).eventbriteSearch(searchEvents);
         EventsList eventsRecommended = new EventsList();
         for(int i=0; i<10; i++){
-            eventsRecommended.add(eventList.getEvent(i));
+            if(eventList.size()>i) {
+                eventsRecommended.add(eventList.getEvent(i));
+            }
         }
-
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        adapter = new EventAdapter(context, eventsRecommended);
+        //adapter = new EventAdapter(context, eventsRecommended);
         recyclerView.setAdapter(adapter);
     }
 

@@ -34,6 +34,7 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
     private TextView link_signup;
     private EditText inputedEmail;
     private EditText inputedPassword;
+    private SharedPreferences shared;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,6 +52,11 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
         inputedEmail = getView().findViewById(R.id.input_email);
         inputedPassword = getView().findViewById(R.id.input_password);
 
+        shared = context.getSharedPreferences("weatheventSharedPreferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor;
+        Boolean logged = shared.getBoolean("logged",false);
+
+
         //listeners
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,18 +72,26 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
             }
         });
 
+        if(logged){
+            Intent intent = new Intent(context, WeatheventActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     private void validateLogin() {
 
-        //TODO: to Enable the Login delete this lines and uncomment the lines of below
-        String email = "testPref";
-        String password = "pass";
+
+            //TODO: to Enable the Login delete this lines and uncomment the lines of below
+            String email = "testPref";
+            String password = "pass";
 /*
-        String email = inputedEmail.getText().toString();
-        String password = inputedPassword.getText().toString();
+            String email = inputedEmail.getText().toString();
+            String password = inputedPassword.getText().toString();
 */
-        new AsyncUserLogInTask(((LogInActivity) getActivity())).execute(new String[]{email, password});
+            new AsyncUserLogInTask(((LogInActivity) getActivity())).execute(new String[]{email, password});
+
+
 
     }
 

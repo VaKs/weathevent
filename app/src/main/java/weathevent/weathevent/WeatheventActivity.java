@@ -2,6 +2,7 @@ package weathevent.weathevent;
 
 import android.Manifest;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -118,6 +119,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     SnapshotClient client;
     Weather weather;
     GoogleWheather googleWheather;
+    Event currentEvent;
 
 
     //https://stackoverflow.com/questions/19013225/best-way-to-switch-between-two-fragments
@@ -385,8 +387,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
         }
     }
 
-
-    public void showEventPreviewFragment(Event event) {
+    public void showEventPreviewFragment(String resourceURI) {
         if (activeFragmentTag != EventPreviewFragment.TAG) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
@@ -400,9 +401,10 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
             fragmentTransaction.commitAllowingStateLoss();
             activeFragmentTag = EventPreviewFragment.TAG;
             getFragmentManager().executePendingTransactions();
+            currentEvent = eventbriteGetEvent(resourceURI);
+            setCurrentEvent(currentEvent);
         }
     }
-
 
     public void showFriendsFragment() {
         if (activeFragmentTag != FriendsFragment.TAG) {
@@ -462,6 +464,11 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
         All status saving should be implemented here.
      */
     protected void actionLogout() {
+        SharedPreferences shared;
+        SharedPreferences.Editor editor;
+        shared = this.getApplicationContext().getSharedPreferences("weatheventSharedPreferences", MODE_PRIVATE);
+        editor = shared.edit();
+        editor.putBoolean("logged",false);
         finish();
     }
 
@@ -473,6 +480,14 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
         //setNavigationDrawer icon status
         //set activeFragment
 
+    }
+
+    public void setCurrentEvent(Event currentEvent) {
+        this.currentEvent = currentEvent;
+    }
+
+    public Event getCurrentEvent(){
+        return currentEvent;
     }
 
     public EventsList eventbriteGetEvents() {

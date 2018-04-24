@@ -24,6 +24,7 @@ import EventbriteAPI.Models.Name;
 import EventbriteAPI.Models.Start;
 import EventbriteAPI.service.EventBriteDownloadImage;
 import weathevent.weathevent.R;
+import weathevent.weathevent.WeatheventActivity;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
@@ -32,11 +33,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
     //we are storing all the events in a list
     private EventsList eventList;
+    private ExploreFragmentList fragmentList;
 
     //getting the context and event list with constructor
-    public EventAdapter(Context mCtx, EventsList eventList) {
+    public EventAdapter(Context mCtx, EventsList eventList, ExploreFragmentList fragmentList) {
         this.mCtx = mCtx;
         this.eventList = eventList;
+        this.fragmentList = fragmentList;
     }
 
     @Override
@@ -93,7 +96,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        holder.button_read_more.setTag(event.getUrl());
+        holder.button_read_more.setTag(event.getResourceUri());
 
     }
 
@@ -122,13 +125,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             button_read_more = itemView.findViewById(R.id.button_read_more);
             button_read_more.setOnClickListener(this);
         }
-
         @Override
         public void onClick(View v) {
             if (v.getId() == button_read_more.getId()) {
-                Uri uri = Uri.parse(button_read_more.getTag().toString()); // missing 'http://' will cause crashed
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                mCtx.startActivity(intent);
+                fragmentList.goToPreview(button_read_more.getTag().toString());
             }
         }
     }

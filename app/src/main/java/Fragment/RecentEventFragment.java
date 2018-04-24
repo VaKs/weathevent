@@ -54,7 +54,7 @@ public class RecentEventFragment extends Fragment implements FragmentsInterface 
         btn_recentEventDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((WeatheventActivity) getActivity()).showEventPreviewFragment(event);
+                ((WeatheventActivity) getActivity()).showEventPreviewFragment(event.getResourceUri());
             }
         });
     }
