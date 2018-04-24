@@ -2,6 +2,7 @@ package weathevent.weathevent;
 
 import android.Manifest;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -461,6 +462,11 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
         All status saving should be implemented here.
      */
     protected void actionLogout() {
+        SharedPreferences shared;
+        SharedPreferences.Editor editor;
+        shared = this.getApplicationContext().getSharedPreferences("weatheventSharedPreferences", MODE_PRIVATE);
+        editor = shared.edit();
+        editor.putBoolean("logged",false);
         finish();
     }
 
