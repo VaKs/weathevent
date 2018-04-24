@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,7 +22,6 @@ import EventbriteAPI.Models.EventsList;
 import EventbriteAPI.Models.Logo;
 import EventbriteAPI.Models.Name;
 import EventbriteAPI.Models.Start;
-import EventbriteAPI.Models.Ticket;
 import EventbriteAPI.service.EventBriteDownloadImage;
 import weathevent.weathevent.R;
 
@@ -46,7 +44,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         //inflating and returning our view holder
 
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.fragment_explore_listofevents, null);
+        View view = inflater.inflate(R.layout.explore_listitem, null);
         return new EventViewHolder(view);
     }
 
