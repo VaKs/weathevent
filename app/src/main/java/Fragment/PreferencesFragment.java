@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import Database.StorageManager;
 import Database.StorageManagerImplFirebaseRoom;
@@ -29,6 +30,11 @@ public class PreferencesFragment extends Fragment implements FragmentsInterface 
     private User currentUser;
     private StorageManager storageManager;
 
+    private EditText et_distance;
+    private EditText et_min;
+    private EditText et_max;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,5 +45,16 @@ public class PreferencesFragment extends Fragment implements FragmentsInterface 
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         //Get current user
         currentUser=storageManager.getCurrentUser();
+        et_distance = view.findViewById(R.id.et_distance);
+        et_max = view.findViewById(R.id.et_max_temp);
+        et_min = view.findViewById(R.id.et_min_temp);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        //save new preferences if they are different
+
     }
 }
