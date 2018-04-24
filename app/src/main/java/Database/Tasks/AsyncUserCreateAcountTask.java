@@ -41,7 +41,7 @@ public class AsyncUserCreateAcountTask extends AsyncTask<User, Void, String> {
         editor.apply();
 
         storageManager.setCurrentUser();
-        
+
         //TODO: add this string through region file
         String message="User added successfully";
 

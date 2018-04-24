@@ -70,6 +70,9 @@ public class StorageManagerImplFirebaseRoom implements StorageManager {
     public void updateUser(User user) {
         userDAO.updateUser(user);
         firebaseUsers.child(user.getEmail()).setValue(user);
+        if(user.getEmail()==currentUser.getEmail()){
+            currentUser=user;
+        }
     }
 
     @Override

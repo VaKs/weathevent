@@ -47,6 +47,15 @@ public class PreferencesFragment extends Fragment implements FragmentsInterface 
         et_distance = view.findViewById(R.id.et_distance);
         et_city = view.findViewById(R.id.et_city);
 
+        int distance = Integer.parseInt(et_distance.getText().toString());
+        String city = et_city.getText().toString();
+
+        currentUser.getPreference().setDistance(distance);
+        currentUser.getPreference().setCity(city);
+
+
+
+
     }
 
     @Override
@@ -54,6 +63,12 @@ public class PreferencesFragment extends Fragment implements FragmentsInterface 
         super.onDestroy();
 
         //save new preferences if they are different
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                storageManager.updateUser(currentUser);
+            }
+        }).start();
 
     }
 }
