@@ -127,8 +127,7 @@
 
     <string name="label_settings">Here you can set your preferences</string>
     <string name="label_pref_map">Map preferences</string>
-    <string name="label_pref_weather">Weather preferences</string>
+    <string name="label_pref_events">Events preferences</string>
     <string name="hint_distance">Distance: 5km</string>
-    <string name="hint_min_temperature">Your min temp: 15</string>
-    <string name="hint_max_temperature">Your max temp: 25</string>
+    <string name="hint_city">City</string>
 </resources>

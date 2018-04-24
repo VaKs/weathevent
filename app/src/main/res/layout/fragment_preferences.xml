@@ -99,7 +99,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="@string/label_pref_weather"
+                    android:text="@string/label_pref_events"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="@color/colorAccent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -120,30 +120,11 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView3">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_min_temp"
+                        android:id="@+id/et_city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/hint_min_temperature" />
+                        android:hint="@string/hint_city" />
 
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_max_temp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/hint_max_temperature" />
                 </android.support.design.widget.TextInputLayout>
 
             </android.support.constraint.ConstraintLayout>
