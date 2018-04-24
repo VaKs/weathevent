@@ -17,6 +17,7 @@ import com.google.android.gms.awareness.SnapshotClient;
 import com.google.android.gms.awareness.state.Weather;
 
 
+import Fragment.Adapters.WeatherInterface;
 import Google.AsyncResponseWeather;
 import POJO.MyWeather;
 import Google.WeatherGoogle;
@@ -28,12 +29,10 @@ import weathevent.weathevent.WeatheventActivity;
  * Created by Rafal on 2018-03-25.
  */
 
-public class WeatherFragment extends Fragment implements FragmentsInterface {
+public class WeatherFragment extends Fragment implements FragmentsInterface, WeatherInterface {
 
     public static final String TAG = "WeatherFragment";
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private Context context;
-    SnapshotClient client;
     Weather weather;
     float temperature;
     int conditions;
@@ -68,47 +67,25 @@ public class WeatherFragment extends Fragment implements FragmentsInterface {
         iv_condition = view.findViewById(R.id.iv_weather_icon);
         tv_condition = view.findViewById(R.id.tv_weather_condition);
 
-        /*
-        client = Awareness.getSnapshotClient(context);
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_LOCATION);
-
-        }
-        client.getWeather().addOnSuccessListener(new OnSuccessListener<WeatherResponse>(){
+        activity.getMyWeather(this);
 
 
-            @Override
-            public void onSuccess(WeatherResponse weatherResponse) {
-                weather = weatherResponse.getWeather();
-                conditions = weather.getConditions()[0];
-                temperature = weather.getTemperature(2);
-                humidity = weather.getHumidity();
-                tv_temperature.setText(String.format("%.02f",temperature) + "º");
-                tv_humidity.setText(humidity+"%");
-                pb_humidity.setProgress(humidity);
-                setConditionIcon(conditions);
-            }
-        });*/
-        myWeather = activity.getMyWeather();
-        /*
-        conditions_icon.setText(myWeather.getConditions());
-        temperature_degree.setText(myWeather.getTemperature() + "º");
-        */
+    }
+    @Override
+    public void weatherReceived(MyWeather myWeather){
+        this.myWeather = myWeather;
+
         conditionstext = myWeather.getConditions();
+        conditions = myWeather.getConditionNumber();
+        setConditionIcon(conditions);
+        humidity = myWeather.getHumidity();
         temperature = myWeather.getTemperature();
         System.out.println("condition: " + conditions_icon + " temperature: " + temperature);
     }
 
 
 
-    /*
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-    }
     public void setConditionIcon(int conditions){
         switch (conditions){
             case 1 :
@@ -162,5 +139,5 @@ public class WeatherFragment extends Fragment implements FragmentsInterface {
                 break;
         }
 
-    }*/
+    }
 }

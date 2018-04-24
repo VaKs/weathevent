@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -806,7 +807,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
         return km;
     }
 
-    public MyWeather getMyWeather() {
+    public void getMyWeather(Fragment fragment) {
         client = Awareness.getSnapshotClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -814,12 +815,12 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
                     MY_PERMISSIONS_REQUEST_LOCATION);
         }
         Task<WeatherResponse> weatherResponse = client.getWeather();
-        waitSucced(weatherResponse);
         weatherResponse.addOnSuccessListener(this, new OnSuccessListener<WeatherResponse>() {
             @Override
             public void onSuccess(WeatherResponse weatherResponse) {
                 weather = weatherResponse.getWeather();
                 myWeather = googleWheather.setMyWeather(weather);
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -828,18 +829,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
             }
         });
 
-        Toast.makeText(this, myWeather.getConditions() + " WORKS " + myWeather.getTemperature() + "", Toast.LENGTH_LONG).show();
-        return myWeather;
-    }
-    public void waitSucced(Task<WeatherResponse> weatherResponse){
-        if(!weatherResponse.isSuccessful()){
-            try {
-                wait(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            waitSucced(weatherResponse);
-        }
+
     }
 
 }
