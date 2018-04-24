@@ -34,7 +34,7 @@
     <string name="login_ed_hint_password">Password</string>
     <string name="login_cb_remember">Remember me</string>
     <string name="login_tv_signin">No account yet? Create one</string>
-
+    <string name="hint_login">Login</string>
 
     <!-- Register Fragment -->
     <string name="register_success">You successfuly created account. Now you can login.</string>
@@ -46,10 +46,10 @@
     <string name="create_account">Create Account</string>
 
 
-
     <!-- Descriptions -->
     <string name="logo_description">Description</string>
-    
+    <string name="label_tologin">Back to login</string>
+
     <!-- Categories -->
     <string name="category_101">Business &amp; Professional</string>
     <string name="category_102">Science &amp; Technology</string>
@@ -109,6 +109,7 @@
     <string name="label_date">Date</string>
     <string name="label_price">Price</string>
     <string name="label_rating">Rating</string>
+    <string name="label_details">Details</string>
 
     <!-- weather fragment -->
     <string name="label_humidity">Humidity</string>

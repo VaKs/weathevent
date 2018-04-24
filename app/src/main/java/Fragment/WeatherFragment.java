@@ -81,7 +81,7 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Wea
         tv_city.setText("");
         tv_humidity.setText(humidity+"%");
         pb_humidity.setProgress(humidity);
-        tv_temperature.setText(temperature+"°C");
+        tv_temperature.setText(String.format("%.02f",temperature)+"°C");
 
 
     }
