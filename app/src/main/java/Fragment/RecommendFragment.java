@@ -37,7 +37,6 @@ public class RecommendFragment extends Fragment implements FragmentsInterface,Vi
     Context context;
     String categories;
     String location;
-    TextView weatherInfo;
     String textRecommended;
     Button seeMore;
     MyWeather myWeather;
@@ -45,6 +44,7 @@ public class RecommendFragment extends Fragment implements FragmentsInterface,Vi
     WeatheventActivity activity;
     EventsList eventsRecommended;
     Search searchEvents;
+    TextView weatherInfo;
 
     @Nullable
     @Override
@@ -65,8 +65,7 @@ public class RecommendFragment extends Fragment implements FragmentsInterface,Vi
         seeMore=view.findViewById(R.id.button_more_events);
         seeMore.setOnClickListener(this);
         conditionNow = "cloudy";
-        String textRecommended;
-        TextView weatherInfo;
+
         weatherInfo = view.findViewById(R.id.recommendedText);
         recyclerView = view.findViewById(R.id.recyclerView_recommended);
 
@@ -177,45 +176,45 @@ public class RecommendFragment extends Fragment implements FragmentsInterface,Vi
         ((WeatheventActivity) getActivity()).showExploreFragment();
     }
     public void setConditionsNow(){
-        if(conditionNow=="clear"){
+        if(conditionNow.equals("CLEAR")){
             //weatherInfo.setBackground(clear);
             textRecommended= getString(R.string.clear_recommendation);
             weatherInfo.setText(textRecommended);
             categories="101,102,103";
         }
-        else if(conditionNow=="cloudy"){
+        else if(conditionNow.equals("CLOUDY")){
             //weatherInfo.setBackground();
             textRecommended=getString(R.string.cloudy_recommendation);
             weatherInfo.setText(textRecommended);
             categories="113,112,111";
         }
-        else if(conditionNow=="foggy"){
+        else if(conditionNow.equals("FOGGY")){
             //weatherInfo.setBackground()
             textRecommended=getString(R.string.foggy_recommendation);
             weatherInfo.setText(textRecommended);
             categories="113,112,114";
         }
-        else if(conditionNow=="hazy"){
+        else if(conditionNow.equals("HAZY")){
             //weatherInfo.setBackground();
             textRecommended=getString(R.string.hazy_recommendation);
             weatherInfo.setText(textRecommended);
             categories="104,105";
-        }else if(conditionNow=="rainy"){
+        }else if(conditionNow.equals("RAINY")){
             //weatherInfo.setBackground();
             textRecommended=getString(R.string.rainy_recommendation);
             weatherInfo.setText(textRecommended);
             categories="106,107";
-        }else if(conditionNow=="snowy"){
+        }else if(conditionNow.equals("SNOWY")){
             //weatherInfo.setBackground();
             textRecommended=getString(R.string.snowy_recommendation);
             weatherInfo.setText(textRecommended);
             categories="109,108";
-        }else if(conditionNow=="stormy"){
+        }else if(conditionNow.equals("STORMY")){
             //weatherInfo.setBackground();
             textRecommended=getString(R.string.stormy_recommendation);
             weatherInfo.setText(textRecommended);
             categories="114,110";
-        }else if(conditionNow=="windy"){
+        }else if(conditionNow.equals("WINDY")){
             //weatherInfo.setBackground();
             textRecommended=getString(R.string.windy_recommendation);
             weatherInfo.setText(textRecommended);
