@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,8 +31,10 @@ import EventbriteAPI.Models.Search;
 import EventbriteAPI.Models.Start;
 import EventbriteAPI.Models.Venue;
 import EventbriteAPI.service.EventBriteDownloadImage;
+import POJO.User;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
+import Fragment.Adapters.FavouriteEventAdapter;
 
 /**
  * Created by Rafal on 2018-03-25.
@@ -43,8 +46,17 @@ public class FavouriteEventsFragment extends Fragment implements FragmentsInterf
     EventsList eventsList;
     Event favouriteEvent;
     private StorageManager storageManager;
+    private User currentUser;
     private Context context;
     RecyclerView rvFavourites;
+    RecyclerView recyclerView;
+    FavouriteEventAdapter adapter;
+    EventsList eventList;
+    String categories;
+    String location;
+    ImageView iv_event_image;
+    TextView tv_event_title;
+    TextView tv_event_description;
 
     @Nullable
     @Override
@@ -58,15 +70,11 @@ public class FavouriteEventsFragment extends Fragment implements FragmentsInterf
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        favouriteEvent = ((WeatheventActivity) getActivity()).getEvent();
 
-        /*
-        rvFavourites=view.findViewById(R.id.rv_favourites);
-        rvFavourites.setLayoutManager(new LinearLayoutManager(context));
-        favorites = new ArrayList<>();
-        adapter = new FriendsListAdapter(context,friends);
-        rvFavourites.setAdapter(adapter);
+        ((WeatheventActivity) getActivity()).eventbriteGetEvent(currentUser.getFavoriteEventIdsList().get(0).toString());
 
+        currentUser=storageManager.getCurrentUser();
+        List<Integer> idsList=currentUser.getFavoriteEventIdsList();
 
         /*
         public ArrayList<Tuple> getCloserEvents(Double currentLatitude, Double currentLongitude) {
