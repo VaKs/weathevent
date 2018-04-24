@@ -39,9 +39,7 @@ public class WeatherFragment extends Fragment implements FragmentsInterface, Wea
     private ImageView iv_condition;
     private ProgressBar pb_humidity;
     private ProgressBar pb_rain;
-
-    private TextView conditions_icon;
-    private TextView temperature_degree;
+    
     MyWeather myWeather;
     WeatheventActivity activity;
     @Nullable

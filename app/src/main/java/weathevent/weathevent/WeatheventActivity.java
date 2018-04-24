@@ -43,7 +43,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +123,6 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     Weather weather;
     GoogleWheather googleWheather = new GoogleWheather();
     Event currentEvent;
-    Fragment fragment;
     Event favouriteEvent;
 
 
