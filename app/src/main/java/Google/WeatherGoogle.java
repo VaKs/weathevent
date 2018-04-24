@@ -77,10 +77,6 @@ public class WeatherGoogle extends AsyncTask<Void, Void , MyWeather> implements 
 
         return myWeather;
     }
-    @Override
-    protected void onPostExecute(MyWeather myWeather){
-        activityWeak.get().processFinish(myWeather);
-    }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
