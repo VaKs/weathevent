@@ -140,9 +140,7 @@ public class StorageManagerImplFirebaseRoom implements StorageManager {
         return false;
     }
     public User getCurrentUser(){
-        return new User();
-        // TODO: to Enable the login restore the line below
-        //return currentUser;
+        return currentUser;
     }
 
     @Override

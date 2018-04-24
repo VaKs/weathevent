@@ -35,7 +35,11 @@ public class User {
     private String surname;
 
     @ColumnInfo(name = "friendsList")
-    protected ArrayList<User> friendsList;
+    protected ArrayList<String> friendsList;
+
+    @ColumnInfo(name = "favoriteEventIdsList")
+    protected ArrayList<Integer> favoriteEventIdsList;
+
     @NonNull
     @ColumnInfo(name = "password")
     protected String password;
@@ -44,11 +48,13 @@ public class User {
     private Preference preference;
 
     public User(){
-        this.setFriendsList(new ArrayList<User>());
+        this.setFriendsList(new ArrayList<String>());
+        favoriteEventIdsList= new ArrayList<>();
     }
 
     public User(@NonNull String email, @NonNull String name, String surname, @NonNull String password){
         friendsList = new ArrayList<>();
+        favoriteEventIdsList= new ArrayList<>();
         this.setEmail(email);
         this.setName(name);
         this.setSurname(surname);
@@ -57,18 +63,34 @@ public class User {
 
     public User(@NonNull String email, @NonNull String name, @NonNull String password){
         friendsList = new ArrayList<>();
+        favoriteEventIdsList= new ArrayList<>();
         this.setEmail(email);
         this.setName(name);
         this.setPassword(password);
     }
 
-    public User(@NonNull String email, @NonNull String name, String surname, ArrayList<User> friendsList, @NonNull String password, Preference preference){
+    public User(@NonNull String email, @NonNull String name, String surname, ArrayList<String> friendsList, @NonNull String password, Preference preference){
+        favoriteEventIdsList= new ArrayList<>();
         this.setEmail(email);
         this.setName(name);
         this.setSurname(surname);
         this.setFriendsList(friendsList);
         this.setPassword(password);
         this.setPreference(preference);
+    }
+
+    public ArrayList<Integer> getFavoriteEventIdsList() {
+        return favoriteEventIdsList;
+    }
+
+    public void setFavoriteEventIdsList(ArrayList<Integer> eventsIdsList) {
+        this.favoriteEventIdsList = eventsIdsList;
+    }
+    public void addFavoriteEventId(Integer id){
+        this.favoriteEventIdsList.add(id);
+    }
+    public void removeFavoriteEventId(Integer id){
+        this.favoriteEventIdsList.remove(id);
     }
 
     public Integer getId() {
@@ -103,11 +125,11 @@ public class User {
         this.surname = surname;
     }
 
-    public ArrayList<User> getFriendsList() {
+    public ArrayList<String> getFriendsList() {
         return friendsList;
     }
 
-    public void setFriendsList(ArrayList<User> friendsList) {
+    public void setFriendsList(ArrayList<String> friendsList) {
         this.friendsList = friendsList;
     }
 
@@ -127,11 +149,11 @@ public class User {
         this.preference = preference;
     }
 
-    public void addFriend(User user){
-        this.friendsList.add(user);
+    public void addFriend(String email){
+        this.friendsList.add(email);
     }
-    public void removeFriend(User user){
-        this.friendsList.remove(user);
+    public void removeFriend(String email){
+        this.friendsList.remove(email);
     }
 
     public boolean checkPassword(String password){

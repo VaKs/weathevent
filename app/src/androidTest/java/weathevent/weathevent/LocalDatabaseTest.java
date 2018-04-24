@@ -43,8 +43,8 @@ public class LocalDatabaseTest {
         user1 = new User("email1","name1","surname1","pass1");
         user2 = new User("email2","name2","surname2","pass2");
 
-        user.addFriend(user1);
-        user.addFriend(user2);
+        user.addFriend("email1");
+        user.addFriend("email2");
 
         preference=new Preference(1000);
 
@@ -112,7 +112,7 @@ public class LocalDatabaseTest {
 
 
         for(int i=0;i<firtUser.getFriendsList().size();i++){
-            assertTrue(user1.getEmail().equals(firtUser.getFriendsList().get(i).getEmail()) || user2.getEmail().equals(firtUser.getFriendsList().get(i).getEmail()));
+            assertTrue(user1.getEmail().equals(firtUser.getFriendsList().get(i)) || user2.getEmail().equals(firtUser.getFriendsList().get(i)));
         }
     }
 
