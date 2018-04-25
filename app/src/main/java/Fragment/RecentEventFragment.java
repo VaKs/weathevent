@@ -93,31 +93,13 @@ public class RecentEventFragment extends Fragment implements FragmentsInterface,
         tv_recentEvent_title = view.findViewById(R.id.tv_recentEvent_title);
 
         user=storageManager.getCurrentUser();
-        if(!(user==null)) {
-            id = user.getFavouriteEventId();
-        }
-        if(id == null) {
-            Search bestEvent = new Search();
-            bestEvent.setRangeStartKeyWord("today");
-            if (!(user == null)) {
-                Preference prefererence = user.getPreference();
-                if (!(prefererence == null)) {
-                    city = prefererence.getCity();
-                }
-                if (!(city == null)) {
-                    bestEvent.setLocationAddress(user.getPreference().getCity());
-                } else {
-                    bestEvent.setLocationAddress("Spain");
-                }
-            }
-            EventsList bestEvents = new EventsList();
-            bestEvents = ((WeatheventActivity) getActivity()).eventbriteGetEvents();
-            List<Event> bestList = new ArrayList<>();
-            recentEvent = bestEvents.getEvent(0);
-        }else{
-            Search bestEvent = new Search();
-            recentEvent = ((WeatheventActivity) getActivity()).eventbriteGetEvent(id.toString());
-        }
+        Search bestEvent = new Search();
+        bestEvent.setRangeStartKeyWord("today");
+        bestEvent.setLocationAddress("Spain");
+        EventsList bestEvents = new EventsList();
+        bestEvents = ((WeatheventActivity) getActivity()).eventbriteGetEvents();
+        List<Event> bestList = new ArrayList<>();
+        recentEvent = bestEvents.getEvent(0);
 
         Name name = recentEvent.getName();
         Logo eventLogo = recentEvent.getLogo();
@@ -126,16 +108,19 @@ public class RecentEventFragment extends Fragment implements FragmentsInterface,
         String eventLogoURL = eventLogo.getUrl();
         String eventName = name.getText();
 
-
         tv_recentEvent_title.setText(eventName);
 
-        try {
-            new EventBriteDownloadImage((ImageView) iv_recentEvent_image)
-                    .execute(eventLogoURL).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        if(eventLogo.getUrl()==null){
+            iv_recentEvent_image.setImageResource(R.drawable.bgevent_blue);
+        }else {
+            try {
+                new EventBriteDownloadImage((ImageView) iv_recentEvent_image)
+                        .execute(eventLogoURL).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
         btn_toEventDetails.setTag(recentEvent.getResourceUri());
         btn_toEventDetails.setOnClickListener(this);
