@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import Database.StorageManager;
-import Database.StorageManagerImplFirebaseRoom;
+import Database.StorageManagerImplFirebase;
 import POJO.User;
 import weathevent.weathevent.R;
 
@@ -45,7 +45,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
             @Override
             public void onClick(View view) {
 
-                final StorageManager storageManager = StorageManagerImplFirebaseRoom.getInstance(context);
+                final StorageManager storageManager = StorageManagerImplFirebase.getInstance(context);
                 final User currentUser = storageManager.getCurrentUser();
                 currentUser.removeFriend(friend.getEmail());
 

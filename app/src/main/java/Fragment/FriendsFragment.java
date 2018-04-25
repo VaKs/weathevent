@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Database.StorageManager;
-import Database.StorageManagerImplFirebaseRoom;
+import Database.StorageManagerImplFirebase;
 
 import Database.Tasks.AsyncResponse;
 import Fragment.Adapters.AsyncAddFriendsListChange;
@@ -56,7 +56,7 @@ public class FriendsFragment extends Fragment implements FragmentsInterface,Asyn
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
         context = getActivity().getApplicationContext();
-        storageManager = StorageManagerImplFirebaseRoom.getInstance(context);
+        storageManager = StorageManagerImplFirebase.getInstance(context);
         return view;
     }
     @Override

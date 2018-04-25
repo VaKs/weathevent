@@ -11,7 +11,7 @@ import java.lang.ref.WeakReference;
 
 import Database.AppDatabase;
 import Database.StorageManager;
-import Database.StorageManagerImplFirebaseRoom;
+import Database.StorageManagerImplFirebase;
 import Database.UserDAO;
 import POJO.StoredUser;
 import POJO.User;
@@ -25,7 +25,7 @@ public class AsyncUserLogInTask extends AsyncTask<String, Void, Boolean> {
 
     public AsyncUserLogInTask(LogInActivity activity) {
         this.activity = new WeakReference<>(activity);
-        storageManager = StorageManagerImplFirebaseRoom.getInstance(activity.getApplicationContext());
+        storageManager = StorageManagerImplFirebase.getInstance(activity.getApplicationContext());
     }
 
     public AsyncUserLogInTask() {

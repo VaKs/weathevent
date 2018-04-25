@@ -51,7 +51,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import Database.StorageManager;
-import Database.StorageManagerImplFirebaseRoom;
+import Database.StorageManagerImplFirebase;
 import EventbriteAPI.EventbriteI;
 import EventbriteAPI.Models.End;
 import EventbriteAPI.Models.Event;
@@ -127,13 +127,10 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
     Event favouriteEvent;
 
 
-    //https://stackoverflow.com/questions/19013225/best-way-to-switch-between-two-fragments
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        storageManager = StorageManagerImplFirebaseRoom.getInstance(this);
+        storageManager = StorageManagerImplFirebase.getInstance(this);
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 MY_PERMISSIONS_REQUEST_LOCATION);
@@ -568,7 +565,6 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
             e.printStackTrace();
         }
         event = asyncTask.myMethod();
-        Log.i("Evento del guaenOOOO2",event.getName().toString());
         return event;
     }
 

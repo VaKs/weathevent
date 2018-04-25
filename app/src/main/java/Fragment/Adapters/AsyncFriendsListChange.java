@@ -4,7 +4,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import Database.StorageManager;
-import Database.StorageManagerImplFirebaseRoom;
+import Database.StorageManagerImplFirebase;
 import Fragment.FriendsFragment;
 import POJO.User;
 import weathevent.weathevent.WeatheventActivity;
@@ -19,7 +19,7 @@ public class AsyncFriendsListChange extends AsyncTask<User, Void, Boolean> {
     public AsyncFriendsListChange(WeatheventActivity activity,FriendsFragment fragmentActivity) {
         this.activity = new WeakReference<>(activity);
         this.fragmentWeak=new WeakReference<FriendsFragment>(fragmentActivity);
-        storageManager = StorageManagerImplFirebaseRoom.getInstance(activity.getApplicationContext());
+        storageManager = StorageManagerImplFirebase.getInstance(activity.getApplicationContext());
     }
 
     public AsyncFriendsListChange() {

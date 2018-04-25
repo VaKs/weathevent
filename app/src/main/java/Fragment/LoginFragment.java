@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import Database.StorageManager;
-import Database.StorageManagerImplFirebaseRoom;
+import Database.StorageManagerImplFirebase;
 import Database.Tasks.AsyncUserLogInTask;
 import weathevent.weathevent.LogInActivity;
 import weathevent.weathevent.R;
@@ -36,7 +36,7 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_log_in, container, false);
         context = getActivity().getApplicationContext();
-        storageManager = StorageManagerImplFirebaseRoom.getInstance(context);
+        storageManager = StorageManagerImplFirebase.getInstance(context);
         return view;
     }
 

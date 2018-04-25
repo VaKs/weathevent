@@ -33,7 +33,7 @@ public class EventbriteGetByID extends AsyncTask<String, Void, Event> {
         StringBuilder sBuilder = new StringBuilder();
         eventObject = new Event();
         String urlSttring = params[0]+"?token="+Token;
-        //urlSttring="https://www.eventbriteapi.com/v3/events/45001581943/?token=FRBVU4556DR3S6HFNKBH";
+        // example: urlSttring="https://www.eventbriteapi.com/v3/events/45001581943/?token=FRBVU4556DR3S6HFNKBH";
         try {
             URL url = new URL(urlSttring);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -57,7 +57,6 @@ public class EventbriteGetByID extends AsyncTask<String, Void, Event> {
         } catch (JSONException e) {
             System.out.println(e.toString());
         }
-        Log.i("ID3",eventObject.getId().toString());
         return eventObject;
     }
 
