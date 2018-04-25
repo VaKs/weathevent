@@ -1,4 +1,5 @@
 package Database.Tasks;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
@@ -7,6 +8,7 @@ import Database.StorageManager;
 import Database.StorageManagerImplFirebaseRoom;
 import POJO.User;
 import weathevent.weathevent.LogInActivity;
+import weathevent.weathevent.R;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -15,10 +17,12 @@ public class AsyncUserCreateAcountTask extends AsyncTask<User, Void, String> {
     private WeakReference<LogInActivity> activity = null;
     public User user;
     private StorageManager storageManager;
+    private Context context;
 
     public AsyncUserCreateAcountTask(LogInActivity activity) {
         this.activity = new WeakReference<>(activity);
         storageManager = StorageManagerImplFirebaseRoom.getInstance(activity.getApplicationContext());
+        this.context=activity.getApplicationContext();
 
     }
 
@@ -31,8 +35,7 @@ public class AsyncUserCreateAcountTask extends AsyncTask<User, Void, String> {
 
         storageManager.addNewUser(params[0]);
 
-        //TODO: add this string through region file
-        String message="User added successfully";
+        String message=context.getString(R.string.create_account);
 
         return message;
     }

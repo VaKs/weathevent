@@ -139,4 +139,9 @@
     <string name="hint_distance">Distance: 5000 (on meters please)</string>
     <string name="hint_city">City</string>
     <string name="user_added_successfully">User added successfully</string>
+    <!-- login -->
+    <string name="loginSuccessful">Welcome</string>
+    <string name="loginWrong">Incorrect Login</string>
+    <string name="createUserSuccessful">User created Successfully</string>
+    <string name="CantcreateUser">this email is already register</string>
 </resources>

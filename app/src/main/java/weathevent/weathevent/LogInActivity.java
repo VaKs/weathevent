@@ -1,11 +1,13 @@
 package weathevent.weathevent;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.widget.Toast;
 
 import Fragment.*;
 import Database.Tasks.AsyncFirebasePost;
@@ -84,12 +86,31 @@ public class LogInActivity extends AppCompatActivity implements AsyncResponse, A
         if(loginPassed){
             Intent intent = new Intent(this, WeatheventActivity.class);
             startActivity(intent);
+        }else {
+            Context context = getApplicationContext();
+            String text=context.getString(R.string.loginWrong);
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
         }
     }
 
     @Override
     public void processFinish(String message) {
-        //TODO: Toast showing the message
-        this.showFragmentByTag(RegisterStatusFragment.TAG);
+
+
+        Context context = getApplicationContext();
+        CharSequence text = message;
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+
+
+        Intent intent = new Intent(this, WeatheventActivity.class);
+        startActivity(intent);
+
     }
 }

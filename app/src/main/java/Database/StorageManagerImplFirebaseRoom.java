@@ -61,6 +61,7 @@ public class StorageManagerImplFirebaseRoom implements StorageManager {
             if (userDAO.getUserByEmail(user.getEmail()) == null && finalUserfb[0] == null) {
                 firebaseUsers.child(user.getEmail()).setValue(user);
                 userDAO.addUser(user);
+                currentUser=user;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,27 +116,22 @@ public class StorageManagerImplFirebaseRoom implements StorageManager {
     public boolean validateLogin(String email, String password) {
         final User[] user = {null};
         try {
-            User userFromDb= userDAO.getUserByEmail(email);
+            DatabaseReference firebaseUser = mDatabase.child("Users").child(email);
 
-            if (userFromDb!= null){ // if User is in local database
-                user[0]=userFromDb;
+            ValueEventListener postListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    user[0] = dataSnapshot.getValue(StoredUser.class);
+                }
 
-            } else { // if User is not in local database
-                DatabaseReference firebaseUser = mDatabase.child("Users").child(email);
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            };
+            firebaseUser.addListenerForSingleValueEvent(postListener);
+            Thread.sleep(1200);
 
-                ValueEventListener postListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        user[0] = dataSnapshot.getValue(StoredUser.class);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                };
-                firebaseUser.addListenerForSingleValueEvent(postListener);
-                Thread.sleep(1200);
-            } if(user[0]!= null && user[0].checkPassword(password)){
+            if(user[0]!= null && user[0].checkPassword(password)){
                 currentUser = user[0];
                 return true;
             } else {

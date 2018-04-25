@@ -106,4 +106,9 @@
     <string name="hint_login">Iniciar Sesión</string>
     <string name="label_tologin">Volver a Iniciar Sesión</string>
     <string name="label_details">Detalles</string>
+
+    <string name="loginSuccessful">Bienvenido</string>
+    <string name="loginWrong">Login incorrecto</string>
+    <string name="createUserSuccessful">Usuario creado</string>
+    <string name="CantcreateUser">Este email ya existe</string>
 </resources>

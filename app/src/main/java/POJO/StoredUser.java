@@ -20,6 +20,16 @@ public class StoredUser extends User {
         this.setFavoriteEventIdsList(favoriteEventIdsList);
 
     }
+    @Ignore
+    public StoredUser(@NonNull int id,@NonNull String email, @NonNull String name, String surname, ArrayList<String> friendsList, @NonNull String password, Preference preference){
+        this.setEmail(email);
+        this.setName(name);
+        this.setSurname(surname);
+        this.setFriendsList(friendsList);
+        this.password=password;
+        this.setPreference(preference);
+
+    }
 
     @Ignore
     public StoredUser(){}

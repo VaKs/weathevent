@@ -26,10 +26,10 @@ public class Preference {
         this.categoriesList = new ArrayList<>();
         this.setDistance(distance);
     }
-    public Preference(Integer distance, ArrayList<Category> categoriesList){
+    public Preference(Integer distance, String city){
         categoriesList = new ArrayList<>();
         this.setDistance(distance);
-        this.setCategoriesList(categoriesList);
+        this.city=city;
     }
 
     public Integer getDistance() {

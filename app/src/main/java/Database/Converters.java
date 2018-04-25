@@ -42,9 +42,9 @@ public class Converters {
     }
 
     @TypeConverter
-    public static Preference toPreferenceFromString(String value) {
+    public static Preference toPreferenceFromString(String preference) {
         Type listType = new TypeToken<User>() {}.getType();
-        return new Gson().fromJson(value, listType);
+        return new Gson().fromJson(preference, listType);
     }
 
     @TypeConverter
