@@ -126,6 +126,7 @@ public class RecentEventFragment extends Fragment implements FragmentsInterface,
         String eventLogoURL = eventLogo.getUrl();
         String eventName = name.getText();
 
+
         tv_recentEvent_title.setText(eventName);
 
         try {
