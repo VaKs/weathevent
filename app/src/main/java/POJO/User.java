@@ -38,7 +38,7 @@ public class User {
     protected ArrayList<String> friendsList;
 
     @ColumnInfo(name = "favoriteEventIdsList")
-    protected ArrayList<Integer> favoriteEventIdsList;
+    protected ArrayList<Long> favoriteEventIdsList;
 
     @NonNull
     @ColumnInfo(name = "password")
@@ -59,6 +59,7 @@ public class User {
         this.setName(name);
         this.setSurname(surname);
         this.setPassword(password);
+        this.preference=new Preference(5000);
     }
 
     public User(@NonNull String email, @NonNull String name, @NonNull String password){
@@ -67,6 +68,7 @@ public class User {
         this.setEmail(email);
         this.setName(name);
         this.setPassword(password);
+        this.preference=new Preference(5000);
     }
 
     public User(@NonNull String email, @NonNull String name, String surname, ArrayList<String> friendsList, @NonNull String password, Preference preference){
@@ -79,17 +81,17 @@ public class User {
         this.setPreference(preference);
     }
 
-    public ArrayList<Integer> getFavoriteEventIdsList() {
+    public ArrayList<Long> getFavoriteEventIdsList() {
         return favoriteEventIdsList;
     }
 
-    public void setFavoriteEventIdsList(ArrayList<Integer> eventsIdsList) {
+    public void setFavoriteEventIdsList(ArrayList<Long> eventsIdsList) {
         this.favoriteEventIdsList = eventsIdsList;
     }
-    public void addFavoriteEventId(Integer id){
+    public void addFavoriteEventId(Long id){
         this.favoriteEventIdsList.add(id);
     }
-    public void removeFavoriteEventId(Integer id){
+    public void removeFavoriteEventId(Long id){
         this.favoriteEventIdsList.remove(id);
     }
 

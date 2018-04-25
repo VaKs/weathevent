@@ -15,10 +15,8 @@ public class AsyncUserCreateAcountTask extends AsyncTask<User, Void, String> {
     private WeakReference<LogInActivity> activity = null;
     public User user;
     private StorageManager storageManager;
-    private SharedPreferences shared;
 
     public AsyncUserCreateAcountTask(LogInActivity activity) {
-        shared = activity.getApplicationContext().getSharedPreferences("weatheventSharedPreferences", MODE_PRIVATE);
         this.activity = new WeakReference<>(activity);
         storageManager = StorageManagerImplFirebaseRoom.getInstance(activity.getApplicationContext());
 
@@ -32,15 +30,6 @@ public class AsyncUserCreateAcountTask extends AsyncTask<User, Void, String> {
 
 
         storageManager.addNewUser(params[0]);
-
-
-        SharedPreferences.Editor editor;
-        editor = shared.edit();
-        editor.putBoolean("logged",true);
-        editor.putString("currentUserEmail",params[0].getEmail());
-        editor.apply();
-
-        storageManager.setCurrentUser();
 
         //TODO: add this string through region file
         String message="User added successfully";

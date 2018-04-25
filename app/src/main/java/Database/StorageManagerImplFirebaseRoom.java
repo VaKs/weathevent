@@ -28,7 +28,7 @@ public class StorageManagerImplFirebaseRoom implements StorageManager {
     private static StorageManagerImplFirebaseRoom storageManagerImplFirebaseRoom;
     private User currentUser;
     private Context context;
-    private SharedPreferences shared;
+
 
     private StorageManagerImplFirebaseRoom(Context context){
         userDAO = AppDatabase.getInstance(context).userDAO();
@@ -96,7 +96,7 @@ public class StorageManagerImplFirebaseRoom implements StorageManager {
         firebaseUser.addListenerForSingleValueEvent(postListener);
 
         try {
-            Thread.sleep(1200);
+            Thread.sleep(1300);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -137,15 +137,6 @@ public class StorageManagerImplFirebaseRoom implements StorageManager {
                 Thread.sleep(1200);
             } if(user[0]!= null && user[0].checkPassword(password)){
                 currentUser = user[0];
-
-
-                SharedPreferences.Editor editor;
-                shared = context.getSharedPreferences("weatheventSharedPreferences", MODE_PRIVATE);
-                editor = shared.edit();
-                editor.putBoolean("logged",true);
-                editor.putString("currentUserEmail",currentUser.getEmail());
-
-                editor.apply();
                 return true;
             } else {
                 return false;
@@ -157,33 +148,7 @@ public class StorageManagerImplFirebaseRoom implements StorageManager {
         }
         return false;
     }
-    public void setCurrentUser(){
-        shared = context.getSharedPreferences("weatheventSharedPreferences", MODE_PRIVATE);
-        String email= shared.getString("currentUserEmail","");
-        this.currentUser=getUserByEmail(email);
-    }
     public User getCurrentUser(){
         return currentUser;
-    }
-
-    @Override
-    public void addCategory(User user) {
-        //TODO
-    }
-
-    @Override
-    public void deleteCategory(User user) {
-        //TODO
-    }
-
-    @Override
-    public void updateCategory(User user) {
-        //TODO
-    }
-
-    @Override
-    public List<User> getCategories() {
-        //TODO
-        return null;
     }
 }

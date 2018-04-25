@@ -570,6 +570,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
             e.printStackTrace();
         }
         event = asyncTask.myMethod();
+        Log.i("Evento del guaenOOOO2",event.getName().toString());
         return event;
     }
 
