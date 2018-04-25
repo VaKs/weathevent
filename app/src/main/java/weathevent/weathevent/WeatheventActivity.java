@@ -856,8 +856,8 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
 
     }
     //GET WEATHER FOR RECOMMEND FRAGMENT
-    public void getMyWeatherRecommended(Fragment fragment) {
-        final RecommendFragment recommendFragment =  (RecommendFragment) fragment;
+    public void getMyWeatherRecommended(Fragment fragment){
+        final RecommendFragment recommendFragment = (RecommendFragment) fragment;
         client = Awareness.getSnapshotClient(this);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -878,8 +878,6 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
                 Log.i("FAIL WEATHER", "failed to retrieve weather");
             }
         });
-
-
     }
 
     public Event getEvent() {
