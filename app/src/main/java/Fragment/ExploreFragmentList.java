@@ -45,7 +45,6 @@ public class ExploreFragmentList extends Fragment implements FragmentsInterface{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         //getting the recyclerview from xml
-
         categories = ((WeatheventActivity) getActivity()).getCategories();
         location = ((WeatheventActivity) getActivity()).getLocation();
         Search searchEvents = new Search();

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import EventbriteAPI.Models.Search;
 import EventbriteAPI.Models.Start;
 import EventbriteAPI.Models.Venue;
 import EventbriteAPI.service.EventBriteDownloadImage;
+import Fragment.Adapters.FriendsListAdapter;
 import POJO.User;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
@@ -70,11 +72,28 @@ public class FavouriteEventsFragment extends Fragment implements FragmentsInterf
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        ((WeatheventActivity) getActivity()).eventbriteGetEvent(currentUser.getFavoriteEventIdsList().get(0).toString());
-
         currentUser=storageManager.getCurrentUser();
-        List<Integer> idsList=currentUser.getFavoriteEventIdsList();
+        eventList= new EventsList();
+        //currentUser.getFavoriteEventIdsList();
+
+        String url;
+        for(int i=0;i<currentUser.getFavoriteEventIdsList().size();i++){
+            url= "https://www.eventbriteapi.com/v3/events/"+currentUser.getFavoriteEventIdsList().get(i).toString()+"/";
+            favouriteEvent =((WeatheventActivity) getActivity()).eventbriteGetEvent(url);
+        }
+
+
+        eventList.add(favouriteEvent);
+
+        Name nombre = favouriteEvent.getName();
+        Log.i("Evento del guaenOOOO3",nombre.getText());
+
+
+        rvFavourites=view.findViewById(R.id.rv_favourites);
+        rvFavourites.setLayoutManager(new LinearLayoutManager(context));
+        adapter = new FavouriteEventAdapter(context,eventList,this);
+        rvFavourites.setAdapter(adapter);
+
 
         /*
         public ArrayList<Tuple> getCloserEvents(Double currentLatitude, Double currentLongitude) {

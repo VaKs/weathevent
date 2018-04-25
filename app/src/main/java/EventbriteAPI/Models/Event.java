@@ -1,5 +1,7 @@
 package EventbriteAPI.Models;
 
+import android.util.Log;
+
 import org.json.JSONObject;
 
 import java.util.Date;
@@ -42,6 +44,7 @@ public class Event implements JSONPopulator{
         Name = new Name();
         Name.populate(data.optJSONObject("name"));
         Id = data.optInt("id");
+
         Url = data.optString("url");
         Start = new Start();
         Start.populate(data.optJSONObject("start"));
