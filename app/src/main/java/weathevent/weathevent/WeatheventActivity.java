@@ -724,7 +724,6 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
                 }
             }
         });
-        Toast.makeText(this, currentLatitude + " WORKS " + currentLongitude + "", Toast.LENGTH_LONG).show();
 
     }
 
