@@ -6,23 +6,52 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import POJO.Event;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import Database.StorageManager;
+import Database.StorageManagerImplFirebaseRoom;
+import EventbriteAPI.Models.Description;
+import EventbriteAPI.Models.End;
+import EventbriteAPI.Models.Event;
+import EventbriteAPI.Models.EventsList;
+import EventbriteAPI.Models.Logo;
+import EventbriteAPI.Models.Name;
+import EventbriteAPI.Models.Search;
+import EventbriteAPI.Models.Start;
+import EventbriteAPI.service.EventBriteDownloadImage;
+import POJO.Preference;
+import POJO.User;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
 
-public class RecentEventFragment extends Fragment implements FragmentsInterface {
+public class RecentEventFragment extends Fragment implements FragmentsInterface,View.OnClickListener {
 
     public static final String TAG = "RecentEventFragment";
     FragmentActivity listener;
 
     private EventbriteAPI.Models.Event event;
     private Button btn_recentEventDetails;
-
+    ImageView iv_recentEvent_image;
+    TextView tv_recentEvent_title;
+    Button btn_toEventDetails;
+    Event recentEvent;
+    User user;
+    StorageManager storageManager;
+    Long id = null;
+    String city;
 
     @Override
     public void onAttach(Context context) {
@@ -35,6 +64,7 @@ public class RecentEventFragment extends Fragment implements FragmentsInterface 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
@@ -46,6 +76,7 @@ public class RecentEventFragment extends Fragment implements FragmentsInterface 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        storageManager = StorageManagerImplFirebaseRoom.getInstance(getActivity().getApplicationContext());
 
         //references
         btn_recentEventDetails = view.findViewById(R.id.btn_toEventDetails);
@@ -54,9 +85,66 @@ public class RecentEventFragment extends Fragment implements FragmentsInterface 
         btn_recentEventDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((WeatheventActivity) getActivity()).showEventPreviewFragment(event.getResourceUri());
+                ((WeatheventActivity) getActivity()).showEventPreviewFragment(recentEvent.getResourceUri());
             }
         });
+        iv_recentEvent_image = view.findViewById(R.id.iv_recentEvent_image);
+        btn_toEventDetails = view.findViewById(R.id.btn_toEventDetails);
+        tv_recentEvent_title = view.findViewById(R.id.tv_recentEvent_title);
+
+        user=storageManager.getCurrentUser();
+        if(!(user==null)) {
+            id = user.getFavouriteEventId();
+        }
+        if(id == null) {
+            Search bestEvent = new Search();
+            bestEvent.setRangeStartKeyWord("today");
+            if (!(user == null)) {
+                Preference prefererence = user.getPreference();
+                if (!(prefererence == null)) {
+                    city = prefererence.getCity();
+                }
+                if (!(city == null)) {
+                    bestEvent.setLocationAddress(user.getPreference().getCity());
+                } else {
+                    bestEvent.setLocationAddress("Spain");
+                }
+            }
+            EventsList bestEvents = new EventsList();
+            bestEvents = ((WeatheventActivity) getActivity()).eventbriteGetEvents();
+            List<Event> bestList = new ArrayList<>();
+            recentEvent = bestEvents.getEvent(0);
+        }else{
+            Search bestEvent = new Search();
+            recentEvent = ((WeatheventActivity) getActivity()).eventbriteGetEvent(id.toString());
+        }
+
+        Name name = recentEvent.getName();
+        Logo eventLogo = recentEvent.getLogo();
+
+        //binding the data with the viewholder views
+        String eventLogoURL = eventLogo.getUrl();
+        String eventName = name.getText();
+
+        tv_recentEvent_title.setText(eventName);
+
+        try {
+            new EventBriteDownloadImage((ImageView) iv_recentEvent_image)
+                    .execute(eventLogoURL).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        btn_toEventDetails.setTag(recentEvent.getResourceUri());
+        btn_toEventDetails.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == btn_toEventDetails.getId()) {
+            ((WeatheventActivity) getActivity()).showEventPreviewFragment(btn_toEventDetails.getTag().toString());
+        }
     }
 
     @Override

@@ -85,6 +85,14 @@ public class User {
         return favoriteEventIdsList;
     }
 
+    public Long getFavouriteEventId(){
+        if(favoriteEventIdsList.size() > 0) {
+            return favoriteEventIdsList.get(0);
+        }else{
+            return null;
+        }
+    }
+
     public void setFavoriteEventIdsList(ArrayList<Long> eventsIdsList) {
         this.favoriteEventIdsList = eventsIdsList;
     }
