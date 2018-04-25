@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 
 import java.lang.ref.WeakReference;
 import Database.StorageManager;
-import Database.StorageManagerImplFirebaseRoom;
+import Database.StorageManagerImplFirebase;
 import POJO.User;
 import weathevent.weathevent.LogInActivity;
 import weathevent.weathevent.R;
@@ -21,7 +21,7 @@ public class AsyncUserCreateAcountTask extends AsyncTask<User, Void, String> {
 
     public AsyncUserCreateAcountTask(LogInActivity activity) {
         this.activity = new WeakReference<>(activity);
-        storageManager = StorageManagerImplFirebaseRoom.getInstance(activity.getApplicationContext());
+        storageManager = StorageManagerImplFirebase.getInstance(activity.getApplicationContext());
         this.context=activity.getApplicationContext();
 
     }

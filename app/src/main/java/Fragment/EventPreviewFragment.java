@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 import Database.StorageManager;
-import Database.StorageManagerImplFirebaseRoom;
+import Database.StorageManagerImplFirebase;
 import EventbriteAPI.Models.Name;
 import EventbriteAPI.Models.Description;
 import EventbriteAPI.Models.End;
@@ -55,7 +55,7 @@ public class EventPreviewFragment extends Fragment implements FragmentsInterface
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        storageManager= StorageManagerImplFirebaseRoom.getInstance(this.getContext());
+        storageManager= StorageManagerImplFirebase.getInstance(this.getContext());
         return inflater.inflate(R.layout.fragment_event_preview, container, false);
     }
 

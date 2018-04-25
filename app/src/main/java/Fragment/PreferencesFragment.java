@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import Database.StorageManager;
-import Database.StorageManagerImplFirebaseRoom;
+import Database.StorageManagerImplFirebase;
 import Database.UserDAO;
 import POJO.StoredUser;
 import POJO.User;
@@ -37,7 +37,7 @@ public class PreferencesFragment extends Fragment implements FragmentsInterface 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        storageManager = StorageManagerImplFirebaseRoom.getInstance(context);
+        storageManager = StorageManagerImplFirebase.getInstance(context);
         return inflater.inflate(R.layout.fragment_preferences, container, false);
     }
     @Override

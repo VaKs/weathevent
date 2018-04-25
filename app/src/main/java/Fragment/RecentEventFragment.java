@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import Database.StorageManager;
-import Database.StorageManagerImplFirebaseRoom;
+import Database.StorageManagerImplFirebase;
 import EventbriteAPI.Models.Description;
 import EventbriteAPI.Models.End;
 import EventbriteAPI.Models.Event;
@@ -76,7 +76,7 @@ public class RecentEventFragment extends Fragment implements FragmentsInterface,
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        storageManager = StorageManagerImplFirebaseRoom.getInstance(getActivity().getApplicationContext());
+        storageManager = StorageManagerImplFirebase.getInstance(getActivity().getApplicationContext());
 
         //references
         btn_recentEventDetails = view.findViewById(R.id.btn_toEventDetails);
