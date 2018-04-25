@@ -87,6 +87,8 @@ public class FavouriteEventsFragment extends Fragment implements FragmentsInterf
         rvFavourites.setLayoutManager(new LinearLayoutManager(context));
         adapter = new FavouriteEventAdapter(context,eventList,this);
         rvFavourites.setAdapter(adapter);
-
+    }
+    public void goToPreview(String eventId){
+        ((WeatheventActivity) getActivity()).showEventPreviewFragment(eventId);
     }
 }

@@ -48,8 +48,8 @@ public class FavouriteEventAdapter extends RecyclerView.Adapter<FavouriteEventAd
 
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         View view = inflater.inflate(R.layout.favourite_listitem, null);
-        EventViewHolder holder= new EventViewHolder(view);
-        return holder;
+        //EventViewHolder holder= new EventViewHolder(view);
+        return new FavouriteEventAdapter.EventViewHolder(view);
     }
 
     @Override
@@ -57,15 +57,12 @@ public class FavouriteEventAdapter extends RecyclerView.Adapter<FavouriteEventAd
         //getting the event of the specified position
         Event event = eventList.getEvent(position);
         Name name = event.getName();
-        Description description = event.getDescription();
         Logo eventLogo = event.getLogo();
         //binding the data with the viewholder views
         String eventLogoURL = eventLogo.getUrl();
         String eventName = name.getText();
-        String eventDescription = description.getText();
         holder.textViewTitle.setText(eventName);
         Log.i("OOOOOO",holder.textViewTitle.getText().toString());
-        //holder.textViewShortDesc.setText(eventDescription);
 
         try {
             new EventBriteDownloadImage((ImageView) holder.imageView)
@@ -75,7 +72,7 @@ public class FavouriteEventAdapter extends RecyclerView.Adapter<FavouriteEventAd
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
+        holder.btn_details.setTag(event.getResourceUri());
     }
 
     @Override
@@ -84,16 +81,24 @@ public class FavouriteEventAdapter extends RecyclerView.Adapter<FavouriteEventAd
     }
 
 
-    public class EventViewHolder extends RecyclerView.ViewHolder{
+    public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView textViewTitle;
-        TextView textViewShortDesc;
         ImageView imageView;
+        Button btn_details;
 
         public EventViewHolder(View itemView) {
             super(itemView);
-            textViewTitle = itemView.findViewById(R.id.tv_event_title);
+            textViewTitle = itemView.findViewById(R.id.textView_fav);
             imageView = itemView.findViewById(R.id.iv_event);
+            btn_details = itemView.findViewById(R.id.button_fav);
+            btn_details.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == btn_details.getId()) {
+                fragmentList.goToPreview(btn_details.getTag().toString());
+            }
         }
     }
 }
