@@ -675,7 +675,7 @@ public class WeatheventActivity extends AppCompatActivity implements EventbriteI
         user = storageManager.getCurrentUser();
         if (user != null) {
             Preference preference = user.getPreference();
-            if (preference.getDistance() != null) {
+            if (preference != null) {
                 meters = preference.getDistance();
                 metersToKm(meters);
 
