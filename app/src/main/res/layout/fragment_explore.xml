@@ -93,7 +93,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_101"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <!--column 2-->
@@ -132,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_102"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -169,11 +169,11 @@
 
                     <TextView
                         android:id="@+id/textView_category103"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/category_103"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <!--column 2-->
@@ -212,7 +212,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_104"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -253,7 +253,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_105"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <!--column 2-->
@@ -292,7 +292,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_106"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -333,7 +333,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_107"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <!--column 2-->
@@ -372,7 +372,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_108"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -413,7 +413,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_109"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <!--column 2-->
@@ -452,7 +452,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_110"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -493,7 +493,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_110"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <!--column 2-->
@@ -532,7 +532,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_111"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -573,7 +573,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_113"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <!--column 2-->
@@ -612,7 +612,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_114"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -653,7 +653,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_115"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <!--column 2-->
@@ -695,7 +695,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_116"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -734,7 +734,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_117"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <!--column 2-->
@@ -773,7 +773,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_118"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -814,7 +814,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/category_119"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <!--column 2-->
@@ -849,11 +849,11 @@
 
                     <TextView
                         android:id="@+id/textView_category120"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/category_120"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <!--Row 11 -->
@@ -888,11 +888,11 @@
 
                     <TextView
                         android:id="@+id/textView_category199"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/category_199"
                         android:textAlignment="center"
-                        android:textSize="16dp" />
+                        android:textSize="14sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             <!--column 1-->

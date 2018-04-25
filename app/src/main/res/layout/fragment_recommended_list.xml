@@ -20,7 +20,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center_vertical|center_horizontal"
-            android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
