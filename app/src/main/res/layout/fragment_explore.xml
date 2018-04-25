@@ -851,7 +851,7 @@
                         android:id="@+id/textView_category120"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/category_199"
+                        android:text="@string/category_120"
                         android:textAlignment="center"
                         android:textSize="16dp" />
                 </LinearLayout>
