@@ -1,8 +1,6 @@
 package Fragment;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,9 +16,6 @@ import Database.StorageManagerImplFirebaseRoom;
 import Database.Tasks.AsyncUserLogInTask;
 import weathevent.weathevent.LogInActivity;
 import weathevent.weathevent.R;
-import weathevent.weathevent.WeatheventActivity;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Rafal on 2018-03-25.
@@ -34,7 +29,6 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
     private TextView link_signup;
     private EditText inputedEmail;
     private EditText inputedPassword;
-    private SharedPreferences shared;
     private StorageManager storageManager;
 
     @Nullable
@@ -55,10 +49,6 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
         inputedEmail = getView().findViewById(R.id.input_email);
         inputedPassword = getView().findViewById(R.id.input_password);
 
-        shared = context.getSharedPreferences("weatheventSharedPreferences", MODE_PRIVATE);
-        SharedPreferences.Editor editor;
-        Boolean logged = shared.getBoolean("logged",false);
-
 
         //listeners
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -75,18 +65,6 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
             }
         });
 
-        if(logged){
-            new Thread(new Runnable() {
-                @Override
-                public void run(){
-                    storageManager.setCurrentUser();
-                }
-            }).start();
-
-            Intent intent = new Intent(context, WeatheventActivity.class);
-            startActivity(intent);
-        }
-
     }
 
     private void validateLogin() {
@@ -96,5 +74,4 @@ public class LoginFragment extends Fragment implements FragmentsInterface {
 
             new AsyncUserLogInTask(((LogInActivity) getActivity())).execute(new String[]{email, password});
     }
-
 }

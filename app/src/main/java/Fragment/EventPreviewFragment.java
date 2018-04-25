@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ import EventbriteAPI.service.EventBriteDownloadImage;
 import POJO.User;
 import weathevent.weathevent.R;
 import weathevent.weathevent.WeatheventActivity;
+
+import static java.lang.Integer.parseInt;
 
 /**
  * Created by Rafal on 2018-03-25.
@@ -76,6 +79,8 @@ public class EventPreviewFragment extends Fragment implements FragmentsInterface
         fab_map = view.findViewById(R.id.fab_map);
 
         //geting parameters from object Event
+        Log.i("ID2",foundEvent.getId().toString());
+
         Name name = foundEvent.getName();
         Description description = foundEvent.getDescription();
         Start start = foundEvent.getStart();
@@ -124,10 +129,11 @@ public class EventPreviewFragment extends Fragment implements FragmentsInterface
     @Override
     public void onClick(View v) {
         if(v == fab_favourite){
-            ((WeatheventActivity) getActivity()).setEvent(foundEvent);
-            //information thet we have added this event to favoutire
 
-            currentUser.addFavoriteEventId(foundEvent.getId());
+            //information thet we have added this event to favoutire
+            Log.i("ID1",uriTreatment(foundEvent.getResourceUri()).toString());
+
+            currentUser.addFavoriteEventId(uriTreatment(foundEvent.getResourceUri()));
             new Thread(new Runnable() {
                 @Override
                 public void run(){
@@ -142,5 +148,16 @@ public class EventPreviewFragment extends Fragment implements FragmentsInterface
             ((WeatheventActivity) getActivity()).showMapFragment();
             //do getEvent in map and set necessary latitude, longitude etc.
         }
+    }
+    public Long uriTreatment(String str) {
+        Long i = null;
+        if (str != null && str.length() > 0) {
+            str = str.substring(0, str.length() - 1);
+            str = str.substring(str.lastIndexOf("/")+1);
+
+            i= Long.parseLong(str);
+
+        }
+        return i;
     }
 }

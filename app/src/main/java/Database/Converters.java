@@ -29,13 +29,13 @@ public class Converters {
         return json;
     }
     @TypeConverter
-    public static ArrayList<Integer> toIntegerListfromString(String value) {
+    public static ArrayList<Long> toIntegerListfromString(String value) {
         Type listType = new TypeToken<ArrayList<Integer>>() {}.getType();
         return new Gson().fromJson(value, listType);
     }
 
     @TypeConverter
-    public static String toStringfromArrayList(ArrayList<Integer> list) {
+    public static String toStringfromArrayList(ArrayList<Long> list) {
         Gson gson = new Gson();
         String json = gson.toJson(list);
         return json;

@@ -71,8 +71,8 @@ public class RegisterFragment extends Fragment implements FragmentsInterface {
         String email = inputedEmail.getText().toString();
         String name = inputedName.getText().toString();
         String password = inputedPassword.getText().toString();
-        //TODO: validate
-        User user = new User(email,name,password);
+        String surname = inputedSurname.getText().toString();
+        User user = new User(email,name,surname,password);
 
         new AsyncUserCreateAcountTask(((LogInActivity) getActivity())).execute(user);
 
