@@ -59,6 +59,7 @@ public class User {
         this.setName(name);
         this.setSurname(surname);
         this.setPassword(password);
+        this.preference=new Preference(5000);
     }
 
     public User(@NonNull String email, @NonNull String name, @NonNull String password){
@@ -67,6 +68,7 @@ public class User {
         this.setEmail(email);
         this.setName(name);
         this.setPassword(password);
+        this.preference=new Preference(5000);
     }
 
     public User(@NonNull String email, @NonNull String name, String surname, ArrayList<String> friendsList, @NonNull String password, Preference preference){

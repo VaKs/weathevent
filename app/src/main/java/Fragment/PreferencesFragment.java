@@ -58,11 +58,15 @@ public class PreferencesFragment extends Fragment implements FragmentsInterface 
     public void onDestroy() {
         super.onDestroy();
 
-        int distance = Integer.parseInt(et_distance.getText().toString());
+        if(!"".equals(et_distance.getText().toString())){
+            int distance = Integer.parseInt(et_distance.getText().toString());
+            currentUser.getPreference().setDistance(distance);
+        }
         String city = et_city.getText().toString();
+        if(!"".equals(city)){
+            currentUser.getPreference().setCity(city);
+        }
 
-        currentUser.getPreference().setDistance(distance);
-        currentUser.getPreference().setCity(city);
         //save new preferences if they are different
         new Thread(new Runnable() {
             @Override
