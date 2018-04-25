@@ -1,5 +1,6 @@
 package Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -129,6 +131,12 @@ public class EventPreviewFragment extends Fragment implements FragmentsInterface
     @Override
     public void onClick(View v) {
         if(v == fab_favourite){
+            Context context = getActivity().getApplicationContext();
+            CharSequence text = "Event added to Favourities";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text,duration);
+            toast.show();
 
             //information thet we have added this event to favoutire
             Log.i("ID1",uriTreatment(foundEvent.getResourceUri()).toString());
